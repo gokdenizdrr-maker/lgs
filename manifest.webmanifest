@@ -1,0 +1,25 @@
+{
+  "name": "LGS Takip",
+  "short_name": "LGS Takip",
+  "lang": "tr",
+  "description": "LGS çalışma, tur, deneme ve tekrar takibi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#eef1f5",
+  "theme_color": "#eef1f5",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
