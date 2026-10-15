@@ -87,7 +87,7 @@ a { color: var(--blue); }
 .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
 .panel + .panel, .stack > * + * { margin-top: 16px; }
 .panel h2, .section-title { font-size: 18px; font-weight: 600; margin: 0 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
 .grid2 > .panel + .panel { margin-top: 0; }
 .muted { color: var(--ink-3); }
 .small { font-size: 14px; }
@@ -196,6 +196,8 @@ a { color: var(--blue); }
 }
 .chip[aria-pressed="true"] { background: var(--pencil); border-color: var(--pencil); color: var(--on-pencil); }
 .chip.test { min-width: 58px; justify-content: center; }
+.soru-grid .chip.soru { min-width: 48px; justify-content: center; padding-left: 8px; padding-right: 8px; font-variant-numeric: tabular-nums; }
+.chip.soru.done { color: var(--ink-3); border-style: dashed; }
 .chip.test.done { border-color: var(--good); color: var(--good); }
 .chip.test.done[aria-pressed="true"] { background: var(--good); border-color: var(--good); color: #fff; }
 .chip small { opacity: .75; font-size: 12px; }
@@ -351,13 +353,83 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 .gbody pre.code { margin: 10px 0 8px; padding: 12px 14px; background: var(--paper-2, #f3f3f3); border: 1px solid var(--line); border-radius: 10px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; overflow-x: auto; -webkit-user-select: all; user-select: all; }
 
 /* ---------- dar ekranlar ---------- */
+/* yanlış fotoğrafları */
+.fotos { display: flex; flex-wrap: wrap; gap: 10px; }
+.foto { position: relative; width: 112px; height: 112px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-2); background: var(--paper-2); flex: none; }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foto .foto-yok { display: none; position: absolute; inset: 0; padding: 10px; font-size: 12px; color: var(--ink-3); align-items: center; justify-content: center; text-align: center; }
+.foto.yok img { visibility: hidden; }
+.foto.yok .foto-yok { display: flex; }
+.foto-x { position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; border-radius: 50%; border: 0; background: rgba(20, 24, 32, .72); color: #fff; display: grid; place-items: center; cursor: pointer; }
+.foto-x svg { width: 16px; height: 16px; }
+.foto-ac { position: absolute; inset: 0; border: 0; background: transparent; cursor: zoom-in; }
+.foto-ekle { width: 112px; height: 112px; border-radius: 12px; border: 1.5px dashed var(--line-2); background: transparent; color: var(--ink-2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font: inherit; font-size: 13px; line-height: 1.25; cursor: pointer; }
+.foto-ekle svg { width: 26px; height: 26px; }
+.foto-ekle:hover { border-color: var(--optik); color: var(--optik); }
+.fotos.buyuk { flex-direction: column; }
+.fotos.buyuk .foto { width: 100%; height: auto; min-height: 120px; }
+.fotos.buyuk .foto img { height: auto; max-height: 62vh; object-fit: contain; background: #fff; }
+.foto-say { display: inline-flex; align-items: center; gap: 3px; font-size: 13px; color: var(--ink-3); font-weight: 500; vertical-align: middle; }
+.foto-say svg { width: 15px; height: 15px; }
+.foto-tam { position: fixed; inset: 0; z-index: 80; background: rgba(10, 12, 16, .94); display: flex; flex-direction: column; }
+.foto-tam-bar { display: flex; gap: 10px; padding: calc(10px + env(safe-area-inset-top)) 14px 10px; }
+.foto-tam-in { flex: 1; overflow: auto; display: flex; align-items: center; justify-content: center; -webkit-overflow-scrolling: touch; }
+.foto-tam-in img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; }
+.foto-tam.zoom .foto-tam-in { display: block; }
+.foto-tam.zoom .foto-tam-in img { max-width: none; max-height: none; width: 220%; }
+/* çizim katmanı ve kalem */
+.foto img.foto-ciz { position: absolute; inset: 0; pointer-events: none; display: none; }
+.foto.cizimli img.foto-ciz { display: block; }
+.foto.ciz-gizli img.foto-ciz { display: none !important; }
+.fotos.buyuk .foto img.foto-ciz { height: 100%; max-height: none; background: transparent; }
+.foto-kalem { position: absolute; left: 6px; bottom: 6px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(20, 24, 32, .76); color: #fff; display: grid; place-items: center; cursor: pointer; z-index: 2; }
+.foto-kalem svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.foto-x { z-index: 2; }
+.fotos.buyuk .foto-kalem { width: 46px; height: 46px; left: 10px; bottom: 10px; }
+.fotos.buyuk .foto-kalem svg { width: 22px; height: 22px; }
+.foto-tam-kat { position: relative; display: inline-block; max-width: 100%; max-height: 100%; }
+.foto-tam-kat img { display: block; max-width: 100%; max-height: calc(100vh - 80px); object-fit: contain; background: #fff; }
+.foto-tam-kat img.kat-ciz { position: absolute; inset: 0; width: 100%; height: 100%; background: transparent; }
+.foto-tam.zoom .foto-tam-kat { width: 220%; max-width: none; }
+.foto-tam.zoom .foto-tam-kat img { max-height: none; width: 100%; }
+.cizim { position: fixed; inset: 0; z-index: 85; background: #20242c; display: flex; flex-direction: column; }
+.cizim-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: calc(10px + env(safe-area-inset-top)) 14px 10px; background: var(--paper); border-bottom: 1px solid var(--line); }
+.ciz-renk { width: 40px; height: 40px; border-radius: 50%; border: 2px solid transparent; background: transparent; display: grid; place-items: center; cursor: pointer; padding: 0; }
+.ciz-renk i { width: 24px; height: 24px; border-radius: 50%; background: var(--c); display: block; }
+.ciz-renk.on { border-color: var(--c); }
+.cizim-bar .btn[aria-pressed="true"] { background: var(--pencil); color: var(--on-pencil); border-color: var(--pencil); }
+.cizim-alan { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 8px; overflow: hidden; }
+.cizim-kat { position: relative; background: #fff; box-shadow: 0 8px 30px rgba(0, 0, 0, .4); }
+.cizim-kat img { width: 100%; height: 100%; display: block; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.cizim-kat canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.cizim-ipucu { color: #c7ccd6; font-size: 13px; text-align: center; padding: 6px 12px calc(8px + env(safe-area-inset-bottom)); }
+/* çalışma zamanlayıcısı */
+.sayac { position: sticky; top: calc(8px + env(safe-area-inset-top)); z-index: 20; max-width: 1120px; margin: 0 auto 18px; display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 16px;
+  background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--radius); box-shadow: 0 6px 20px rgba(20, 28, 40, .10); }
+.sayac.on { border-color: var(--optik-line); }
+.sayac.doldu { background: var(--optik-soft); border-color: var(--optik); }
+.sayac.bekle { background: var(--warn-bg); }
+.sayac-ic svg { width: 28px; height: 28px; color: var(--optik); display: block; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.foto-x svg, .foto-ekle svg, .foto-say svg { stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tk-row { flex-wrap: wrap; }
+.tk-row > .grow { min-width: 180px; }
+.tk-btns { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+.sayac-t { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.sayac-t b { font-size: 26px; line-height: 1.1; font-weight: 600; letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+.sayac-t small { color: var(--ink-3); font-size: 13px; }
+.sayac-btns { display: flex; gap: 8px; flex: none; }
+.sayac.mola { background: var(--info-bg); border-color: var(--info); }
+.sayac.mola .sayac-ic svg { color: var(--info); }
+.optik .actions { flex-wrap: wrap; }
 @media (max-width: 900px) {
-  .grid2 { grid-template-columns: 1fr; }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
   .main { padding-left: 20px; padding-right: 20px; }
   .plan { grid-template-columns: 1fr; gap: 8px; }
   .plan > .pill { justify-self: start; }
 }
 @media (max-width: 640px) {
+  .sayac { flex-wrap: wrap; } .list > li { flex-wrap: wrap; } .sayac-btns { width: 100%; justify-content: flex-end; }
+  .foto, .foto-ekle { width: 96px; height: 96px; }
   .app { grid-template-columns: 1fr; }
   .rail { position: fixed; bottom: 0; top: auto; left: 0; right: 0; height: auto; flex-direction: row; z-index: 40; border-right: 0; border-top: 1px solid var(--line); padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); overflow-x: auto; }
   .rail .brand, .rail-cd, .rail-sync { display: none; }
@@ -379,8 +451,8 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.2.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.2.0';
+/* LGS Takip, sürüm 1.3.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.3.1';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -676,6 +748,7 @@ function validateLog(S, k) {
   if (k.tur === 'Deneme analizi' && num(k.soru) > 0) err.push('Deneme soruları Denemeler bölümüne girilir; burada yalnızca süre girin.');
   if (k.bitti && !k.testId) err.push('"Testi bitirdim" için bir test seçin.');
   if (num(k.sure) > 1440) err.push('Süre en fazla 1440 dakika olabilir.');
+  if (num(k.mola) > 1440) err.push('Mola en fazla 1440 dakika olabilir.');
   return err.filter(function (e, i, a) { return a.indexOf(e) === i; });
 }
 
@@ -730,15 +803,17 @@ function denemeAnaliz(S) {
 /* ---------- dönem istatistikleri (gün aralığı a..b dahil) ---------- */
 function inRange(s, a, b) { var d = dn(s); return d >= a && d <= b; }
 function periodStats(S, a, b, today) {
-  var r = { soru: 0, d: 0, y: 0, b: 0, sure: 0, kayit: 0, gunler: {}, ders: {}, hedefeSayilan: 0, denemeSayisi: 0,
+  var r = { soru: 0, d: 0, y: 0, b: 0, sure: 0, mola: 0, molaSayisi: 0, sayacli: 0, enUzun: 0, kesToplam: 0, kayit: 0, gunler: {}, ders: {}, hedefeSayilan: 0, denemeSayisi: 0,
     genelNetler: [], denemeSoru: 0, gorevTamam: 0, gorevPlan: 0, testTamam: 0, turTamam: [], yanlis: 0, hata: {},
     tekrarYapilan: 0, okunan: 0, kitapBiten: 0 };
-  DERSLER.forEach(function (D) { r.ders[D.id] = { soru: 0, d: 0, y: 0, b: 0, sure: 0 }; });
+  DERSLER.forEach(function (D) { r.ders[D.id] = { soru: 0, d: 0, y: 0, b: 0, sure: 0, mola: 0 }; });
   S.kayitlar.forEach(function (k) {
     if (!inRange(k.tarih, a, b)) return;
     r.kayit++; r.soru += num(k.soru); r.d += num(k.d); r.y += num(k.y); r.b += num(k.b); r.sure += num(k.sure);
+    r.mola += num(k.mola); r.molaSayisi += num(k.molaSayisi);
+    if (k.sayac) { r.sayacli++; r.kesToplam += num(k.kesintisiz); if (num(k.kesintisiz) > r.enUzun) r.enUzun = num(k.kesintisiz); }
     r.gunler[k.tarih] = (r.gunler[k.tarih] || 0) + num(k.soru);
-    var x = r.ders[k.dersId]; if (x) { x.soru += num(k.soru); x.d += num(k.d); x.y += num(k.y); x.b += num(k.b); x.sure += num(k.sure); }
+    var x = r.ders[k.dersId]; if (x) { x.soru += num(k.soru); x.d += num(k.d); x.y += num(k.y); x.b += num(k.b); x.sure += num(k.sure); x.mola += num(k.mola); }
   });
   S.denemeler.forEach(function (d) {
     if (!inRange(d.tarih, a, b)) return;
@@ -777,12 +852,12 @@ function rangeReport(S, a, b, today) {
   var R = { a: a, b: b, gunSayisi: b - a + 1, ozet: periodStats(S, a, b, today), gunler: [], kayitlar: [], denemeler: [], yanlislar: [],
     turlar: [], gorevler: [], okumalar: [], tekrarlar: [], hedef: { gunSoru: num(S.settings.gunSoru), gunSure: num(S.settings.gunSure) } };
   var byDay = {};
-  for (var d = a; d <= b; d++) byDay[ds(d)] = { tarih: ds(d), soru: 0, d: 0, y: 0, b: 0, sure: 0, kayit: 0, dersler: {}, deneme: 0, okunan: 0 };
+  for (var d = a; d <= b; d++) byDay[ds(d)] = { tarih: ds(d), soru: 0, d: 0, y: 0, b: 0, sure: 0, mola: 0, kayit: 0, dersler: {}, deneme: 0, okunan: 0 };
   var P = planStats(S), I = index(S), planByKey = I.planByKey, turNo = {};
   P.forEach(function (p) { turNo[p.kaynakId + '|' + p.konuId] = p.turNo; });
   S.kayitlar.forEach(function (k) {
     var g = byDay[k.tarih]; if (!g) return;
-    g.kayit++; g.soru += num(k.soru); g.d += num(k.d); g.y += num(k.y); g.b += num(k.b); g.sure += num(k.sure);
+    g.kayit++; g.soru += num(k.soru); g.d += num(k.d); g.y += num(k.y); g.b += num(k.b); g.sure += num(k.sure); g.mola += num(k.mola);
     g.dersler[k.dersId] = (g.dersler[k.dersId] || 0) + num(k.soru);
     R.kayitlar.push(Object.assign({}, k, { turNo: k.kaynakId && k.konuId ? turNo[k.kaynakId + '|' + k.konuId] || null : null }));
   });
@@ -1518,7 +1593,7 @@ function buildReportDoc(R, opts) {
     ['Çözülen soru', tnum(o.soru), hedef ? 'hedef ' + tnum(hedef) + ', %' + Math.round(o.hedefeSayilan / hedef * 100) : ''],
     ['Doğru / Yanlış / Boş', o.d + ' / ' + o.y + ' / ' + o.b, 'başarı ' + fPct(o.basari)],
     ['Net (soru çözümü)', o.soru ? fNet(o.net) : '—', 'D − Y ÷ 3'],
-    ['Çalışma süresi', fSure(o.sure), gecen ? 'günde ort. ' + fSure(o.sure / gecen) : ''],
+    ['Çalışma süresi', fSure(o.sure), (gecen ? 'günde ort. ' + fSure(o.sure / gecen) : '') + (o.mola ? (gecen ? ', ' : '') + 'mola ' + fSure(o.mola) : '') + (o.enUzun ? ', en uzun ' + o.enUzun + ' dk kesintisiz' : '')],
     ['Çalışılan gün', R.aktifGun + ' / ' + R.gunSayisi, gs != null ? 'günde ort. ' + tnum(gs, 1) + ' soru' : ''],
     ['Deneme', String(o.denemeSayisi), o.genelOrt != null ? 'genel ort. ' + fNet(o.genelOrt) + ' net' : 'genel deneme yok'],
     ['Biten test / tur', o.testTamam + ' / ' + o.turTamam.length, 'kitap-konu turu'],
@@ -1834,7 +1909,7 @@ function render() {
   var main = document.getElementById('main');
   if (!main) { shell(); main = document.getElementById('main'); }
   CHARTS = {};
-  main.innerHTML = '<div class="page">' + (ADMIN[UI.view] && locked() ? pinGate() : VIEWS[UI.view]()) + '</div>';
+  main.innerHTML = (typeof sayacBar === 'function' ? sayacBar() : '') + '<div class="page">' + (ADMIN[UI.view] && locked() ? pinGate() : VIEWS[UI.view]()) + '</div>';
   var rc = document.getElementById('rail-cd');
   if (rc) {
     var g = lgsGeriSayim(S, today());
@@ -1853,6 +1928,8 @@ function render() {
   var due = tekrarListesi(S, today()).filter(function (t) { return t.next <= today(); }).length;
   if (due) { var tb = document.querySelector('.nav-btn[data-v="tekrar"]'); if (tb) tb.insertAdjacentHTML('beforeend', '<span class="dot">' + due + '</span>'); }
   drawCharts(main);
+  if (typeof fotoHydrate === 'function') fotoHydrate(main);
+  if (typeof sayacTickStart === 'function') sayacTickStart();
 }
 var rT;
 window.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(function () { drawCharts(document); }, 150); });
@@ -1881,8 +1958,9 @@ function paintSheet() {
   foot.innerHTML = f; foot.style.display = f ? '' : 'none';
   body.scrollTop = st;
   drawCharts(body);
+  if (typeof fotoHydrate === 'function') fotoHydrate(body);
 }
-function closeSheet() { if (M) { M.el.remove(); M = null; } }
+function closeSheet() { if (M) { var m = M; M = null; m.el.remove(); if (m.onClose && !m.saved) m.onClose(); } }
 function sheetErrors(list) {
   var box = M && M.el.querySelector('.errors');
   if (box) { box.innerHTML = list.map(function (e) { return '<div>' + esc(e) + '</div>'; }).join(''); if (list.length) box.scrollIntoView({ block: 'nearest' }); }
@@ -2036,7 +2114,7 @@ function testChips(F, planId, doneMap) {
     var done = doneMap[t.id] != null;
     var short = /^Test \d+$/.test(t.ad) ? t.ad.slice(5) : t.ad;
     return '<button type="button" class="chip test' + (done ? ' done' : '') + '" data-act="fset" data-k="testId" data-v="' + t.id + '" aria-pressed="' +
-      (F.testId === t.id ? 'true' : 'false') + '" aria-label="' + esc(t.ad + (done ? ', bitti' : '')) + '">' + (done ? '✓ ' : '') + esc(short) + '</button>';
+      ((F.testIds ? F.testIds.indexOf(t.id) >= 0 : F.testId === t.id) ? 'true' : 'false') + '" aria-label="' + esc(t.ad + (done ? ', bitti' : '')) + '">' + (done ? '✓ ' : '') + esc(short) + '</button>';
   }).join('') + '</div>';
 }
 
@@ -2058,13 +2136,20 @@ function konuSelect(name, dersId, kaynakId, value) {
 function openKayit(rec, preset) {
   var F = rec ? {
     id: rec.id, tarih: rec.tarih, dersId: rec.dersId, konuId: rec.konuId || '', kaynakId: rec.kaynakId || '', testId: rec.testId || '',
-    tur: rec.tur, soru: strN(rec.soru), d: strN(rec.d), y: strN(rec.y), sure: strN(rec.sure), bitti: !!rec.bitti, not: rec.not || '', ts: rec.ts
+    tur: rec.tur, soru: strN(rec.soru), d: strN(rec.d), y: strN(rec.y), sure: strN(rec.sure), bitti: !!rec.bitti, not: rec.not || '', ts: rec.ts,
+    mola: strN(rec.mola), molaSayisi: rec.molaSayisi || 0, kesintisiz: strN(rec.kesintisiz), sayac: !!rec.sayac
   } : Object.assign({ id: null, tarih: todayStr(), dersId: UI.last.dersId || '', konuId: '', kaynakId: '', testId: '', tur: 'Soru çözümü',
-    soru: '', d: '', y: '', sure: '', bitti: false, not: '' }, preset || {});
+    soru: '', d: '', y: '', sure: '', bitti: false, not: '', mola: '', molaSayisi: 0, kesintisiz: '', sayac: false }, preset || {});
+  if (!rec) { // yeni kayıtta birden fazla test seçilebilir; her test ayrı kayıt olur
+    F.testIds = F.testIds ? F.testIds.slice() : (F.testId ? [F.testId] : []); F.rows = {};
+    F.testIds.forEach(function (id) { kayitRow(F, id); });
+    if (F.testIds.length === 1) { F.testId = F.testIds[0]; if (!F.soru) F.soru = F.rows[F.testId].soru; F.bitti = F.bitti || false; } else F.testId = '';
+  }
   openSheet({
     title: rec ? 'Çalışmayı düzenle' : 'Çalışma ekle', F: F,
     body: function () {
-      var h = '<div class="fields2">' + field('Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '" max="' + todayStr() + '">') +
+      var h = F.sayac && !rec ? '<div class="banner info" style="margin-bottom:14px"><span class="grow">Süreler zamanlayıcıdan geldi. Şimdi çözdüğün soru, doğru ve yanlış sayısını gir, testi bitirdiysen işaretle.</span></div>' : '';
+      h += '<div class="fields2">' + field('Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '" max="' + todayStr() + '">') +
         fieldDiv('Çalışma türü', selectHtml('tur', CALISMA_TURLERI.map(function (t) { return { v: t, t: t }; }), F.tur)) + '</div>';
       h += fieldDiv('Ders', dersChips('dersId', F.dersId));
       if (F.dersId) {
@@ -2074,20 +2159,29 @@ function openKayit(rec, preset) {
           fieldDiv('Konu' + (F.tur === 'Deneme analizi' ? ' (isteğe bağlı)' : ''), konuSelect('konuId', F.dersId, F.kaynakId, F.konuId)) + '</div>';
         if (F.konuId && F.kaynakId) {
           var plan = IX().planByKey[F.kaynakId + '|' + F.konuId];
-          if (plan) h += fieldDiv('Test', testChips(F, plan.id, testStatus(S).done), '✓ işaretli testler daha önce bitirildi. Test seçmeden de kaydedebilirsin.');
+          if (plan) h += fieldDiv(rec ? 'Test' : 'Testler', testChips(F, plan.id, testStatus(S).done), (rec ? '' : 'Birden fazla test seçebilirsin; her biri ayrı kaydedilir. ') + '✓ işaretli testler daha önce bitirildi. Test seçmeden de kaydedebilirsin.');
           else h += '<p class="hint">Bu kitapta bu konu için test tanımlı değil. Kurulum › Kitaplar ve testler bölümünden eklenebilir; yine de kaydedebilirsin.</p>';
         }
       }
-      if (F.tur !== 'Deneme analizi') {
+      if (F.tur !== 'Deneme analizi' && kayitCoklu(F)) {
+        h += kayitTablo(F);
+      } else if (F.tur !== 'Deneme analizi') {
         h += '<div class="fields3">' + fieldDiv('Çözülen soru', stepper('soru', F.soru, { label: 'Çözülen soru' })) +
           fieldDiv('Doğru', stepper('d', F.d, { label: 'Doğru' })) + fieldDiv('Yanlış', stepper('y', F.y, { label: 'Yanlış' })) + '</div>' +
           '<div class="calc-line" id="calc"></div>';
       } else {
         h += '<p class="hint">Deneme sonuçları Deneme bölümüne girilir. Burada yalnızca analize harcadığın süreyi kaydet.</p>';
       }
-      h += fieldDiv('Süre (dakika)', '<div class="fields2"><input class="input" data-f="sure" inputmode="numeric" pattern="[0-9]*" value="' + esc(F.sure) +
-        '" placeholder="Örn. 40" aria-label="Süre dakika">' + chipsHtml('sureQ', [15, 30, 45, 60, 90].map(function (m) { return { v: m, t: m + ' dk' }; }), F.sure) + '</div>');
-      if (F.testId) {
+      if (rec && rec.oturum && S.kayitlar.some(function (k) { return k.oturum === rec.oturum && k.id !== rec.id; })) h += '<p class="hint">Bu test, birlikte kaydedilen bir oturumun parçası. Oturumun süresi ilk testte bir kez yazılıdır; Çalışma listesinde testler tek satırda görünür.</p>';
+      if (F.sayac) { // zamanlayıcının ölçtüğü süreler değiştirilemez
+        h += '<div class="kv sure-ozet" style="margin:14px 0 4px">' + stat('Çalışma süresi', num(F.sure) + ' dk', kayitCoklu(F) ? 'seçtiğin testlerin toplamı' : 'zamanlayıcı') +
+          stat('Mola', num(F.mola) + ' dk', F.molaSayisi ? F.molaSayisi + ' kez' : 'mola verilmedi') + stat('En uzun kesintisiz', num(F.kesintisiz) + ' dk', 'masadan kalkmadan') + '</div>';
+      } else {
+        h += fieldDiv('Süre (dakika)', '<div class="fields2"><input class="input" data-f="sure" inputmode="numeric" pattern="[0-9]*" value="' + esc(F.sure) +
+          '" placeholder="Örn. 40" aria-label="Süre dakika">' + chipsHtml('sureQ', [15, 30, 45, 60, 90].map(function (m) { return { v: m, t: m + ' dk' }; }), F.sure) + '</div>',
+          kayitCoklu(F) ? 'Seçtiğin testlerin hepsine harcadığın toplam süre.' : '');
+      }
+      if (F.testId && !kayitCoklu(F)) {
         var dn0 = testStatus(S).done[F.testId], self = rec && rec.bitti && rec.testId === F.testId;
         h += '<label class="switch" style="margin-top:14px"><input type="checkbox" data-f="bitti"' + (F.bitti ? ' checked' : '') + '> <span><b>Bu testi bitirdim</b>' +
           (dn0 != null && !self ? '<br><span class="small muted">Bu test ' + fDate(dn0) + ' tarihinde bitirilmişti. Tekrar çözüm olarak kaydedilir; tur sayısı değişmez.</span>' : '') + '</span></label>';
@@ -2102,8 +2196,10 @@ function openKayit(rec, preset) {
     },
     onMount: function () { kayitCalc(); },
     onInput: function (k, v, el, kind) {
-      if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testId = ''; F.bitti = false; paintSheet(); kayitCalc(); return; }
-      if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; F.bitti = false; paintSheet(); kayitCalc(); return; }
+      if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testId = ''; F.bitti = false; if (F.testIds) { F.testIds = []; F.rows = {}; } paintSheet(); kayitCalc(); return; }
+      if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; F.bitti = false; if (F.testIds) { F.testIds = []; F.rows = {}; } paintSheet(); kayitCalc(); return; }
+      if (k === 'testId' && F.testIds) { kayitTestSec(F, v); paintSheet(); kayitCalc(); return; }
+      if (k.indexOf('tr.') === 0) { var pp = k.split('.'); if (F.rows[pp[1]]) F.rows[pp[1]][pp[2]] = pp[2] === 'bitti' ? !!v : v; kayitCalc(); return; }
       if (k === 'testId') {
         F.testId = F.testId === v ? '' : v; F.bitti = false;
         var t = IX().test[F.testId];
@@ -2123,19 +2219,58 @@ function paintChipState(name, v) {
   if (!M) return;
   M.el.querySelectorAll('[data-k="' + name + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.v) === String(v) ? 'true' : 'false'); });
 }
+function kayitRow(F, id) {
+  if (!F.rows[id]) { var t = IX().test[id]; F.rows[id] = { soru: t && t.soru ? String(t.soru) : '', d: '', y: '', bitti: true }; }
+  return F.rows[id];
+}
+function kayitCoklu(F) { return !!(F.testIds && F.testIds.length > 1); }
+function kayitTestSec(F, v) {
+  var i = F.testIds.indexOf(v), was = F.testIds.length;
+  if (was === 1 && i < 0) { var r0 = kayitRow(F, F.testIds[0]); r0.soru = F.soru || r0.soru; r0.d = F.d; r0.y = F.y; r0.bitti = F.bitti || was === 1; } // tekten çokluya: girilenler satıra taşınır
+  if (i >= 0) F.testIds.splice(i, 1); else { F.testIds.push(v); kayitRow(F, v); }
+  F.testIds.sort(function (a, b) { var x = IX().test[a], y = IX().test[b]; return (x ? x.sira || 0 : 0) - (y ? y.sira || 0 : 0); });
+  if (F.testIds.length === 1) { // çokluktan teke: satır forma döner
+    var r = kayitRow(F, F.testIds[0]); F.testId = F.testIds[0];
+    if (was > 1) { F.soru = r.soru; F.d = r.d; F.y = r.y; F.bitti = r.bitti; } else { F.bitti = false; if (!F.soru) F.soru = r.soru; }
+  } else F.testId = '';
+}
+function kayitTablo(F) {
+  var done = testStatus(S).done;
+  var inp = function (id, f, v) { return '<td class="r" style="width:92px"><input class="input" style="text-align:right" inputmode="numeric" pattern="[0-9]*" data-f="tr.' + id + '.' + f + '" value="' + esc(v) + '" aria-label="' + esc(testAd(id) + ' ' + f) + '"></td>'; };
+  return '<div class="field"><span class="lbl">Testlerin sonuçları</span><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Test</th><th class="r">Soru</th><th class="r">Doğru</th><th class="r">Yanlış</th><th>Bitirdim</th></tr></thead><tbody>' +
+    F.testIds.map(function (id) {
+      var r = kayitRow(F, id);
+      return '<tr><td>' + esc(testAd(id)) + (done[id] != null ? ' <span class="muted small">✓ daha önce</span>' : '') + '</td>' + inp(id, 'soru', r.soru) + inp(id, 'd', r.d) + inp(id, 'y', r.y) +
+        '<td><input type="checkbox" data-f="tr.' + id + '.bitti"' + (r.bitti ? ' checked' : '') + ' aria-label="' + esc(testAd(id)) + ' bitti" style="width:22px;height:22px"></td></tr>';
+    }).join('') + '</tbody></table></div><div class="calc-line" id="calc"></div><p class="hint">Her test ayrı kaydedilir; süre testlere bölünmez, oturumun toplamı olarak bir kez yazılır.</p></div>';
+}
 function kayitCalc() {
   var box = M && M.el.querySelector('#calc'); if (!box) return;
-  var F = M.F, s = num(F.soru), d = num(F.d), y = num(F.y), b = s - d - y;
+  var F = M.F;
+  if (kayitCoklu(F)) {
+    var ts = 0, td = 0, ty = 0, bad = false;
+    F.testIds.forEach(function (id) { var r = F.rows[id], s0 = num(r.soru), d0 = num(r.d), y0 = num(r.y); ts += s0; td += d0; ty += y0; if (d0 + y0 > s0) bad = true; });
+    box.innerHTML = bad ? '<span style="color:var(--bad)"><b>Bir testte Doğru + Yanlış, soru sayısını aşıyor.</b></span>' :
+      '<span>Toplam <b>' + ts + '</b> soru</span><span>Boş: <b>' + (ts - td - ty) + '</b></span><span>Net: <b>' + fNet(td - ty / 3) + '</b></span><span>Başarı: <b>' + (ts > 0 ? fPct(td / ts) : '—') + '</b></span>';
+    return;
+  }
+  var s = num(F.soru), d = num(F.d), y = num(F.y), b = s - d - y;
   box.innerHTML = b < 0 ? '<span style="color:var(--bad)"><b>Doğru + Yanlış, çözülen soruyu aşıyor.</b></span>' :
     '<span>Boş: <b>' + b + '</b></span><span>Net: <b>' + fNet(d - y / 3) + '</b></span><span>Başarı: <b>' + (s > 0 ? fPct(d / s) : '—') + '</b></span>';
 }
 ACT['kayit-kaydet'] = async function () {
+  if (kayitCoklu(M.F) && M.F.tur !== 'Deneme analizi') return kayitKaydetCoklu();
   var F = M.F, errs = [];
   var soru = parseCount(F.soru, 'Çözülen soru', errs), d = parseCount(F.d, 'Doğru', errs), y = parseCount(F.y, 'Yanlış', errs);
-  var sure = parseCount(F.sure, 'Süre', errs);
+  var sure = parseCount(F.sure, 'Süre', errs), mola = parseCount(F.mola, 'Mola', errs);
   var rec = { id: F.id || uid('gk'), tarih: F.tarih, dersId: F.dersId, konuId: F.konuId || null, kaynakId: F.kaynakId || null,
     testId: F.testId || null, tur: F.tur, soru: soru, d: d, y: y, b: soru - d - y, sure: sure, bitti: !!(F.testId && F.bitti),
     not: (F.not || '').trim(), ts: F.ts || Date.now() };
+  if (mola > 0) rec.mola = mola;
+  if (mola > 0 && F.molaSayisi) rec.molaSayisi = F.molaSayisi;
+  var kes = parseCount(F.kesintisiz, 'Kesintisiz süre', errs);
+  if (kes > 0) rec.kesintisiz = Math.min(kes, sure || kes);
+  if (F.sayac) rec.sayac = true;
   if (rec.b < 0) errs.push('Doğru + Yanlış, çözülen soru sayısını aşamaz.');
   if (!errs.length) errs = errs.concat(validateLog(S, rec));
   if (errs.length) return sheetErrors(errs);
@@ -2149,6 +2284,7 @@ ACT['kayit-kaydet'] = async function () {
   var i = S.kayitlar.findIndex(function (k) { return k.id === rec.id; });
   if (i >= 0) S.kayitlar[i] = rec; else S.kayitlar.push(rec);
   UI.last = { dersId: rec.dersId };
+  if (F.sayac && typeof sayacKayitKaydedildi === 'function') sayacKayitKaydedildi();
   closeSheet(); save();
   var done = P().filter(function (p) { return p.durum === 'Tamamlandı' && before[p.id] !== 'Tamamlandı'; });
   if (done.length) {
@@ -2156,6 +2292,45 @@ ACT['kayit-kaydet'] = async function () {
     showToast('Tur tamamlandı: ' + kaynakAd(p.kaynakId) + ', ' + konuAd(p.konuId) + (p.turNo ? ' (' + p.turNo + '. tur)' : ''), true);
   } else showToast(F.id ? 'Çalışma güncellendi' : 'Çalışma kaydedildi');
 };
+async function kayitKaydetCoklu() {
+  var F = M.F, errs = [];
+  var sure = parseCount(F.sure, 'Süre', errs), mola = parseCount(F.mola, 'Mola', errs), kes = parseCount(F.kesintisiz, 'Kesintisiz süre', errs);
+  var rows = F.testIds.map(function (id) {
+    var r = F.rows[id], lab = testAd(id);
+    var s0 = parseCount(r.soru, lab + ' soru', errs), d0 = parseCount(r.d, lab + ' doğru', errs), y0 = parseCount(r.y, lab + ' yanlış', errs);
+    if (d0 + y0 > s0) errs.push(lab + ': Doğru + Yanlış, soru sayısını aşıyor.');
+    return { id: id, soru: s0, d: d0, y: y0, bitti: !!r.bitti };
+  });
+  if (errs.length) return sheetErrors(errs);
+  // süre bölünmez: oturumun toplam süresi ilk kayda bir kez yazılır (toplamlar doğru kalır)
+  var oturum = uid('ot'), ts = Date.now();
+  var recs = rows.map(function (r, i) {
+    var rec = { id: uid('gk'), tarih: F.tarih, dersId: F.dersId, konuId: F.konuId || null, kaynakId: F.kaynakId || null, testId: r.id, tur: F.tur,
+      soru: r.soru, d: r.d, y: r.y, b: r.soru - r.d - r.y, sure: i === 0 ? sure : 0, bitti: r.bitti, not: (F.not || '').trim(), ts: ts + i, oturum: oturum };
+    if (i === 0) { // oturumun mola ve kesintisiz bilgisi bir kez sayılsın
+      if (mola > 0) rec.mola = mola;
+      if (mola > 0 && F.molaSayisi) rec.molaSayisi = F.molaSayisi;
+      if (kes > 0) rec.kesintisiz = Math.min(kes, sure || kes);
+      if (F.sayac) rec.sayac = true;
+    }
+    return rec;
+  });
+  recs.forEach(function (rec) { validateLog(S, rec).forEach(function (e) { if (errs.indexOf(e) < 0) errs.push(testAd(rec.testId) + ': ' + e); }); });
+  if (errs.length) return sheetErrors(errs);
+  var bos = recs.filter(function (r) { return r.soru > 0 && r.d + r.y === 0; });
+  if (bos.length && F.tur !== 'Konu öğrenme' && !(await askConfirm(bos.map(function (r) { return testAd(r.testId); }).join(', ') + ' için doğru ve yanlış girmedin; sorular boş sayılacak. Yine de kaydedilsin mi?', 'Kaydet'))) return;
+  var dups = recs.filter(function (r) { return findDuplicateLog(S, r); });
+  if (dups.length && !(await askConfirm(dups.map(function (r) { return testAd(r.testId); }).join(', ') + ' için aynı çalışma zaten kayıtlı. Yine de eklensin mi?', 'Ekle'))) return;
+  var before = {};
+  P().forEach(function (p) { before[p.id] = p.durum; });
+  recs.forEach(function (r) { S.kayitlar.push(r); });
+  UI.last = { dersId: F.dersId };
+  if (F.sayac && typeof sayacKayitKaydedildi === 'function') sayacKayitKaydedildi();
+  closeSheet(); save();
+  var done = P().filter(function (p) { return p.durum === 'Tamamlandı' && before[p.id] !== 'Tamamlandı'; });
+  if (done.length) showToast('Tur tamamlandı: ' + kaynakAd(done[0].kaynakId) + ', ' + konuAd(done[0].konuId) + (done[0].turNo ? ' (' + done[0].turNo + '. tur)' : ''), true);
+  else showToast(recs.length + ' test kaydedildi');
+}
 ACT['kayit-sil'] = async function () {
   var id = M.F.id;
   if (!(await askConfirm('Bu çalışma kaydı silinsin mi? Bu işlem geri alınamaz.', 'Sil', true))) return;
@@ -2277,6 +2452,7 @@ function openYanlis(rec, preset) {
   var F = rec ? Object.assign({}, rec, { konuId: rec.konuId || '', kaynakId: rec.kaynakId || '', testId: rec.testId || '', soruNo: rec.soruNo || '', neden: rec.neden || '', cozum: rec.cozum || '',
     sonDurum: rec.sonDurum || 'Açık', tk: (rec.tekrarlar || []).slice() })
     : Object.assign({ id: null, tarih: todayStr(), dersId: UI.last.dersId || '', konuId: '', kaynakId: '', testId: '', soruNo: '', hata: '', neden: '', cozum: '', tekrarGerekli: true, tk: [], sonDurum: 'Açık' }, preset || {});
+  F.newId = rec ? rec.id : uid('ys'); F.fotoIds = rec ? (rec.fotoIds || []).slice() : []; F.eskiFoto = F.fotoIds.slice(); F.yeniFoto = {};
   openSheet({
     title: rec ? 'Yanlış soru' : 'Yanlış soru ekle', F: F, wide: !!rec,
     body: function () {
@@ -2298,8 +2474,20 @@ function openYanlis(rec, preset) {
         if (F.konuId && F.kaynakId) {
           var plan = IX().planByKey[F.kaynakId + '|' + F.konuId];
           if (plan) h += fieldDiv('Test (isteğe bağlı)', testChips(F, plan.id, {}));
+          var tsec = F.testId && IX().test[F.testId], ns = tsec ? num(tsec.soru) : 0;
+          if (ns > 0) {
+            var kayitli = {};
+            S.yanlislar.forEach(function (x) { if (x.testId === F.testId && x.id !== F.id && x.soruNo) kayitli[String(x.soruNo)] = 1; });
+            var ch = '';
+            for (var q = 1; q <= Math.min(ns, 100); q++) {
+              var on = String(F.soruNo) === String(q), var_ = kayitli[q];
+              ch += '<button type="button" class="chip soru' + (var_ ? ' done' : '') + '" data-act="fset" data-k="soruSec" data-v="' + q + '" aria-pressed="' + on + '"' + (var_ ? ' title="Bu soru zaten kayıtlı"' : '') + '>' + (var_ ? '✓' : '') + q + '</button>';
+            }
+            h += fieldDiv('Hangi soru?', '<div class="chips soru-grid" role="group" aria-label="Soru numarası">' + ch + '</div>', 'Yanlış yaptığın soruya dokun. ✓ işaretli sorular zaten yanlışlarında kayıtlı.');
+          }
         }
       }
+      h += fotoFormField(F);
       h += fieldDiv('Hata türü', chipsHtml('hata', HATA_TURLERI.map(function (t) { return { v: t, t: t }; }), F.hata));
       h += field('Neden yanlış yaptım?', '<textarea class="input" data-f="neden" maxlength="400">' + esc(F.neden) + '</textarea>');
       h += field('Doğru çözüm notu', '<textarea class="input" data-f="cozum" maxlength="600">' + esc(F.cozum) + '</textarea>');
@@ -2314,10 +2502,13 @@ function openYanlis(rec, preset) {
       return (rec ? '<button class="btn danger" data-act="yanlis-sil">Sil</button><span class="spacer"></span>' : '<span class="spacer"></span>') +
         '<button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="yanlis-kaydet">Kaydet</button>';
     },
+    onClose: function () { fotoVazgec(F); },
     onInput: function (k, v, el, kind) {
       if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testId = ''; paintSheet(); return; }
       if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; paintSheet(); return; }
-      if (k === 'testId') { F.testId = F.testId === v ? '' : v; paintSheet(); return; }
+      if (k === 'testId') { F.testId = F.testId === v ? '' : v; F.soruNo = ''; paintSheet(); return; }
+      if (k === 'soruNo') { F.soruNo = v; paintChipState('soruSec', v); return; }
+      if (k === 'soruSec') { F.soruNo = String(F.soruNo) === v ? '' : v; var si = M.el.querySelector('input[data-f="soruNo"]'); if (si) si.value = F.soruNo; paintChipState('soruSec', F.soruNo); return; }
       if (k === 'hata') { F.hata = v; paintChipState('hata', v); return; }
       if (k === 'sonDurum') { F.sonDurum = v; if (rec) paintSheet(); else paintChipState('sonDurum', v); return; }
       if (k === 'tekrarGerekli') { F.tekrarGerekli = !!v; if (rec) paintSheet(); return; }
@@ -2333,20 +2524,23 @@ ACT['yanlis-kaydet'] = function () {
   if (!F.konuId) errs.push('Konu seçin.');
   if (!F.hata) errs.push('Hata türünü seçin.');
   var tk = !errs.length ? tekrarTarihleri(F, 'tk', F.tarih, errs) : [];
-  var rec = { id: F.id || uid('ys'), tarih: F.tarih, dersId: F.dersId, konuId: F.konuId, kaynakId: F.kaynakId || null, testId: F.testId || null,
+  var rec = { id: F.id || F.newId, tarih: F.tarih, dersId: F.dersId, konuId: F.konuId, kaynakId: F.kaynakId || null, testId: F.testId || null,
     soruNo: String(F.soruNo || '').trim(), hata: F.hata, neden: (F.neden || '').trim(), cozum: (F.cozum || '').trim(),
     tekrarGerekli: F.tekrarGerekli !== false, tekrarlar: tk, sonDurum: F.sonDurum && F.sonDurum !== 'Açık' ? F.sonDurum : null, ts: F.ts || Date.now() };
   var dup = !errs.length && findDuplicateYanlis(S, rec);
   if (dup) errs.push('Bu soru zaten kayıtlı (' + relDay(dup.tarih) + '). Aynı soruyu ikinci kez eklemek yerine mevcut kaydı güncelleyin.');
   if (errs.length) return sheetErrors(errs);
+  if (F.fotoIds && F.fotoIds.length) rec.fotoIds = F.fotoIds.slice();
+  fotoKaydet(F, F.eskiFoto);
   var i = S.yanlislar.findIndex(function (x) { return x.id === rec.id; });
   if (i >= 0) S.yanlislar[i] = rec; else S.yanlislar.push(rec);
   UI.last = { dersId: rec.dersId };
-  closeSheet(); save(); showToast(F.id ? 'Yanlış güncellendi' : 'Yanlış kaydedildi' + (rec.tekrarGerekli && stages(S).length ? '; ilk tekrar ' + relDay(dn(rec.tarih) + stages(S)[0]).toLocaleLowerCase('tr') : ''));
+  M.saved = true; closeSheet(); save(); showToast(F.id ? 'Yanlış güncellendi' : 'Yanlış kaydedildi' + (rec.tekrarGerekli && stages(S).length ? '; ilk tekrar ' + relDay(dn(rec.tarih) + stages(S)[0]).toLocaleLowerCase('tr') : ''));
 };
 ACT['yanlis-sil'] = async function () {
   var id = M.F.id;
-  if (!(await askConfirm('Bu yanlış kaydı ve tekrar geçmişi silinsin mi?', 'Sil', true))) return;
+  if (!(await askConfirm('Bu yanlış kaydı, fotoğrafları ve tekrar geçmişi silinsin mi?', 'Sil', true))) return;
+  var old = S.yanlislar.find(function (x) { return x.id === id; }); if (old) fotoYanlisSilindi(old);
   S.yanlislar = S.yanlislar.filter(function (x) { return x.id !== id; }); closeSheet(); save(); showToast('Yanlış silindi');
 };
 ACT['yanlis-ac'] = function (t) { var r = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (r) openYanlis(r); };
@@ -2829,10 +3023,10 @@ VIEWS.bugun = function () {
   var extra = Math.max(0, Math.floor((done - nb * per) / per));
   for (var j = 0; j < Math.min(extra, 10); j++) cells += '<span class="bubble extra" aria-hidden="true"></span>';
   h += '<section class="optik" aria-label="Bugünkü soru hedefi"><div class="row"><div><div class="muted small">Bugünkü soru hedefi</div><div class="big num">' + done +
-    '<small>/ ' + hedef + ' soru</small></div></div><div class="actions">' + btn('kayit-yeni', 'Çalışma ekle', 'primary', null, 'plus') +
+    '<small>/ ' + hedef + ' soru</small></div></div><div class="actions">' + (SAYAC.st ? '' : btn('sayac-ac', 'Çalışmaya başla', 'primary', null, 'clock')) + btn('kayit-yeni', 'Çalışma ekle', SAYAC.st ? 'primary' : '', null, 'plus') +
     btn('deneme-yeni', 'Deneme ekle', '', null) + btn('yanlis-yeni', 'Yanlış ekle', '', null) + '</div></div>' +
     '<div class="bubbles" role="img" aria-label="' + done + ' / ' + hedef + ' soru">' + cells + '</div>' +
-    '<div class="meta"><span>Her daire ' + per + ' soru</span><span>Süre <b>' + fSure(ps.sure) + '</b> / ' + fSure(st.gunSure) + '</span>' +
+    '<div class="meta"><span>Her daire ' + per + ' soru</span><span>Süre <b>' + fSure(ps.sure) + '</b> / ' + fSure(st.gunSure) + '</span>' + (ps.mola ? '<span>Mola <b>' + fSure(ps.mola) + '</b></span>' : '') + (ps.enUzun ? '<span>En uzun kesintisiz <b>' + ps.enUzun + ' dk</b></span>' : '') +
     (ps.soru ? '<span>Net <b>' + fNet(ps.net) + '</b></span><span>Başarı <b>' + fPct(ps.basari) + '</b></span>' : '') +
     (done > hedef && hedef > 0 ? '<span><b>Hedefin ' + (done - hedef) + ' soru üstündesin</b></span>' : '') + '</div></section>';
   // iki sütun
@@ -2886,11 +3080,31 @@ ACT['go'] = function (t) {
   _go(t);
   if (UI.guide) setTimeout(function () { var el = document.getElementById('g-' + UI.guide); if (el) el.scrollIntoView({ block: 'start' }); }, 30);
 };
+/* Aynı oturumda çözülen testler tek satırda: toplam soru ve toplam süre */
+function kayitGrupla(arr) {
+  var out = [], ix = {};
+  arr.forEach(function (k) {
+    if (k.oturum && ix[k.oturum] != null) out[ix[k.oturum]].push(k);
+    else { if (k.oturum) ix[k.oturum] = out.length; out.push([k]); }
+  });
+  return out;
+}
+function kayitGrupSatir(g) {
+  var t = { soru: 0, d: 0, y: 0, b: 0, sure: 0, mola: 0, kes: 0 }, k0 = g[0];
+  g.forEach(function (k) { t.soru += num(k.soru); t.d += num(k.d); t.y += num(k.y); t.b += num(k.b); t.sure += num(k.sure); t.mola += num(k.mola); t.kes = Math.max(t.kes, num(k.kesintisiz)); });
+  var biten = g.filter(function (k) { return k.bitti; }).length;
+  return '<li class="oturum"><div class="row-btn" style="cursor:default">' + dersDot(k0.dersId) + '<span class="grow"><span class="title" style="display:block">' + esc(k0.konuId ? konuAd(k0.konuId) : dersAd(k0.dersId)) +
+    ' <span class="tag">' + g.length + ' test</span>' + (biten ? ' <span class="pill good"><span class="g">✓</span>' + biten + ' test bitti</span>' : '') + '</span><span class="sub">' + esc([k0.kaynakId ? kaynakAd(k0.kaynakId) : '', k0.tur].filter(Boolean).join(', ')) + '</span>' +
+    '<span class="chips" style="margin-top:8px">' + g.map(function (k) { return '<button class="chip" data-act="kayit-ac" data-id="' + k.id + '">' + esc(k.testId ? testAd(k.testId) : 'Kayıt') + ' <small>' + num(k.d) + 'D ' + num(k.y) + 'Y</small></button>'; }).join('') + '</span></span>' +
+    '<span class="num small" style="text-align:right;white-space:nowrap">' + t.soru + ' soru<br><span class="muted">' + t.d + 'D ' + t.y + 'Y ' + t.b + 'B, net ' + fNet(net(t.d, t.y)) + '</span><br><span class="muted">' + fSure(t.sure) +
+    (t.mola ? ' + ' + fSure(t.mola) + ' mola' : '') + (t.kes ? '<br>en uzun ' + t.kes + ' dk kesintisiz' : '') + '</span></span></div></li>';
+}
 function tekrarRow(x) {
   var r = x.rec, detay = x.kind === 'yanlis' ? [kaynakAd(r.kaynakId), r.testId ? testAd(r.testId) : '', r.soruNo ? 'Soru ' + r.soruNo : ''].filter(Boolean).join(', ') : (r.tur + (r.kaynakId ? ', ' + kaynakAd(r.kaynakId) : ''));
-  return '<li>' + dersDot(x.dersId) + '<div class="grow"><div class="title">' + esc(konuAd(x.konuId)) + ' <span class="muted small">' + (x.kind === 'yanlis' ? 'Yanlış soru' : 'Konu tekrarı') + ', ' + x.asama + '</span></div>' +
-    '<div class="sub">' + esc(detay || dersAd(x.dersId)) + '</div></div>' + pill(x.durum, x.durum === 'Gecikmiş' ? relDay(x.next) : (x.durum === 'Planlı' ? relDay(x.next) : '')) +
-    '<button class="btn sm primary" data-act="tekrar-yaptim" data-kind="' + x.kind + '" data-id="' + x.id + '">Yaptım</button></li>';
+  return '<li class="tk-row">' + dersDot(x.dersId) + '<div class="grow"><div class="title">' + esc(konuAd(x.konuId)) + ' <span class="muted small">' + (x.kind === 'yanlis' ? 'Yanlış soru' : 'Konu tekrarı') + ', ' + x.asama + '</span></div>' +
+    '<div class="sub">' + esc(detay || dersAd(x.dersId)) + '</div></div><span class="tk-btns">' + pill(x.durum, x.durum === 'Gecikmiş' ? relDay(x.next) : (x.durum === 'Planlı' ? relDay(x.next) : '')) +
+    (x.kind === 'yanlis' ? '<button class="btn sm" data-act="soru-gor" data-id="' + x.id + '">' + ((r.fotoIds || []).length ? icon('image') : '') + 'Soruyu gör</button>' : '') +
+    '<button class="btn sm primary" data-act="tekrar-yaptim" data-kind="' + x.kind + '" data-id="' + x.id + '">Yaptım</button></span></li>';
 }
 function gorevRow(g) {
   var gr = gorevGerceklesen(S, g), du = g.durum || 'Bekliyor';
@@ -2907,7 +3121,7 @@ VIEWS.calisma = function () {
   var t = today(), from = t - UI.kayitDays + 1;
   var list = S.kayitlar.filter(function (k) { return dn(k.tarih) >= from && (!UI.kayitDers || k.dersId === UI.kayitDers) && (!UI.kayitKaynak || k.kaynakId === UI.kayitKaynak); })
     .sort(function (a, b) { return dn(b.tarih) - dn(a.tarih) || (b.ts || 0) - (a.ts || 0); });
-  var h = head('Çalışma kayıtları', 'Her çalışma oturumu bir kayıt. Düzenlemek için kayda dokun.', btn('kayit-yeni', 'Çalışma ekle', 'primary', null, 'plus'));
+  var h = head('Çalışma kayıtları', 'Her çalışma oturumu bir kayıt. Düzenlemek için kayda dokun.', (SAYAC.st ? '' : btn('sayac-ac', 'Çalışmaya başla', '', null, 'clock')) + btn('kayit-yeni', 'Çalışma ekle', 'primary', null, 'plus'));
   h += '<div class="chips" style="margin-bottom:12px">' + [{ v: '', t: 'Tüm dersler' }].concat(DERSLER.map(function (d) { return { v: d.id, t: d.kisa, pre: dersDot(d.id) }; })).map(function (o) {
     return '<button class="chip" data-act="kayit-filtre" data-v="' + o.v + '" aria-pressed="' + (UI.kayitDers === o.v) + '">' + (o.pre || '') + esc(o.t) + '</button>';
   }).join('') + '</div>';
@@ -2923,15 +3137,17 @@ VIEWS.calisma = function () {
   h += '<div class="panel">';
   if (!days.length) h += '<div class="empty">Bu aralıkta kayıt yok.</div>';
   days.forEach(function (d) {
-    var arr = byDay[d], tot = arr.reduce(function (s, k) { return s + num(k.soru); }, 0), sure = arr.reduce(function (s, k) { return s + num(k.sure); }, 0);
-    h += '<div class="daygroup"><h3><span>' + relDay(d) + (relDay(d) === fDateS(d) ? ', ' + fDay(d) : '') + '</span><span class="num">' + tot + ' soru, ' + fSure(sure) + '</span></h3><ul class="list">' +
-      arr.map(function (k) {
+    var arr = byDay[d], tot = arr.reduce(function (s, k) { return s + num(k.soru); }, 0), sure = arr.reduce(function (s, k) { return s + num(k.sure); }, 0), mola = arr.reduce(function (s, k) { return s + num(k.mola); }, 0);
+    h += '<div class="daygroup"><h3><span>' + relDay(d) + (relDay(d) === fDateS(d) ? ', ' + fDay(d) : '') + '</span><span class="num">' + tot + ' soru, ' + fSure(sure) + (mola ? ', mola ' + fSure(mola) : '') + '</span></h3><ul class="list">' +
+      kayitGrupla(arr).map(function (g) {
+        if (g.length > 1) return kayitGrupSatir(g);
+        var k = g[0];
         var pl = k.kaynakId && k.konuId ? memo('pmap', function () { var m = {}; P().forEach(function (p) { m[p.kaynakId + '|' + p.konuId] = p; }); return m; })[k.kaynakId + '|' + k.konuId] : null;
         var parts = [k.kaynakId ? kaynakAd(k.kaynakId) : '', k.testId ? testAd(k.testId) : '', pl && pl.turNo ? pl.turNo + '. tur' : '', k.tur].filter(Boolean).join(', ');
         return '<li><button class="row-btn" data-act="kayit-ac" data-id="' + k.id + '">' + dersDot(k.dersId) + '<span class="grow"><span class="title" style="display:block">' +
           esc(k.konuId ? konuAd(k.konuId) : dersAd(k.dersId)) + (k.bitti ? ' <span class="pill good"><span class="g">✓</span>Test bitti</span>' : '') + '</span><span class="sub">' + esc(parts) + (k.not ? ', ' + esc(k.not) : '') + '</span></span>' +
           '<span class="num small" style="text-align:right;white-space:nowrap">' + (k.soru ? k.soru + ' soru<br><span class="muted">' + k.d + 'D ' + k.y + 'Y ' + k.b + 'B, net ' + fNet(net(k.d, k.y)) + '</span>' : '<span class="muted">soru yok</span>') +
-          '<br><span class="muted">' + fSure(k.sure) + '</span></span></button></li>';
+          '<br><span class="muted">' + fSure(k.sure) + (num(k.mola) ? ' + ' + fSure(k.mola) + ' mola' : '') + (num(k.kesintisiz) ? '<br>en uzun ' + num(k.kesintisiz) + ' dk kesintisiz' : '') + '</span></span></button></li>';
       }).join('') + '</ul></div>';
   });
   var older = S.kayitlar.some(function (k) { return dn(k.tarih) < from; });
@@ -3198,7 +3414,7 @@ function yanlisRow(y, t) {
   var where = [y.kaynakId ? kaynakAd(y.kaynakId) : '', y.testId ? testAd(y.testId) : '', y.soruNo ? 'soru ' + y.soruNo : ''].filter(Boolean).join(', ');
   var k = IX().konu[y.konuId];
   var h = '<li><button class="row-btn grow ybody" data-act="yanlis-ac" data-id="' + y.id + '">' + dersDot(y.dersId) + '<span class="grow">' +
-    '<span class="title" style="display:block">' + esc(konuAd(y.konuId)) + ' <span class="tag">' + esc(y.hata) + '</span></span>' +
+    '<span class="title" style="display:block">' + esc(konuAd(y.konuId)) + ' <span class="tag">' + esc(y.hata) + '</span>' + ((y.fotoIds || []).length ? ' <span class="foto-say" title="Fotoğraf">' + icon('image') + y.fotoIds.length + '</span>' : '') + '</span>' +
     '<span class="sub" style="display:block">' + fDate(y.tarih) + (k && k.unite ? ', ' + esc(k.unite) : '') + (where ? ', ' + esc(where) : '') + '</span>' +
     (y.neden ? '<span class="ytxt"><b>Neden:</b> ' + esc(y.neden) + '</span>' : '') +
     (y.cozum ? '<span class="ytxt muted"><b>Doğru çözüm:</b> ' + esc(y.cozum) + '</span>' : '') + '</span></button>';
@@ -3209,7 +3425,8 @@ function yanlisRow(y, t) {
     h += '<div>' + pill(r.durum, r.next != null && r.durum !== 'Bugün' ? relDay(r.next) : '') + '</div>';
   }
   if (y.sonDurum === 'Hâlâ zorlanıyorum') h += '<div>' + pill('Hâlâ zorlanıyorum') + '</div>';
-  if (r.next != null && r.next <= t) h += btn('tekrar-yaptim', 'Yaptım', 'sm primary', { kind: 'yanlis', id: y.id });
+  if (r.next != null && r.next <= t) h += '<div class="actions">' + btn('soru-gor', 'Soruyu gör', 'sm', { id: y.id }) + btn('tekrar-yaptim', 'Yaptım', 'sm primary', { kind: 'yanlis', id: y.id }) + '</div>';
+  else if ((y.fotoIds || []).length) h += btn('soru-gor', 'Soruyu gör', 'sm', { id: y.id });
   return h + '</div></li>';
 }
 ACT['yview'] = function (t) { UI.yView = t.dataset.v; render(); };
@@ -3323,8 +3540,8 @@ VIEWS.panel = function () {
   var first = null; S.kayitlar.forEach(function (k) { var d = dn(k.tarih); if (first == null || d < first) first = d; });
   var bas = st.baslangic ? dn(st.baslangic) : first, gunS = bas != null ? Math.max(1, t - bas + 1) : null;
   var h = head('Panel', 'Öğrencinin genel durumu. Bütün sayılar çalışma, deneme ve yanlış kayıtlarından otomatik hesaplanır.',
-    btn('pdf-ac', 'PDF rapor al', 'primary', null, 'download') + lockBtn());
-  if (!S.kayitlar.length && !S.denemeler.length) h += '<div class="banner info"><span class="grow">Henüz çalışma ya da deneme kaydı yok. Göstergeler, öğrenci kayıt girdikçe dolar. Bilgisayarda öğrencinin verilerini görmek için Kurulum › Yedek ve aktarım bölümünden yedek dosyasını yükleyin.</span></div>';
+    btn('pdf-ac', 'Raporlar ve PDF', 'primary', null, 'chart') + lockBtn());
+  if (!S.kayitlar.length && !S.denemeler.length) h += '<div class="banner info"><span class="grow">Henüz çalışma ya da deneme kaydı yok. Göstergeler, öğrenci kayıt girdikçe dolar' + (syncLinked() ? '; canlı eşitleme açık olduğu için iPad’de girilenler buraya kendiliğinden gelir.' : '. Bilgisayarda öğrencinin verilerini görmek için canlı eşitlemeyi açın ya da Kurulum › Yedek ve aktarım bölümünden yedek dosyasını yükleyin.') + '</span></div>';
   // LGS geri sayımı
   var g = lgsGeriSayim(S, t);
   if (!g) h += '<div class="banner warn"><span class="grow"><b>LGS tarihi girilmedi.</b> Geri sayım için Kurulum › Hedefler ve ayarlar bölümünden tarihi girin.</span>' + btn('go', 'Tarihi gir', 'sm', { v: 'kurulum', tab: 'hedef' }) + '</div>';
@@ -3342,13 +3559,14 @@ VIEWS.panel = function () {
   h += '<section class="panel"><h2>Hedefler</h2><div class="kv">' +
     statS('Bugünkü soru hedefi', bug.hedefeSayilan + ' / ' + num(st.gunSoru), oranTxt(bug.hedefeSayilan, num(st.gunSoru)), bug.hedefeSayilan >= num(st.gunSoru) && num(st.gunSoru) ? 1 : 0) +
     statS('Haftalık soru hedefi', haf.hedefeSayilan + ' / ' + num(st.hafSoru), oranTxt(haf.hedefeSayilan, num(st.hafSoru)), haf.hedefeSayilan >= num(st.hafSoru) && num(st.hafSoru) ? 1 : 0) +
-    statS('Bugünkü süre', fSure(bug.sure), 'hedef ' + fSure(st.gunSure) + ', ' + oranTxt(bug.sure, num(st.gunSure))) +
-    statS('Haftalık süre', fSure(haf.sure), 'hedef ' + fSure(st.hafSure) + ', ' + oranTxt(haf.sure, num(st.hafSure))) + '</div></section>';
+    statS('Bugünkü süre', fSure(bug.sure), 'hedef ' + fSure(st.gunSure) + ', ' + oranTxt(bug.sure, num(st.gunSure)) + (bug.mola ? ', mola ' + fSure(bug.mola) : '') + (bug.enUzun ? ', en uzun ' + bug.enUzun + ' dk kesintisiz' : '')) +
+    statS('Haftalık süre', fSure(haf.sure), 'hedef ' + fSure(st.hafSure) + ', ' + oranTxt(haf.sure, num(st.hafSure)) + (haf.mola ? ', mola ' + fSure(haf.mola) : '')) + '</div></section>';
   // genel istatistikler
   h += '<section class="panel"><h2>Genel çalışma istatistikleri <span class="muted small">soru çözümü; denemeler ayrı</span></h2><div class="kv">' +
     statS('Bugün çözülen', bug.soru + ' soru') + statS('Bu hafta', haf.soru + ' soru', fDateS(ws) + ' – ' + fDateS(ws + 6)) + statS('Bu ay', ay.soru + ' soru', AYLAR[dparts(t).m]) +
     statS('Toplam', all.soru + ' soru', '+ denemelerde ' + all.denemeSoru) + statS('Doğru / Yanlış / Boş', all.d + ' / ' + all.y + ' / ' + all.b, 'net ' + (all.soru ? fNet(all.net) : '—') + ', başarı ' + fPct(all.basari)) +
-    statS('Toplam süre', fSure(all.sure)) + statS('Günlük ortalama soru', gunS ? fN(all.soru / gunS, 1) : '—', gunS ? gunS + ' günlük takip' : '') +
+    statS('Toplam süre', fSure(all.sure), all.mola ? 'mola ' + fSure(all.mola) + ' (' + all.molaSayisi + ' kez)' : '') +
+    statS('Kesintisiz çalışma', all.sayacli ? 'ort. ' + Math.round(all.kesToplam / all.sayacli) + ' dk' : '—', all.sayacli ? 'en uzun ' + all.enUzun + ' dk, ' + all.sayacli + ' zamanlayıcılı oturum' : 'zamanlayıcıyla ölçülür') + statS('Günlük ortalama soru', gunS ? fN(all.soru / gunS, 1) : '—', gunS ? gunS + ' günlük takip' : '') +
     statS('Günlük ortalama süre', gunS ? fSure(all.sure / gunS) : '—') + statS('Tamamlanan görev', all.gorevTamam + ' / ' + all.gorevPlan, 'bugün ' + bug.gorevTamam + ' / ' + bug.gorevPlan) +
     statS('Okunan toplam sayfa', all.okunan, all.kitapBiten ? all.kitapBiten + ' kitap bitti' : '') + '</div></section>';
   // ders bazlı göstergeler
@@ -3438,25 +3656,34 @@ UI.pdfB = RAPOR_BOLUMLERI.map(function (b) { return b.k; });
 function rngDefault() { var t = today(); return { a: monthStart(t), b: t }; }
 function rngPresets(t) {
   var ws = weekStart(t), ms = monthStart(t), pm = addMonths(ms, -1), first = null;
-  S.kayitlar.concat(S.denemeler).forEach(function (k) { var d = dn(k.tarih); if (first == null || d < first) first = d; });
+  // "Tüm kayıtlar": çalışma, deneme, yanlış, okuma ve görevlerin hepsinin en eski tarihinden başlar
+  S.kayitlar.concat(S.denemeler, S.yanlislar, S.okumalar, S.gorevler).forEach(function (k) { var d = dn(k.tarih); if (isFinite(d) && d <= t && (first == null || d < first)) first = d; });
   return [['Bu hafta', ws, t], ['Geçen hafta', ws - 7, ws - 1], ['Bu ay', ms, t], ['Geçen ay', pm, ms - 1], ['Son 7 gün', t - 6, t], ['Son 30 gün', t - 29, t]]
     .concat(first != null ? [['Tüm kayıtlar', first, t]] : []);
 }
 function raporAralik() {
-  var t = today(); if (!UI.rng) UI.rng = rngDefault();
+  if (!UI.rng) UI.rng = rngDefault();
+  return rngUst() + '<div id="rng-govde">' + rngGovde() + '</div>';
+}
+/* Üst kısım (tarih alanları ve hazır aralıklar) yeniden çizilmez: yazarken odak ve yazılan kaybolmasın */
+function rngUst() {
   var a = UI.rng.a, b = UI.rng.b;
-  var h = '<section class="panel"><h2>Tarih aralığı</h2><div class="fields2" style="max-width:520px">' +
+  return '<section class="panel" id="rng-ust"><h2>Tarih aralığı</h2><div class="fields2" style="max-width:520px">' +
     field('Başlangıç', '<input type="date" class="input" data-pf="rng" data-k="a" value="' + ds(a) + '" max="' + todayStr() + '">') +
     field('Bitiş', '<input type="date" class="input" data-pf="rng" data-k="b" value="' + ds(b) + '" max="' + todayStr() + '">') + '</div>' +
-    '<div class="chips" style="margin-top:12px">' + rngPresets(t).map(function (p) {
+    '<div class="errors" id="rng-hata" role="alert"></div>' +
+    '<div class="chips" id="rng-hazir" style="margin-top:12px">' + rngPresets(today()).map(function (p) {
       return '<button class="chip" data-act="rng-set" data-a="' + p[1] + '" data-b="' + p[2] + '" aria-pressed="' + (a === p[1] && b === p[2]) + '">' + p[0] + '</button>'; }).join('') + '</div></section>';
+}
+function rngGovde() {
+  var t = today(), a = UI.rng.a, b = UI.rng.b, h = '';
   var R = rangeReport(S, a, b, t), o = R.ozet, gecen = Math.max(0, Math.min(R.b, t) - R.a + 1), hedef = num(S.settings.gunSoru) * gecen;
   h += '<section class="panel pdfbox"><h2>PDF raporu</h2><p style="margin-top:0">' + fDate(R.a) + ' – ' + fDate(R.b) + ' (' + R.gunSayisi + ' gün) arasındaki veriler PDF dosyasına dökülür. Özet sayfası her zaman vardır; diğer bölümleri seçin.</p>' +
     '<div class="chips">' + RAPOR_BOLUMLERI.map(function (x) { return '<button class="chip" data-act="pdf-bolum" data-v="' + x.k + '" aria-pressed="' + (UI.pdfB.indexOf(x.k) >= 0) + '">' + (UI.pdfB.indexOf(x.k) >= 0 ? '✓ ' : '') + esc(x.t) + '</button>'; }).join('') + '</div>' +
     '<div class="actions" style="margin-top:14px">' + btn('pdf-olustur', isIOS() ? 'PDF oluştur ve paylaş' : 'PDF oluştur ve indir', 'primary', null, isIOS() ? 'share' : 'download') + '</div>' +
     '<p class="hint">' + (isIOS() ? 'iPad’de paylaş menüsü açılır: Dosyalar’a kaydedebilir, WhatsApp ya da Posta ile gönderebilirsin.' : 'Dosya bilgisayarın İndirilenler klasörüne iner.') + '</p></section>';
   h += '<div class="kv" style="margin:16px 0">' + stat('Çözülen soru', o.soru, hedef ? 'hedef ' + hedef + ', ' + fPct(o.hedefeSayilan / hedef) : '') + stat('Doğru / Yanlış / Boş', o.d + ' / ' + o.y + ' / ' + o.b, 'başarı ' + fPct(o.basari)) +
-    stat('Net (soru çözümü)', o.soru ? fNet(o.net) : '—') + stat('Çalışma süresi', fSure(o.sure), gecen ? 'günde ort. ' + fSure(o.sure / gecen) : '') + stat('Çalışılan gün', R.aktifGun + ' / ' + R.gunSayisi) +
+    stat('Net (soru çözümü)', o.soru ? fNet(o.net) : '—') + stat('Çalışma süresi', fSure(o.sure), (gecen ? 'günde ort. ' + fSure(o.sure / gecen) : '') + (o.mola ? ', mola ' + fSure(o.mola) : '') + (o.enUzun ? ', en uzun ' + o.enUzun + ' dk kesintisiz' : '')) + stat('Çalışılan gün', R.aktifGun + ' / ' + R.gunSayisi) +
     stat('Deneme', o.denemeSayisi, o.genelOrt != null ? 'genel ort. ' + fNet(o.genelOrt) : '') + stat('Biten test / tur', o.testTamam + ' / ' + o.turTamam.length) + stat('Yanlış / tekrar', o.yanlis + ' / ' + o.tekrarYapilan) +
     stat('Okunan sayfa', o.okunan) + stat('Görev', o.gorevTamam + ' / ' + o.gorevPlan, 'biten / planlanan') + '</div>';
   var weekly = R.gunler.length > 62, items;
@@ -3477,45 +3704,67 @@ function raporAralik() {
     R.denemeler.map(function (x) { var n = denemeNetleri(x); return '<tr><td>' + fDateS(x.tarih) + '</td><td>' + esc(x.ad) + '<div class="tiny muted">' + esc(x.tur) + '</div></td>' + DERSLER.map(function (D) { return '<td class="r">' + (n.dersler[D.id] == null ? '<span class="muted">—</span>' : fNet(n.dersler[D.id])) + '</td>'; }).join('') + '<td class="r"><b>' + fNet(n.toplam) + '</b></td></tr>'; }).join('') + '</tbody></table></div></section>';
   return h;
 }
+function rngGuncelle() { // yalnızca seçilen aralığa bağlı kısımlar yenilenir
+  var a = UI.rng.a, b = UI.rng.b;
+  document.querySelectorAll('input[data-pf="rng"]').forEach(function (el) { var v = ds(el.dataset.k === 'a' ? a : b); if (el.value !== v && document.activeElement !== el) el.value = v; });
+  document.querySelectorAll('#rng-hazir [data-act="rng-set"]').forEach(function (c) { c.setAttribute('aria-pressed', String(Number(c.dataset.a) === a && Number(c.dataset.b) === b)); });
+  var g = document.getElementById('rng-govde');
+  if (g) { g.innerHTML = rngGovde(); drawCharts(g); } else render();
+}
+var rngT = null;
 PAGE_INPUT['rng'] = function (el) {
-  if (!el.value) return;
-  var v = dn(el.value); if (!isFinite(v)) return;
-  if (!UI.rng) UI.rng = rngDefault();
-  UI.rng[el.dataset.k] = Math.min(v, today());
-  if (UI.rng.a > UI.rng.b) { var x = UI.rng.a; UI.rng.a = UI.rng.b; UI.rng.b = x; }
-  render();
+  clearTimeout(rngT);
+  rngT = setTimeout(function () { // yazarken her tuşta değil, yazma bitince uygula
+    var box = document.getElementById('rng-hata'), say = function (m) { if (box) box.textContent = m; };
+    var v = el.value ? dn(el.value) : NaN, y = el.value ? Number(el.value.slice(0, 4)) : 0;
+    if (!isFinite(v) || y < 2020 || v > today()) return say(el.value && y >= 2020 && v > today() ? 'İleri bir tarih seçilemez.' : 'Geçerli bir tarih girin.');
+    var nx = { a: UI.rng.a, b: UI.rng.b }; nx[el.dataset.k] = v;
+    if (nx.a > nx.b) return say('Başlangıç tarihi bitişten sonra olamaz.');
+    say(''); UI.rng = nx; rngGuncelle();
+  }, 350);
 };
-ACT['rng-set'] = function (t) { UI.rng = { a: Number(t.dataset.a), b: Number(t.dataset.b) }; render(); };
-ACT['pdf-bolum'] = function (t) {
-  var k = t.dataset.v, i = UI.pdfB.indexOf(k);
+ACT['rng-set'] = function (t) {
+  UI.rng = { a: Number(t.dataset.a), b: Number(t.dataset.b) };
+  var box = document.getElementById('rng-hata'); if (box) box.textContent = '';
+  document.querySelectorAll('input[data-pf="rng"]').forEach(function (el) { el.value = ds(el.dataset.k === 'a' ? UI.rng.a : UI.rng.b); });
+  rngGuncelle();
+};
+ACT['pdf-bolum'] = function (t) { // yalnızca bu çipin durumu değişir
+  var k = t.dataset.v, i = UI.pdfB.indexOf(k), x = RAPOR_BOLUMLERI.find(function (r) { return r.k === k; });
   if (i >= 0) UI.pdfB.splice(i, 1); else UI.pdfB.push(k);
-  render();
+  var on = UI.pdfB.indexOf(k) >= 0;
+  t.setAttribute('aria-pressed', String(on)); t.textContent = (on ? '✓ ' : '') + (x ? x.t : k);
 };
-ACT['pdf-ac'] = function () { UI.raporTab = 'aralik'; go('rapor'); setTimeout(function () { var b = document.querySelector('.pdfbox'); if (b) b.scrollIntoView({ block: 'start' }); }, 50); };
-ACT['pdf-olustur'] = function () {
-  if (!UI.rng) UI.rng = rngDefault();
-  var a = UI.rng.a, b = UI.rng.b, name = 'LGS-rapor-' + ds(a) + '_' + ds(b) + '.pdf';
-  var fail = function (e) { console.error(e); showToast('PDF oluşturulamadı: ' + (e && e.message ? e.message : e)); };
-  var go_ = function (bytes) { return deliverFile(name, bytes, 'application/pdf').then(function (r) { if (r !== 'cancelled') showToast(r === 'shared' ? 'PDF paylaşıldı: ' + name : 'PDF indirildi: ' + name); }); };
-  var R;
-  try { R = rangeReport(S, a, b, today()); } catch (e) { return fail(e); }
-  showToast('PDF hazırlanıyor…');
+ACT['pdf-ac'] = function () { UI.raporTab = 'aralik'; go('rapor'); };
+/* PDF üretimi: seçilen aralık (ya da haftalık/aylık görünümdeki dönem) ve seçilen bölümler. Basılan düğme iş bitene kadar kilitlenir. */
+var PDF_MESGUL = false;
+function pdfUret(a, b, el) {
+  if (PDF_MESGUL) return;
+  var t = today(); b = Math.min(b, t);
+  var name = 'LGS-rapor-' + ds(a) + '_' + ds(b) + '.pdf', R;
+  var eski = el ? el.innerHTML : '';
+  var bitir = function () { PDF_MESGUL = false; if (el && document.body.contains(el)) { el.disabled = false; el.innerHTML = eski; } };
+  var fail = function (e) { bitir(); console.error(e); showToast('PDF oluşturulamadı: ' + (e && e.message ? e.message : e)); };
+  try { R = rangeReport(S, a, b, t); } catch (e) { return fail(e); }
+  PDF_MESGUL = true; if (el) { el.disabled = true; el.textContent = 'PDF hazırlanıyor…'; }
   var ready = function (bytes) {
-    if (!isIOS()) return go_(bytes);
+    bitir();
+    if (!isIOS()) return deliverFile(name, bytes, 'application/pdf').then(function (r) { if (r !== 'cancelled') showToast('PDF indirildi: ' + name); });
     // iPad'de paylaş menüsü yalnızca bir dokunuşla açılabilir: hazır PDF için ayrı bir "Paylaş" düğmesi gösterilir.
     openSheet({
       title: 'PDF hazır', pdf: { name: name, bytes: bytes },
-      body: function () { return '<p style="margin-top:0"><b>' + esc(name) + '</b></p><p class="muted" style="margin:0">' + fN(bytes.length / 1024, 0) + ' KB. Paylaş menüsünden Dosyalar’a kaydedebilir, WhatsApp ya da Posta ile gönderebilirsin.</p>'; },
+      body: function () { return '<p style="margin-top:0"><b>' + esc(name) + '</b></p><p class="muted" style="margin:0">' + fDate(a) + ' – ' + fDate(b) + ', ' + fN(bytes.length / 1024, 0) + ' KB. Paylaş menüsünden Dosyalar’a kaydedebilir, WhatsApp ya da Posta ile gönderebilirsin.</p>'; },
       foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Kapat</button><button class="btn primary" data-act="pdf-paylas">' + icon('share') + 'Paylaş</button>'; }
     });
   };
   try { buildReportPdfAsync(R, { bolumler: UI.pdfB.slice() }).then(ready, fail); } catch (e) { fail(e); }
-};
-
-ACT['pdf-paylas'] = function () {
-  if (!M || !M.pdf) return;
-  var f = M.pdf;
-  deliverFile(f.name, f.bytes, 'application/pdf').then(function (r) { if (r !== 'cancelled') { closeSheet(); showToast(r === 'shared' ? 'PDF paylaşıldı' : 'PDF indirildi: ' + f.name); } });
+}
+ACT['pdf-olustur'] = function (t) { if (!UI.rng) UI.rng = rngDefault(); pdfUret(UI.rng.a, UI.rng.b, t); };
+ACT['pdf-donem'] = function (t) { pdfUret(Number(t.dataset.a), Number(t.dataset.b), t); };
+ACT['pdf-paylas'] = function (t) {
+  if (!M || !M.pdf || t.disabled) return;
+  var f = M.pdf; t.disabled = true;
+  deliverFile(f.name, f.bytes, 'application/pdf').then(function (r) { t.disabled = false; if (r !== 'cancelled') { closeSheet(); showToast(r === 'shared' ? 'PDF paylaşıldı' : 'PDF indirildi: ' + f.name); } });
 };
 
 /* ---------- VERİ KONTROLÜ ---------- */
@@ -3610,11 +3859,12 @@ VIEWS.rehber = function () {
         'Firebase’in ücretsiz kotası (günde 50.000 okuma, 20.000 yazma, 1 GB alan) bu uygulama için fazlasıyla yeter.',
         'Eşitlemeyi durdurmak için Canlı eşitleme › Bağlantıyı kes. Cihazdaki veriler silinmez.'
       ])) +
-    sec('gun', 'Her gün ne yapacağım? (öğrenci)', ol([
+    sec('gun', 'Her gün ne yapacağım? (öğrenci)', '<p><b>Zamanlayıcıyla (önerilen):</b> Bugün › <b>Çalışmaya başla</b>. "Ne çalışıyorsun?" ekranında türü, dersi, kitabı, konuyu ve istersen testi seç, <b>Başlat</b>. Süre üstteki şeritte sayılır; başka ekranlara geçebilir, uygulamayı kapatabilirsin. ' +
+      'Mola verirken <b>Mola</b>, dönünce <b>Derse dön</b>: mola ayrı sayılır. Bitince <b>Bitir</b>: çalışma kaydı süre, mola, mola sayısı, masada en uzun kesintisiz süre ve seçtiklerinle dolu açılır; sen soru, doğru ve yanlış sayısını girip Kaydet dersin. Formu kapatırsan süre şeritte "Kaydedilmeyi bekliyor" diye kalır.</p><p><b>Elle girmek için:</b></p>' + ol([
       'Bugün › <b>Çalışma ekle</b>. Tarih bugündür; gerekirse değiştir.',
-      'Dersi seç, sonra <b>kitabı</b> ve <b>konuyu</b> seç. Kitabın o konudaki testleri düğme olarak çıkar; çözdüğün teste dokun. ✓ işaretli testler daha önce bitirilmiştir.',
+      'Dersi seç, sonra <b>kitabı</b> ve <b>konuyu</b> seç. Kitabın o konudaki testleri düğme olarak çıkar; çözdüğün testlere dokun. Birden fazla test seçersen her test için soru, doğru, yanlış ve "Bitirdim" satırı açılır; her test ayrı kaydedilir; süre bölünmez, oturumun toplamı olarak yazılır ve Çalışma listesinde testler tek satırda görünür. ✓ işaretli testler daha önce bitirilmiştir.',
       'Çözülen soru (testi seçince kendiliğinden gelir), doğru ve yanlış sayısını yaz. Boş, net ve başarı kendiliğinden hesaplanır. Doğru + yanlış, çözülen soruyu aşarsa kayıt yapılmaz.',
-      'Süreyi yaz ya da 15/30/45/60/90 dk düğmelerinden seç.',
+      'Süreyi yaz ya da 15/30/45/60/90 dk düğmelerinden seç. Zamanlayıcıyla çalıştıysan süreler kendiliğinden gelir ve değiştirilemez.',
       'Testi bitirdiysen <b>Bu testi bitirdim</b> kutusunu işaretle. Tur takibi bu işarete göre çalışır.',
       'Kaydet. Bir konunun o kitaptaki son testi bitince "Tur tamamlandı" bildirimi çıkar.',
       'Bugün ekranında tekrarı gelen yanlışları ve konuları çöz, <b>Yaptım</b>’a dokun.'
@@ -3639,6 +3889,9 @@ VIEWS.rehber = function () {
       '<p>Denemeler soru çözümü istatistiklerinden ayrı tutulur. Kurulum › Hedefler’de "Deneme sorularını soru hedefine say" açılırsa yalnızca hedef gerçekleşmesine eklenir.</p>') +
     sec('yanlis', 'Yanlışlar nasıl analiz edilir?', ul([
       '<b>Yanlışlar</b> › Yanlış ekle: ders, kitap, konu, test, soru numarası, <b>hata türü</b>, nedeni ve doğru çözüm notu. Aynı soru iki kez eklenemez.',
+      '<b>Fotoğraf çek ya da seç</b> ile sorunun fotoğrafını ekle (en fazla 3). Fotoğraf cihazda küçültülür; canlı eşitleme açıksa bilgisayara da gider. Tekrar günü geldiğinde <b>Soruyu gör</b> fotoğrafı açar; çözüm notun ve eski çizimin ilk anda gizlidir, önce soruyu yeniden çöz. Fotoğrafa dokununca tam ekran açılır.',
+      'Fotoğraftaki <b>kalem</b> simgesi çizim ekranını açar: tabletin kalemiyle ya da parmakla fotoğrafın üstünde çöz. Renk, kalın kalem, silgi, geri al ve temizle var. Kalem algılanınca avuç içi çizmez. Çizim fotoğrafın üstünde ayrı bir katmandır; fotoğraf bozulmaz, canlı eşitlemeyle bilgisayara da gider.',
+      'Kitap ve test seçince <b>Hangi soru?</b> bölümünde soru numaralarına dokunarak seç; ✓ işaretli sorular zaten kayıtlı.',
       'Tekrar günleri yanlışın tarihinden 1, 3, 7 ve 14 gün sonradır (Kurulum’dan değiştirilebilir). Her yanlışın yanındaki 4 daire tekrarları gösterir: dolu daire yapıldı, renkli halka sıradaki.',
       'Tekrarı yapınca <b>Yaptım</b>. Yanlışlıkla basıldıysa kayda dokunup "Yapılan tekrarlar" bölümünden tarihi düzeltin ya da silin.',
       'Son durum: Açık, Hâlâ zorlanıyorum ya da Öğrenildi. "Öğrenildi" kalan tekrarları kapatır.',
@@ -3656,14 +3909,15 @@ VIEWS.rehber = function () {
     ])) +
     sec('rapor', 'Panel, raporlar ve PDF', ul([
       '<b>LGS geri sayımı</b> menünün en üstünde, Bugün ekranında, Panel’de ve PDF raporda görünür: kalan gün, hafta ve hafta sonu sayısı. Son 100 günde rakam renklenir. Tarih Kurulum › Hedefler ve ayarlar’dan girilir; MEB resmî tarihi açıklayana kadar basında geçen tahmini tarih kullanılabilir ve "tahmini" diye işaretlenir.',
-      '<b>Panel</b>: sınav geri sayımı, hedef gerçekleşmeleri, genel istatistikler, ders bazlı göstergeler, konu ve kitap göstergeleri ve grafikler. Soru sayısı, net, başarı yüzdesi, tamamlanan tur, hedef gerçekleşmesi ve tekrar uyarıları ayrı kutulardadır.',
+      '<b>Panel</b>: sınav geri sayımı, hedef gerçekleşmeleri (süre kutularının altında mola süresi de yazar), genel istatistikler, ders bazlı göstergeler, konu ve kitap göstergeleri ve grafikler. Soru sayısı, net, başarı yüzdesi, tamamlanan tur, hedef gerçekleşmesi ve tekrar uyarıları ayrı kutulardadır.',
       '<b>Raporlar › Haftalık</b>: hafta Pazartesi başlar; oklarla önceki haftalara gidilir; önceki haftayla karşılaştırılır. Veri olmayan dönemde değişim gösterilmez.',
       '<b>Raporlar › Aylık</b>: ay toplamları, hata türleri, denemeler, konu ve kitap ilerlemesi, okuma ve önceki ayla karşılaştırma.',
-      '<b>Raporlar › Tarih aralığı</b>: istediğiniz iki tarih arasını seçin. "PDF oluştur" o aralıktaki günlük çözülen soruları, bütün çalışma kayıtlarını, denemeleri, yanlışları, turları, tekrarları, görevleri ve okumaları grafik ve tablolarla PDF dosyasına döker.',
+      '<b>Raporlar › Haftalık / Aylık</b>: "Bu haftanın PDF raporu" ve "Bu ayın PDF raporu" düğmeleri o an bakılan dönemin PDF’ini verir.',
+      '<b>Raporlar › Tarih aralığı</b>: tarihleri yazın ya da hazır aralıklardan birini seçin; "Tüm kayıtlar" en eski kayıttan başlar. Bölüm düğmeleri yalnızca PDF’e girecek bölümleri seçer. "PDF oluştur" o aralıktaki günlük çözülen soruları, bütün çalışma kayıtlarını, denemeleri, yanlışları, turları, tekrarları, görevleri ve okumaları grafik ve tablolarla PDF dosyasına döker.',
       'Excel’de açmak için Kurulum › Yedek ve aktarım › "Excel için dışa aktar" düğmeleri CSV dosyası verir.'
     ])) +
     sec('yedek', 'Yedek ve iki cihaz', '<p><b>Canlı eşitleme açıksa</b> dosya taşımaya gerek yoktur. Yine de ayda bir Kurulum › Yedek ve aktarım › "Yedeği indir" ile bilgisayara bir kopya almak iyi bir alışkanlıktır. ' +
-      'Canlı eşitleme açıkken yedekten geri yüklemek buluttaki ve diğer cihazdaki verileri de değiştirir.</p><p><b>Canlı eşitleme kullanmıyorsanız:</b></p>' + ol([
+      'Canlı eşitleme açıkken yedekten geri yüklemek buluttaki ve diğer cihazdaki verileri de değiştirir. Yanlış soru fotoğrafları yedek dosyasına girmez (dosya çok büyür); canlı eşitleme açıksa bulutta ve diğer cihazda durur.</p><p><b>Canlı eşitleme kullanmıyorsanız:</b></p>' + ol([
       'Öğrenci haftada bir <b>Yedeği gönder</b> der (Bugün ekranındaki uyarıda ya da Kurulum › Yedek ve aktarım’da). Dosya WhatsApp, Posta ya da AirDrop ile veliye gider.',
       'Veli bilgisayarda uygulamayı açar, Kurulum › Yedek ve aktarım › <b>Yedek dosyası seç</b>. Bilgisayardaki veriler öğrencinin son durumuyla değişir.',
       'Kurulumda değişiklik yaptıysanız <b>Kurulum dosyası oluştur</b> deyip dosyayı iPad’e gönderin; iPad’de "Kurulum dosyasını içe aktar". Öğrencinin kayıtlarına dokunulmaz.',
@@ -3861,6 +4115,7 @@ function syncLink(mode) { // gonder: bu cihazdaki her şey buluta; al: buluttaki
     if (mode === 'birlestir') delete SYNC.shadow['ayar/genel'];
   }
   saveOutbox();
+  if (typeof fotoOnLink === 'function') fotoOnLink(mode);
   syncListen();
 }
 /* Bağlanmadan önceki verilerin kopyası: seçim yanlış olursa dosya olarak geri alınabilsin */
@@ -3933,7 +4188,9 @@ function syncListen() {
       SYNC.listenRetryT = setTimeout(function () { if (SYNC.phase === 'hata' && SYNC.uid && syncLinked()) syncListen(); }, 30000);
     }));
   });
+  if (typeof fotoListen === 'function') SYNC.unsub.push(fotoListen(since.fotolar || 0));
   syncFlush();
+  if (typeof fotoFlush === 'function') fotoFlush();
 }
 function syncStop() { SYNC.unsub.forEach(function (f) { try { f(); } catch (e) { } }); SYNC.unsub = []; SYNC.ready = false; }
 function syncDisconnect(keepCfg) {
@@ -3948,12 +4205,13 @@ function syncDisconnect(keepCfg) {
   syncPaint(); render();
 }
 function syncDeviceName() { return isIOS() ? 'iPad' : (/Android/.test(navigator.userAgent) ? 'Android' : 'Bilgisayar'); }
-window.addEventListener('online', function () { if (SYNC.phase === 'hata' && SYNC.cfg) syncConnect(); else syncFlush(); syncPaint(); });
+window.addEventListener('online', function () { if (SYNC.phase === 'hata' && SYNC.cfg) syncConnect(); else { syncFlush(); if (typeof fotoFlush === 'function') fotoFlush(); } syncPaint(); });
 window.addEventListener('offline', function () { syncPaint(); });
 
 /* Durum */
+function syncPend() { return Object.keys(SYNC.outbox).length + (typeof fotoPending === 'function' ? fotoPending() : 0); }
 function syncState() {
-  var pend = Object.keys(SYNC.outbox).length, off = navigator.onLine === false;
+  var pend = syncPend(), off = navigator.onLine === false;
   if (!SYNC.cfg || !SYNC.cfg.config) return { k: 'kapali', t: 'Canlı eşitleme kapalı', s: '' };
   if (SYNC.phase === 'giris') return { k: 'uyari', t: 'Giriş gerekli', s: 'Kurulum › Canlı eşitleme' };
   if (SYNC.phase === 'secim') return { k: 'uyari', t: 'Seçim bekleniyor', s: '' };
@@ -3969,7 +4227,7 @@ function syncPaint() {
   var el = document.getElementById('rail-sync'); if (!el) return;
   var s = syncState();
   el.className = 'rail-sync ' + s.k; el.title = s.t + (s.s ? ': ' + s.s : '');
-  el.innerHTML = s.k === 'kapali' ? '' : '<i></i>' + (s.k === 'ok' ? 'Canlı' : (s.k === 'bekle' ? (Object.keys(SYNC.outbox).length ? Object.keys(SYNC.outbox).length + ' bekliyor' : 'Bağlanıyor') : (s.k === 'uyari' ? 'Giriş' : 'Sorun')));
+  el.innerHTML = s.k === 'kapali' ? '' : '<i></i>' + (s.k === 'ok' ? 'Canlı' : (s.k === 'bekle' ? (syncPend() ? syncPend() + ' bekliyor' : 'Bağlanıyor') : (s.k === 'uyari' ? 'Giriş' : 'Sorun')));
   var box = document.getElementById('sync-status'); if (box && UI.view === 'kurulum') box.innerHTML = syncStatusHtml();
   var sig = SYNC.phase + '|' + (SYNC.uid || '') + '|' + syncLinked();
   if (sig !== SYNC.paintSig) { // bağlantı aşaması değişince Canlı eşitleme ekranı yeniden çizilsin
@@ -4058,7 +4316,7 @@ function firebaseBackend() {
 /* ---------- Kurulum › Canlı eşitleme ---------- */
 UI.syncForm = { kod: '', email: '', pw: '' };
 function syncStatusHtml() {
-  var s = syncState(), pend = Object.keys(SYNC.outbox).length;
+  var s = syncState(), pend = syncPend();
   var cls = { ok: 'good', bekle: 'warn', uyari: 'warn', hata: 'bad', kapali: 'grey' }[s.k];
   return '<div class="banner ' + (s.k === 'ok' ? 'info' : (s.k === 'hata' ? 'warn' : 'info')) + '"><span class="pill ' + cls + '"><span class="g">' + (s.k === 'ok' ? '✓' : (s.k === 'hata' ? '!' : '•')) + '</span>' + esc(s.t) + '</span>' +
     '<span class="grow">' + esc(s.s) + '</span>' + (s.k === 'hata' && SYNC.uid ? btn('sync-yeniden', 'Yeniden dene', 'sm') : (pend && SYNC.ready ? btn('sync-flush', 'Şimdi gönder', 'sm') : '')) + '</div>';
@@ -4070,7 +4328,7 @@ function kurEsitle() {
     '<div id="sync-status">' + syncStatusHtml() + '</div>';
   if (c && c.config && SYNC.uid && syncLinked()) {
     h += '<div class="kv" style="margin:12px 0">' + stat('Hesap', '<span style="font-size:16px;line-height:1.3;word-break:break-all;display:block">' + esc(SYNC.email || c.email || '') + '</span>', 'Firebase projesi: ' + esc(c.config.projectId)) +
-      stat('Bekleyen değişiklik', Object.keys(SYNC.outbox).length, 'gönderilecek') + stat('Bağlandığı gün', c.linkedAt ? fDateS(c.linkedAt) : '—', syncDeviceName()) + '</div>' +
+      stat('Bekleyen değişiklik', syncPend(), 'gönderilecek') + stat('Bağlandığı gün', c.linkedAt ? fDateS(c.linkedAt) : '—', syncDeviceName()) + '</div>' +
       '<h3 style="font-size:16px;margin:18px 0 6px">Diğer cihazı bağlamak için</h3><p style="margin-top:0">Aşağıdaki eşleştirme kodunu diğer cihaza gönderin (WhatsApp, e-posta). Orada Kurulum › Canlı eşitleme bölümüne yapıştırıp aynı şifreyle bağlanın. Kod şifreyi içermez.</p>' +
       '<textarea class="input" readonly rows="3" style="font-size:13px;word-break:break-all" onclick="this.select()">' + esc(pairCode()) + '</textarea>' +
       '<div class="actions" style="margin-top:10px">' + btn('sync-kod-paylas', isIOS() ? 'Kodu gönder' : 'Kodu kopyala', 'sm', null, 'share') + btn('sync-kes', 'Bağlantıyı kes', 'sm danger') + '</div>' +
@@ -4095,7 +4353,7 @@ function kurEsitle() {
 }
 document.addEventListener('input', function (e) { var t = e.target; if (t.dataset && t.dataset.sf) UI.syncForm[t.dataset.sf] = t.value; });
 ACT['sync-unut'] = function () { syncDisconnect(false); };
-ACT['sync-flush'] = function () { SYNC.err = null; syncFlush(); };
+ACT['sync-flush'] = function () { SYNC.err = null; syncFlush(); if (typeof fotoFlush === 'function') fotoFlush(); };
 ACT['sync-yeniden'] = function () { // ör. Firestore kuralı yayınlandıktan sonra: şifre sormadan yeniden dene
   SYNC.err = null; showToast('Yeniden deneniyor…');
   if (!SYNC.uid || !SYNC.backend) return syncConnect();
@@ -4143,6 +4401,520 @@ ACT['sync-baglan'] = function () {
   }
 };
 
+/* ---- foto.js ---- */
+/* ===================== YANLIŞ SORU FOTOĞRAFLARI =====================
+   - Fotoğraf telefonda küçültülür (en uzun kenar 1600 piksel, JPEG), cihazda IndexedDB'de saklanır.
+     localStorage'a konmaz: orası 5 MB ile sınırlı ve ana verilere ayrılmış.
+   - Yanlış kaydı yalnızca fotoğrafların kimliklerini tutar (fotoIds).
+   - Canlı eşitleme açıksa her fotoğraf Firestore'da "fotolar" koleksiyonunda ayrı bir belgedir (ücretsiz kotanın içinde).
+   - Fotoğraflar yedek dosyasına girmez. */
+var FOTO_DBNAME = 'lgs-takip-foto', FOTO_OUT_KEY = 'lgs-takip-foto-outbox', FOTO_MAX = 3, FOTO_MAXLEN = 450000;
+var FOTO = { db: null, cache: {}, cacheKeys: [], out: {}, flushing: false, retryT: null, renderT: null };
+ICONS.camera = '<path d="M4 8.5h3l1.6-2.5h6.8L17 8.5h3v11H4z"/><circle cx="12" cy="13.5" r="3.6"/>';
+ICONS.image = '<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9.5" cy="10" r="1.6"/><path d="m5 17 4.5-4.5 3.5 3.5 2.5-2.5L19 17"/>';
+
+function fotoDb() {
+  if (FOTO.db) return FOTO.db;
+  FOTO.db = new Promise(function (res, rej) {
+    if (!window.indexedDB) return rej(new Error('Bu tarayıcı fotoğraf saklamayı desteklemiyor.'));
+    var r = indexedDB.open(FOTO_DBNAME, 1);
+    r.onupgradeneeded = function () { r.result.createObjectStore('f', { keyPath: 'id' }); };
+    r.onsuccess = function () { res(r.result); };
+    r.onerror = function () { rej(r.error); };
+  });
+  FOTO.db.catch(function () { FOTO.db = null; });
+  return FOTO.db;
+}
+function fotoReq(mode, fn) {
+  return fotoDb().then(function (db) {
+    return new Promise(function (res, rej) {
+      var tx = db.transaction('f', mode), req = fn(tx.objectStore('f'));
+      tx.oncomplete = function () { res(req ? req.result : undefined); };
+      tx.onerror = function () { rej(tx.error); };
+      tx.onabort = function () { rej(tx.error || new Error('İşlem yarıda kaldı')); };
+    });
+  });
+}
+function fotoCacheSet(id, rec) {
+  if (!rec) return;
+  if (!FOTO.cache[id]) { FOTO.cacheKeys.push(id); if (FOTO.cacheKeys.length > 24) delete FOTO.cache[FOTO.cacheKeys.shift()]; }
+  FOTO.cache[id] = rec;
+}
+function fotoGet(id) {
+  if (FOTO.cache[id]) return Promise.resolve(FOTO.cache[id]);
+  return fotoReq('readonly', function (st) { return st.get(id); }).then(function (r) { fotoCacheSet(id, r); return r || null; }, function () { return null; });
+}
+function fotoPut(rec) { fotoCacheSet(rec.id, rec); return fotoReq('readwrite', function (st) { return st.put(rec); }); }
+function fotoDel(id) { delete FOTO.cache[id]; return fotoReq('readwrite', function (st) { return st.delete(id); }).catch(function () { }); }
+function fotoAllIds() { return fotoReq('readonly', function (st) { return st.getAllKeys(); }).then(function (k) { return k || []; }, function () { return []; }); }
+function fotoClear() { FOTO.cache = {}; FOTO.cacheKeys = []; return fotoReq('readwrite', function (st) { return st.clear(); }).catch(function () { }); }
+
+/* Küçültme: okunurluk korunur, belge 1 MB sınırının çok altında kalır */
+function fotoSikistir(file) {
+  return new Promise(function (res, rej) {
+    var url = URL.createObjectURL(file), img = new Image();
+    img.onload = function () {
+      URL.revokeObjectURL(url);
+      var W = img.naturalWidth, H = img.naturalHeight;
+      if (!W || !H) return rej(new Error('Fotoğraf açılamadı.'));
+      var steps = [[1600, 0.72], [1400, 0.62], [1200, 0.55], [1000, 0.5], [800, 0.45]], out = null;
+      for (var i = 0; i < steps.length; i++) {
+        var s = Math.min(1, steps[i][0] / Math.max(W, H)), w = Math.round(W * s), h = Math.round(H * s);
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+        out = { img: c.toDataURL('image/jpeg', steps[i][1]), w: w, h: h };
+        c.width = c.height = 0; // iPad'de belleği hemen bırak
+        if (out.img.length <= FOTO_MAXLEN) break;
+      }
+      res(out);
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); rej(new Error('Bu dosya bir fotoğraf olarak açılamadı.')); };
+    img.src = url;
+  });
+}
+function pickImage() {
+  return new Promise(function (resolve) {
+    var inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.style.cssText = 'position:fixed;left:-9999px;opacity:0';
+    document.body.appendChild(inp);
+    inp.addEventListener('cancel', function () { inp.remove(); resolve(null); });
+    inp.onchange = function () { var f = inp.files && inp.files[0]; inp.remove(); resolve(f || null); };
+    inp.click();
+  });
+}
+
+/* Ekrandaki <img data-foto="..."> öğelerini doldur (çizimler eşzamanlı, depo eşzamansız) */
+function fotoHydrate(root) {
+  (root || document).querySelectorAll('img[data-foto]:not([data-ok])').forEach(function (el) {
+    el.setAttribute('data-ok', '1');
+    fotoGet(el.dataset.foto).then(function (r) {
+      if (r && r.img) {
+        el.src = r.img; var box = el.closest('.foto');
+        if (box) { box.classList.remove('yok'); var c = box.querySelector('img.foto-ciz'); if (c) { if (r.cizim) { c.src = r.cizim; box.classList.add('cizimli'); } else { c.removeAttribute('src'); box.classList.remove('cizimli'); } } }
+      }
+      else { el.removeAttribute('data-ok'); var b = el.closest('.foto'); if (b) b.classList.add('yok'); }
+    });
+  });
+}
+function fotoThumbs(ids, removable, cizimGizli) {
+  return (ids || []).map(function (id) {
+    return '<div class="foto yok' + (cizimGizli ? ' ciz-gizli' : '') + '"><img data-foto="' + esc(id) + '" alt="Soru fotoğrafı"><img class="foto-ciz" alt=""><span class="foto-yok">Fotoğraf bu cihaza henüz gelmedi</span>' +
+      '<button type="button" class="foto-ac" data-act="foto-buyut" data-id="' + esc(id) + '" aria-label="Fotoğrafı büyüt"></button>' +
+      '<button type="button" class="foto-kalem" data-act="foto-ciz" data-id="' + esc(id) + '" aria-label="Kalemle çöz">' + icon('pencil') + '</button>' +
+      (removable ? '<button type="button" class="foto-x" data-act="foto-kaldir" data-id="' + esc(id) + '" aria-label="Fotoğrafı kaldır">' + icon('x') + '</button>' : '') + '</div>';
+  }).join('');
+}
+
+/* ---------- yanlış formu ---------- */
+function fotoFormField(F) {
+  var ids = F.fotoIds || [];
+  return fieldDiv('Sorunun fotoğrafı <span class="muted">(isteğe bağlı)</span>', '<div class="fotos">' + fotoThumbs(ids, true) +
+    (ids.length < FOTO_MAX ? '<button type="button" class="foto-ekle" data-act="foto-ekle">' + icon('camera') + '<span>Fotoğraf çek<br>ya da seç</span></button>' : '') + '</div>',
+    'En fazla ' + FOTO_MAX + ' fotoğraf. Tekrar günü geldiğinde "Soruyu gör" ile açılır; çözüm notu ilk anda gizli kalır.');
+}
+ACT['foto-ekle'] = function () {
+  if (!M || !M.F) return;
+  var F = M.F;
+  pickImage().then(function (file) {
+    if (!file || !M || M.F !== F) return;
+    showToast('Fotoğraf hazırlanıyor…');
+    return fotoSikistir(file).then(function (o) {
+      var rec = { id: uid('ft'), yanlisId: F.id || F.newId, img: o.img, w: o.w, h: o.h, t: Date.now() };
+      return fotoPut(rec).then(function () {
+        F.fotoIds = (F.fotoIds || []).concat([rec.id]); F.yeniFoto[rec.id] = 1;
+        if (M && M.F === F) paintSheet();
+        showToast('Fotoğraf eklendi (' + Math.round(o.img.length * 0.75 / 1024) + ' KB)');
+      });
+    });
+  }).catch(function (e) { showToast((e && e.name === 'QuotaExceededError') ? 'Cihazda yer kalmadı; fotoğraf eklenemedi.' : ((e && e.message) || 'Fotoğraf eklenemedi.')); });
+};
+ACT['foto-kaldir'] = function (t) {
+  if (!M || !M.F) return;
+  var F = M.F, id = t.dataset.id;
+  F.fotoIds = (F.fotoIds || []).filter(function (x) { return x !== id; });
+  if (F.yeniFoto[id]) { delete F.yeniFoto[id]; fotoDel(id); } // kaydedilmemiş fotoğraf hemen silinir; kayıtlı olan "Kaydet" ile silinir
+  paintSheet();
+};
+/* Kaydet: yeni fotoğraflar buluta sıraya, çıkarılanlar silinir */
+function fotoKaydet(F, eskiIds) {
+  var simdi = F.fotoIds || [];
+  Object.keys(F.yeniFoto || {}).forEach(function (id) { if (simdi.indexOf(id) >= 0) fotoQueue(id, 'set'); });
+  (eskiIds || []).forEach(function (id) { if (simdi.indexOf(id) < 0) { fotoDel(id); fotoQueue(id, 'del'); } });
+  F.yeniFoto = {};
+}
+function fotoVazgec(F) { Object.keys(F.yeniFoto || {}).forEach(function (id) { fotoDel(id); }); F.yeniFoto = {}; }
+function fotoYanlisSilindi(rec) { (rec.fotoIds || []).forEach(function (id) { fotoDel(id); fotoQueue(id, 'del'); }); }
+
+/* ---------- soruyu gör ---------- */
+function openSoru(y) {
+  var acik = false;
+  openSheet({
+    title: 'Soruyu gör', wide: true,
+    body: function () {
+      var k = IX().konu[y.konuId], where = [kaynakAd(y.kaynakId), y.testId ? testAd(y.testId) : '', y.soruNo ? 'Soru ' + y.soruNo : ''].filter(function (x) { return x && x !== '—'; }).join(', ');
+      var h = '<p style="margin-top:0">' + dersDot(y.dersId) + ' <b>' + esc(konuAd(y.konuId)) + '</b>' + (where ? '<br><span class="muted">' + esc(where) + '</span>' : '') + '</p>';
+      h += (y.fotoIds && y.fotoIds.length) ? '<div class="fotos buyuk">' + fotoThumbs(y.fotoIds, false, !acik) + '</div>' : '<p class="hint">Bu yanlışta fotoğraf yok.</p>';
+      h += '<p class="hint">Önce soruyu yeniden çöz: fotoğraftaki kalem simgesine dokunup tabletin kalemiyle ekranda çözebilirsin. Sonra eski çözümüne ve notlarına bak.</p>';
+      h += acik ? (y.neden ? '<p><b>Neden yanlış yapmıştım:</b> ' + esc(y.neden) + '</p>' : '') + (y.cozum ? '<p><b>Doğru çözüm:</b> ' + esc(y.cozum) + '</p>' : '')
+        : '<button class="btn sm" data-act="soru-not">Eski çözümümü ve notlarımı göster</button>';
+      return h;
+    },
+    foot: function () {
+      var r = yanlisTekrar(S, y, today());
+      return '<button class="btn" data-act="yanlis-ac" data-id="' + y.id + '">Kaydı aç</button><span class="spacer"></span>' +
+        (r.next != null && r.next <= today() ? '<button class="btn primary" data-act="soru-yaptim" data-id="' + y.id + '">Yaptım</button>' : '<button class="btn" data-act="close-sheet">Kapat</button>');
+    },
+    acik: function () { acik = true; paintSheet(); }
+  });
+}
+ACT['soru-gor'] = function (t) { var y = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (y) openSoru(y); };
+ACT['soru-not'] = function () { if (M && M.acik) M.acik(); };
+ACT['soru-yaptim'] = function (t) { closeSheet(); ACT['tekrar-yaptim']({ dataset: { kind: 'yanlis', id: t.dataset.id } }); };
+ACT['foto-buyut'] = function (t) {
+  fotoGet(t.dataset.id).then(function (r) {
+    if (!r) return showToast('Fotoğraf bu cihaza henüz gelmedi.');
+    var el = document.createElement('div');
+    el.className = 'foto-tam'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Soru fotoğrafı');
+    el.innerHTML = '<div class="foto-tam-bar"><button class="btn sm" data-z="1">Yakınlaştır</button><span class="spacer"></span><button class="btn sm" data-x="1">Kapat</button></div><div class="foto-tam-in"><div class="foto-tam-kat"><img src="' + r.img + '" alt="Soru fotoğrafı">' +
+      (r.cizim && !(t.closest('.ciz-gizli')) ? '<img class="kat-ciz" src="' + r.cizim + '" alt="">' : '') + '</div></div>';
+    el.addEventListener('click', function (e) {
+      if (e.target.closest('[data-x]')) return el.remove();
+      var z = e.target.closest('[data-z]');
+      if (z) { var on = el.classList.toggle('zoom'); z.textContent = on ? 'Sığdır' : 'Yakınlaştır'; }
+    });
+    document.body.appendChild(el);
+  });
+};
+
+/* ---------- eşitleme ---------- */
+FOTO.out = (function () { try { return JSON.parse(localStorage.getItem(FOTO_OUT_KEY) || '{}') || {}; } catch (e) { return {}; } })();
+function fotoSaveOut() { try { localStorage.setItem(FOTO_OUT_KEY, JSON.stringify(FOTO.out)); } catch (e) { } }
+function fotoQueue(id, op) { FOTO.out[id] = op; fotoSaveOut(); fotoFlush(); }
+function fotoPending() { return Object.keys(FOTO.out).length; }
+function fotoFlush() {
+  if (typeof SYNC === 'undefined' || !SYNC.ready || !SYNC.backend || FOTO.flushing) return;
+  var ids = Object.keys(FOTO.out); if (!ids.length) return;
+  var id = ids[0], op = FOTO.out[id];
+  FOTO.flushing = true;
+  var done = function () {
+    if (FOTO.out[id] === op) delete FOTO.out[id];
+    fotoSaveOut(); FOTO.flushing = false; syncPaint(); fotoFlush();
+  };
+  var fail = function (e) {
+    FOTO.flushing = false; SYNC.err = syncErrText(e); syncPaint();
+    clearTimeout(FOTO.retryT); FOTO.retryT = setTimeout(fotoFlush, 20000);
+  };
+  if (op === 'del') { SYNC.backend.write([{ type: 'del', col: 'fotolar', id: id }]).then(done, fail); return; }
+  fotoGet(id).then(function (r) {
+    if (!r) { done(); return; } // fotoğraf artık yok
+    SYNC.backend.write([{ type: 'set', col: 'fotolar', id: id, data: { yanlisId: r.yanlisId || null, img: r.img, cizim: r.cizim || null, w: r.w || 0, h: r.h || 0, t: r.t || 0 } }]).then(done, fail);
+  });
+}
+/* Buluttan gelen fotoğraflar: S'ye değil, cihazdaki fotoğraf deposuna */
+function fotoListen(since) {
+  return SYNC.backend.listen('fotolar', since || 0, function (changes) {
+    if (!changes.length) return;
+    var maxU = 0, works = changes.map(function (ch) {
+      if (ch.u > maxU) maxU = ch.u;
+      if (FOTO.out[ch.id]) return Promise.resolve(); // bu cihazdaki bekleyen değişiklik öncelikli
+      if (ch.type === 'del' || !ch.data || !ch.data.img) return fotoDel(ch.id);
+      var nr = { id: ch.id, yanlisId: ch.data.yanlisId || null, img: ch.data.img, w: ch.data.w || 0, h: ch.data.h || 0, t: ch.data.t || 0 }; if (ch.data.cizim) nr.cizim = ch.data.cizim;
+      return fotoPut(nr);
+    });
+    Promise.all(works).then(function () {
+      if (maxU > (SYNC.sinceNext.fotolar || 0)) SYNC.sinceNext.fotolar = maxU;
+      clearTimeout(SYNC.renderT); SYNC.renderT = setTimeout(syncCommitRemote, 250);
+      clearTimeout(FOTO.renderT);
+      FOTO.renderT = setTimeout(function () { document.querySelectorAll('img[data-foto]').forEach(function (im) { im.removeAttribute('data-ok'); }); if (M) fotoHydrate(M.el); fotoHydrate(document.getElementById('main')); }, 200);
+    }, function () { });
+  }, function (e) { SYNC.err = syncErrText(e); syncPaint(); });
+}
+/* İlk bağlanışta bu cihazdaki fotoğraflar da buluta gitsin */
+function fotoOnLink(mode) {
+  if (mode === 'al') return;
+  fotoAllIds().then(function (ids) { ids.forEach(function (id) { if (!FOTO.out[id]) FOTO.out[id] = 'set'; }); fotoSaveOut(); fotoFlush(); });
+}
+
+/* ---------- kalemle çözüm (Apple Pencil / parmak) ----------
+   Çizim, fotoğrafla aynı boyutta saydam bir katmandır (PNG); fotoğrafın kendisi değişmez.
+   Kalem algılanınca avuç içi dokunuşları yok sayılır. */
+var CIZ_RENK = [{ v: '#1b2230', t: 'Siyah' }, { v: '#d4202c', t: 'Kırmızı' }, { v: '#1f5fd6', t: 'Mavi' }, { v: '#0a8a3a', t: 'Yeşil' }];
+ACT['foto-ciz'] = function (t) {
+  var id = t.dataset.id, F = M && M.F, yeni = !!(F && F.yeniFoto && F.yeniFoto[id]), temiz = !!t.closest('.ciz-gizli');
+  fotoGet(id).then(function (r) {
+    if (!r) return showToast('Fotoğraf bu cihaza henüz gelmedi.');
+    openCizim(r, function (cizim) {
+      var rec = Object.assign({}, r); if (cizim) rec.cizim = cizim; else delete rec.cizim;
+      return fotoPut(rec).then(function () {
+        if (!yeni) fotoQueue(id, 'set'); // kayıtlı fotoğrafın çizimi buluta gider; yeni fotoğraf yanlışla birlikte gider
+        document.querySelectorAll('img[data-foto="' + id + '"]').forEach(function (im) { im.removeAttribute('data-ok'); });
+        if (M) fotoHydrate(M.el); fotoHydrate(document.getElementById('main'));
+        showToast(cizim ? 'Çözüm kaydedildi' : 'Çizim silindi');
+      });
+    }, { temiz: temiz });
+  });
+};
+function openCizim(r, onSave, opt) {
+  opt = opt || {};
+  var W = r.w || 1200, H = r.h || 900, renk = CIZ_RENK[1].v, kal = 4, silgi = false, cizgiler = [], aktif = null, kalemVar = false, taban = null, degisti = false;
+  var el = document.createElement('div');
+  el.className = 'cizim'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Kalemle çöz');
+  el.innerHTML = '<div class="cizim-bar">' +
+    CIZ_RENK.map(function (c, i) { return '<button class="ciz-renk' + (i === 1 ? ' on' : '') + '" data-renk="' + c.v + '" aria-label="' + c.t + ' kalem" style="--c:' + c.v + '"><i></i></button>'; }).join('') +
+    '<button class="btn sm" data-kal="1" aria-pressed="false">Kalın</button><button class="btn sm" data-silgi="1" aria-pressed="false">Silgi</button>' +
+    '<button class="btn sm" data-geri="1">Geri al</button><button class="btn sm" data-temiz="1">Temizle</button><span class="spacer"></span>' +
+    '<button class="btn sm" data-iptal="1">Vazgeç</button><button class="btn sm primary" data-kaydet="1">Kaydet</button></div>' +
+    '<div class="cizim-alan"><div class="cizim-kat"><img src="' + r.img + '" alt="Soru fotoğrafı" draggable="false"><canvas></canvas></div></div>' +
+    '<div class="cizim-ipucu">Kalemle ya da parmakla yaz. Tabletin kalemi algılanınca avucun ekrana değse de çizmez.' + (opt.temiz && r.cizim ? ' Temiz sayfadan başlıyorsun; kaydedersen yeni çözümün eskisinin yerine geçer.' : '') + '</div>';
+  document.body.appendChild(el);
+  var cv = el.querySelector('canvas'), ctx = cv.getContext('2d'), kat = el.querySelector('.cizim-kat'), alan = el.querySelector('.cizim-alan');
+  cv.width = W; cv.height = H;
+  function yerlestir() { // fotoğrafı ekrana sığdır, katman aynı boyutta
+    var aw = alan.clientWidth - 16, ah = alan.clientHeight - 16, s = Math.min(aw / W, ah / H, 2);
+    kat.style.width = Math.round(W * s) + 'px'; kat.style.height = Math.round(H * s) + 'px';
+  }
+  yerlestir(); window.addEventListener('resize', yerlestir);
+  if (r.cizim && !opt.temiz) { taban = new Image(); taban.onload = ciz; taban.src = r.cizim; }
+  function cizgi(c) {
+    if (!c.p.length) return;
+    ctx.save(); ctx.globalCompositeOperation = c.silgi ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = c.renk; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    for (var i = 1; i < c.p.length; i++) {
+      var a = c.p[i - 1], b = c.p[i];
+      ctx.lineWidth = c.k * (c.silgi ? 6 : (0.55 + (b[2] || 0.5) * 0.9)) * (W / 1000);
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    }
+    if (c.p.length === 1) { ctx.fillStyle = c.renk; ctx.beginPath(); ctx.arc(c.p[0][0], c.p[0][1], c.k * W / 1600, 0, 7); ctx.fill(); }
+    ctx.restore();
+  }
+  function ciz() { ctx.clearRect(0, 0, W, H); if (taban && taban.complete) ctx.drawImage(taban, 0, 0, W, H); cizgiler.forEach(cizgi); }
+  function nokta(e) { var b = cv.getBoundingClientRect(); return [(e.clientX - b.left) * W / b.width, (e.clientY - b.top) * H / b.height, e.pressure || 0.5]; }
+  cv.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'pen') kalemVar = true;
+    if (e.pointerType === 'touch' && kalemVar) return; // avuç içi
+    if (aktif) return;
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    aktif = { id: e.pointerId, renk: renk, k: kal, silgi: silgi, p: [nokta(e)] }; cizgiler.push(aktif); degisti = true; ciz();
+  });
+  cv.addEventListener('pointermove', function (e) {
+    if (!aktif || e.pointerId !== aktif.id) return;
+    e.preventDefault();
+    var evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+    (evs.length ? evs : [e]).forEach(function (x) { aktif.p.push(nokta(x)); });
+    var n = aktif.p.length, son = { renk: aktif.renk, k: aktif.k, silgi: aktif.silgi, p: aktif.p.slice(Math.max(0, n - evs.length - 1)) };
+    if (aktif.silgi) ciz(); else cizgi(son);
+  });
+  var bitir = function (e) { if (aktif && e.pointerId === aktif.id) aktif = null; };
+  cv.addEventListener('pointerup', bitir); cv.addEventListener('pointercancel', bitir);
+  function kapat() { window.removeEventListener('resize', yerlestir); el.remove(); }
+  el.addEventListener('click', async function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.renk) { renk = b.dataset.renk; silgi = false; el.querySelectorAll('.ciz-renk').forEach(function (x) { x.classList.toggle('on', x === b); }); el.querySelector('[data-silgi]').setAttribute('aria-pressed', 'false'); }
+    else if (b.dataset.kal) { kal = kal === 4 ? 8 : 4; b.setAttribute('aria-pressed', String(kal === 8)); }
+    else if (b.dataset.silgi) { silgi = !silgi; b.setAttribute('aria-pressed', String(silgi)); el.querySelectorAll('.ciz-renk').forEach(function (x) { x.classList.toggle('on', !silgi && x.dataset.renk === renk); }); }
+    else if (b.dataset.geri) { if (cizgiler.length) { cizgiler.pop(); degisti = true; ciz(); } }
+    else if (b.dataset.temiz) { if (cizgiler.length || taban) { cizgiler = []; taban = null; degisti = true; ciz(); } }
+    else if (b.dataset.iptal) { if (!degisti || await askConfirm('Çizimdeki değişiklikler kaydedilmeden kapatılsın mı?', 'Kapat', true)) kapat(); }
+    else if (b.dataset.kaydet) {
+      var bos = !taban && !cizgiler.some(function (c) { return !c.silgi; });
+      var out = bos ? null : cv.toDataURL('image/png');
+      if (out && out.length + (r.img || '').length > 950000) { // bulut belgesi 1 MB'ı aşmasın: katmanı küçült (ekranda yine fotoğraf boyutunda görünür)
+        var k2 = document.createElement('canvas'), oran = 0.6; k2.width = Math.round(W * oran); k2.height = Math.round(H * oran);
+        k2.getContext('2d').drawImage(cv, 0, 0, k2.width, k2.height); out = k2.toDataURL('image/png');
+      }
+      Promise.resolve(onSave(out)).then(kapat, function (er) { showToast((er && er.message) || 'Çizim kaydedilemedi'); });
+    }
+  });
+}
+
+/* ---- timer.js ---- */
+/* ===================== ÇALIŞMA ZAMANLAYICISI =====================
+   "Ne çalışıyorsun?" ekranında tür, ders, kitap, konu ve test seçilir; Başlat ile çalışma süresi,
+   Mola ile mola süresi ayrı ayrı sayılır. Bitir deyince çalışma kaydı formu bu bilgilerle açılır:
+   kayıtta çalışma süresi, mola süresi, mola sayısı ve masada en uzun kesintisiz çalışma tutulur; Bugün, Çalışma,
+   Panel, Raporlar ve PDF bu bilgileri gösterir.
+   Durum bu cihazda tutulur (localStorage) ve zaman damgalarıyla hesaplanır: uygulama kapanıp
+   açılsa, iPad uykuya geçse de süre doğru kalır. */
+var SAYAC_KEY = 'lgs-takip-sayac';
+var SAYAC = { st: null, tick: null, audio: null };
+ICONS.clock = '<circle cx="12" cy="13" r="7.5"/><path d="M12 9v4l2.5 2"/><path d="M9.5 3h5"/>';
+ICONS.play = '<path d="M8 5.5v13l10-6.5z"/>';
+ICONS.cup = '<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 10.5h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8.5 3.5v2.5M12 3.5v2.5"/>';
+ICONS.stop = '<rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/>';
+
+function sayacLoad() { try { SAYAC.st = JSON.parse(localStorage.getItem(SAYAC_KEY) || 'null'); } catch (e) { SAYAC.st = null; } }
+function sayacSave() { try { if (SAYAC.st) localStorage.setItem(SAYAC_KEY, JSON.stringify(SAYAC.st)); else localStorage.removeItem(SAYAC_KEY); } catch (e) { } }
+function sayacSureler(st, now) { // { calis, mola } milisaniye
+  st = st || SAYAC.st; now = now || Date.now();
+  if (!st) return { calis: 0, mola: 0 };
+  var gec = st.modBas ? Math.max(0, now - st.modBas) : 0;
+  return { calis: (st.calisMs || 0) + (st.mod === 'calis' ? gec : 0), mola: (st.molaMs || 0) + (st.mod === 'mola' ? gec : 0) };
+}
+function sayacTxt(ms) {
+  var s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
+  return (h ? h + ':' + pad2(m) : pad2(m)) + ':' + pad2(ss);
+}
+function sayacDk(ms) { return Math.round(ms / 60000); }
+function sayacEnUzun(st, now) { // en uzun kesintisiz çalışma (ms): biten bloklar ve süren blok
+  st = st || SAYAC.st; if (!st) return 0;
+  var m = Math.max.apply(null, [0].concat(st.bloklar || []));
+  if (st.mod === 'calis' && st.modBas) m = Math.max(m, (now || Date.now()) - st.modBas);
+  return m;
+}
+function sayacKonuTxt(st) {
+  var p = [];
+  if (st.dersId && DERS[st.dersId]) p.push(DERS[st.dersId].kisa);
+  if (st.konuId) p.push(konuAd(st.konuId));
+  var tl = st.testIds || (st.testId ? [st.testId] : []);
+  if (tl.length === 1) p.push(testAd(tl[0])); else if (tl.length > 1) p.push(tl.map(testAd).join(', '));
+  return p.join(', ') || 'Karışık çalışma';
+}
+
+/* Her ekranın üstündeki şerit (render() çizer; saniyede bir yalnızca rakamlar değişir) */
+function sayacBar() {
+  var st = SAYAC.st; if (!st) return '';
+  var t = sayacSureler(), hedef = (st.hedef || 0) * 60000, doldu = hedef && t.calis >= hedef;
+  var h, cls = 'sayac' + (st.mod === 'calis' ? ' on' : '') + (st.mod === 'mola' ? ' mola' : '') + (st.mod === 'bitti' ? ' bekle' : '') + (doldu && st.mod === 'calis' ? ' doldu' : '');
+  h = '<div class="' + cls + '" id="sayac" role="region" aria-label="Çalışma zamanlayıcısı"><span class="sayac-ic">' + icon(st.mod === 'mola' ? 'cup' : 'clock') + '</span><span class="sayac-t">';
+  if (st.mod === 'bitti') {
+    h += '<b class="num">' + sayacDk(t.calis) + ' dk çalışma</b><small>' + (st.dersId ? dersDot(st.dersId) : '') + esc(sayacKonuTxt(st)) + ', ' + sayacDk(t.mola) + ' dk mola, en uzun ' + sayacDk(sayacEnUzun(st)) + ' dk kesintisiz. Kaydedilmeyi bekliyor.</small>';
+  } else if (st.mod === 'mola') {
+    h += '<b class="num" id="sayac-buyuk">' + sayacTxt(t.mola) + '</b><small>Moladasın. Çalışma <span class="num" id="sayac-kucuk">' + sayacTxt(t.calis) + '</span>, ' + esc(sayacKonuTxt(st)) + '</small>';
+  } else {
+    h += '<b class="num" id="sayac-buyuk">' + sayacTxt(t.calis) + '</b><small>' + (st.dersId ? dersDot(st.dersId) : '') + esc(sayacKonuTxt(st)) +
+      (t.mola ? ', mola <span class="num" id="sayac-kucuk">' + sayacTxt(t.mola) + '</span>' : '') + (hedef ? ', hedef ' + st.hedef + ' dk' : '') + '</small>';
+  }
+  h += '</span><span class="sayac-btns">';
+  if (st.mod === 'bitti') h += btn('sayac-kaydet', 'Kaydet', 'sm primary') + btn('sayac-at', 'Sil', 'sm ghost');
+  else if (st.mod === 'mola') h += btn('sayac-devam', 'Derse dön', 'sm primary', null, 'play') + btn('sayac-bitir', 'Bitir', 'sm', null, 'stop');
+  else h += btn('sayac-mola', 'Mola', 'sm', null, 'cup') + btn('sayac-bitir', 'Bitir', 'sm primary', null, 'stop');
+  return h + '</span></div>';
+}
+function sayacTickStart() {
+  clearInterval(SAYAC.tick);
+  var st = SAYAC.st; if (!st || st.mod === 'bitti') return;
+  SAYAC.tick = setInterval(function () {
+    var s = SAYAC.st; if (!s || s.mod === 'bitti') return;
+    var t = sayacSureler(), b = document.getElementById('sayac-buyuk'), k = document.getElementById('sayac-kucuk');
+    if (b) b.textContent = sayacTxt(s.mod === 'mola' ? t.mola : t.calis);
+    if (k) k.textContent = sayacTxt(s.mod === 'mola' ? t.calis : t.mola);
+    var hedef = (s.hedef || 0) * 60000;
+    if (hedef && s.mod === 'calis' && t.calis >= hedef && !s.zil) {
+      s.zil = true; sayacSave(); sayacZil();
+      var bar = document.getElementById('sayac'); if (bar) bar.classList.add('doldu');
+      showToast(s.hedef + ' dakikalık hedef doldu. İstersen mola ver ya da Bitir.', true);
+    }
+  }, 1000);
+}
+function sayacZil() { // hedef dolunca kısa bir ses (uygulama açıksa)
+  try {
+    var a = SAYAC.audio; if (!a) return;
+    if (a.state === 'suspended') a.resume();
+    [0, 0.35, 0.7].forEach(function (t0) {
+      var o = a.createOscillator(), g = a.createGain();
+      o.frequency.value = 880; o.connect(g); g.connect(a.destination);
+      g.gain.setValueAtTime(0.0001, a.currentTime + t0); g.gain.exponentialRampToValueAtTime(0.25, a.currentTime + t0 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + t0 + 0.25);
+      o.start(a.currentTime + t0); o.stop(a.currentTime + t0 + 0.3);
+    });
+  } catch (e) { }
+}
+function sayacSesHazirla() { // iPad ses çalmak için dokunuş ister: Başlat'a basılınca hazırlanır
+  try { var C = window.AudioContext || window.webkitAudioContext; if (C && !SAYAC.audio) SAYAC.audio = new C(); if (SAYAC.audio && SAYAC.audio.state === 'suspended') SAYAC.audio.resume(); } catch (e) { }
+}
+function sayacRefresh() { render(); }
+function sayacModa(mod) { // çalışma ↔ mola geçişi: geçen süre ilgili hesaba yazılır
+  var st = SAYAC.st, now = Date.now(); if (!st) return;
+  var t = sayacSureler(st, now);
+  if (st.mod === 'calis' && st.modBas) st.bloklar = (st.bloklar || []).concat([now - st.modBas]); // biten kesintisiz blok
+  st.calisMs = t.calis; st.molaMs = t.mola; st.mod = mod; st.modBas = mod === 'bitti' ? null : now;
+  if (mod === 'mola') st.molaSayisi = (st.molaSayisi || 0) + 1;
+  sayacSave();
+}
+
+/* "Ne çalışıyorsun?" */
+function openSayacBasla() {
+  var F = { tur: 'Soru çözümü', dersId: UI.last.dersId || '', kaynakId: '', konuId: '', testIds: [], hedef: '0' };
+  openSheet({
+    title: 'Ne çalışıyorsun?', F: F,
+    body: function () {
+      var h = fieldDiv('Çalışma türü', chipsHtml('tur', CALISMA_TURLERI.filter(function (t) { return t !== 'Deneme analizi'; }).map(function (t) { return { v: t, t: t }; }), F.tur));
+      h += fieldDiv('Ders', dersChips('dersId', F.dersId));
+      if (F.dersId) {
+        var kay = kaynaklarOf(S, F.dersId).map(function (k) { return { v: k.id, t: k.ad }; });
+        h += '<div class="fields2">' + fieldDiv('Kitap', selectHtml('kaynakId', kay, F.kaynakId, kay.length ? 'Kitapsız çalışacağım' : 'Bu derste kitap tanımlı değil')) +
+          fieldDiv('Konu', konuSelect('konuId', F.dersId, F.kaynakId, F.konuId)) + '</div>';
+        if (F.konuId && F.kaynakId) {
+          var plan = IX().planByKey[F.kaynakId + '|' + F.konuId];
+          if (plan) h += fieldDiv('Testler (isteğe bağlı)', testChips(F, plan.id, testStatus(S).done), 'Bu oturumda çözeceğin testlerin hepsini seçebilirsin. ✓ işaretli testler daha önce bitirildi.');
+        }
+      }
+      h += fieldDiv('Hedef süre', chipsHtml('hedef', [{ v: '0', t: 'Serbest' }, { v: '25', t: '25 dk' }, { v: '40', t: '40 dk' }, { v: '60', t: '60 dk' }, { v: '90', t: '90 dk' }], F.hedef),
+        'Hedef dolunca uygulama açıksa kısa bir ses çalar; süre durmaz.');
+      h += '<p class="hint">Mola verirken "Mola"ya bas; mola süresi ayrı sayılır. Bitirince süreler çalışma kaydına yazılır, sen yalnızca soru, doğru ve yanlış sayısını girersin. Uygulamayı kapatsan da süre kaybolmaz.</p>';
+      return h + '<div class="errors" role="alert"></div>';
+    },
+    foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="sayac-basla">' + icon('play') + 'Başlat</button>'; },
+    onInput: function (k, v) {
+      if (k === 'dersId') { F.dersId = v; F.kaynakId = F.konuId = ''; F.testIds = []; paintSheet(); return; }
+      if (k === 'kaynakId' || k === 'konuId') { F[k] = v; F.testIds = []; paintSheet(); return; }
+      if (k === 'testId') { var i = F.testIds.indexOf(v); if (i >= 0) F.testIds.splice(i, 1); else F.testIds.push(v); F.testIds.sort(function (a, b) { return ((IX().test[a] || {}).sira || 0) - ((IX().test[b] || {}).sira || 0); }); paintSheet(); return; }
+      F[k] = v; paintChipState(k, v);
+    }
+  });
+}
+ACT['sayac-ac'] = function () {
+  if (SAYAC.st) { showToast('Zamanlayıcı zaten açık; üstteki şeritten yönet.'); return; }
+  openSayacBasla();
+};
+ACT['sayac-basla'] = function () {
+  var F = M && M.F; if (!F) return;
+  if (!F.dersId) return sheetErrors(['Hangi derse çalışacağını seç.']);
+  sayacSesHazirla();
+  var now = Date.now();
+  SAYAC.st = { tur: F.tur, dersId: F.dersId, kaynakId: F.kaynakId || '', konuId: F.konuId || '', testIds: (F.testIds || []).slice(), hedef: Number(F.hedef) || 0,
+    mod: 'calis', modBas: now, calisMs: 0, molaMs: 0, molaSayisi: 0, bloklar: [], basladi: now, tarih: todayStr() };
+  UI.last = { dersId: F.dersId };
+  sayacSave(); closeSheet(); sayacRefresh();
+  showToast('Başladı: ' + sayacKonuTxt(SAYAC.st) + '. İyi çalışmalar!');
+};
+ACT['sayac-mola'] = function () { if (!SAYAC.st || SAYAC.st.mod !== 'calis') return; sayacModa('mola'); sayacRefresh(); showToast('Mola başladı. Dönünce "Derse dön"e bas.'); };
+ACT['sayac-devam'] = function () { if (!SAYAC.st || SAYAC.st.mod !== 'mola') return; sayacSesHazirla(); sayacModa('calis'); sayacRefresh(); };
+ACT['sayac-bitir'] = async function () {
+  var st = SAYAC.st; if (!st) return;
+  var t = sayacSureler();
+  if (t.calis < 60000) {
+    if (!(await askConfirm('Çalışma bir dakikadan kısa sürdü. Zamanlayıcı kaydetmeden kapatılsın mı?', 'Kapat'))) return;
+    SAYAC.st = null; sayacSave(); sayacRefresh(); return;
+  }
+  if (t.calis + t.mola > 6 * 3600000 && !(await askConfirm('Toplam ' + sayacTxt(t.calis + t.mola) + ' görünüyor; zamanlayıcı açık unutulmuş olabilir. Bu sürelerle devam edilsin mi? (Formda değiştirebilirsin.)', 'Devam'))) return;
+  sayacModa('bitti'); sayacRefresh();
+  sayacKayitAc();
+};
+function sayacKayitAc() {
+  var st = SAYAC.st; if (!st) return;
+  var t = sayacSureler();
+  openKayit(null, {
+    tur: st.tur || 'Soru çözümü', dersId: st.dersId || '', kaynakId: st.kaynakId || '', konuId: st.konuId || '',
+    testIds: (st.testIds || (st.testId ? [st.testId] : [])).filter(function (id) { return IX().test[id]; }), sure: String(Math.min(1440, Math.max(1, sayacDk(t.calis)))), mola: String(Math.min(1440, sayacDk(t.mola))),
+    molaSayisi: st.molaSayisi || 0, kesintisiz: String(Math.max(1, sayacDk(sayacEnUzun(st)))),
+    tarih: st.tarih && st.tarih <= todayStr() ? st.tarih : todayStr(), sayac: true
+  });
+}
+ACT['sayac-kaydet'] = function () { sayacKayitAc(); };
+ACT['sayac-at'] = async function () {
+  var t = sayacSureler();
+  if (!(await askConfirm('Zamanlayıcıdaki ' + sayacDk(t.calis) + ' dk çalışma ve ' + sayacDk(t.mola) + ' dk mola kaydedilmeden silinsin mi?', 'Sil', true))) return;
+  SAYAC.st = null; sayacSave(); sayacRefresh();
+};
+/* Kayıt kaydedilince zamanlayıcı kapanır (kayit-kaydet çağırır) */
+function sayacKayitKaydedildi() { if (SAYAC.st && SAYAC.st.mod === 'bitti') { SAYAC.st = null; sayacSave(); clearInterval(SAYAC.tick); } }
+
+sayacLoad();
+document.addEventListener('visibilitychange', function () { if (!document.hidden && SAYAC.st && SAYAC.st.mod !== 'bitti') { var b = document.getElementById('sayac'); if (b) render(); } });
+window.addEventListener('storage', function (e) { if (e.key === SAYAC_KEY) { sayacLoad(); render(); } });
+
 /* ---- ui-views2.js ---- */
 /* ===================== EKRANLAR (2): RAPORLAR VE KURULUM ===================== */
 function delta(cur, prev, curHas, prevHas, dec, isPct, fmt, neutral) {
@@ -4177,7 +4949,7 @@ function turList(arr, emptyText) {
 }
 
 VIEWS.rapor = function () {
-  var h = head('Raporlar', 'Hafta Pazartesi başlar. Önceki dönemde ya da bu dönemde veri yoksa değişim gösterilmez.', btn('pdf-ac', 'PDF rapor al', 'primary', null, 'download') + lockBtn());
+  var h = head('Raporlar', 'Hafta Pazartesi başlar. Önceki dönemde ya da bu dönemde veri yoksa değişim gösterilmez.', lockBtn());
   h += '<div class="tabs" role="tablist">' + [['hafta', 'Haftalık'], ['ay', 'Aylık'], ['aralik', 'Tarih aralığı ve PDF']].map(function (x) {
     return '<button role="tab" aria-selected="' + (UI.raporTab === x[0]) + '" data-act="rtab" data-v="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
   var t = today(), st = S.settings;
@@ -4186,14 +4958,15 @@ VIEWS.rapor = function () {
     var cur = periodStats(S, a, b, t), prev = periodStats(S, a - 7, a - 1, t);
     h += '<div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px"><button class="icon-btn" data-act="hafta" data-d="-1" aria-label="Önceki hafta">' + icon('left') + '</button>' +
       '<div style="text-align:center"><b>' + fDate(a) + ' – ' + fDate(b) + '</b><div class="small muted">' + (UI.haftaOff === 0 ? 'Bu hafta' : (UI.haftaOff === -1 ? 'Geçen hafta' : Math.abs(UI.haftaOff) + ' hafta önce')) + '</div></div>' +
-      '<button class="icon-btn" data-act="hafta" data-d="1" aria-label="Sonraki hafta"' + (UI.haftaOff >= 0 ? ' disabled' : '') + '>' + icon('right') + '</button></div>';
+      '<button class="icon-btn" data-act="hafta" data-d="1" aria-label="Sonraki hafta"' + (UI.haftaOff >= 0 ? ' disabled' : '') + '>' + icon('right') + '</button></div>' +
+      '<div class="actions" style="margin:-4px 0 16px;justify-content:flex-end">' + btn('pdf-donem', 'Bu haftanın PDF raporu', 'sm', { a: a, b: b }, 'download') + '</div>';
     if (!cur.veriVar) h += '<div class="banner info"><span class="grow">Bu hafta için kayıt yok.</span></div>';
     var gun = Math.min(7, Math.max(1, Math.min(b, t) - a + 1));
     h += '<div class="kv" style="margin-bottom:16px">' +
       stat('Çözülen soru', cur.soru, 'önceki hafta ' + prev.soru, cur.veriVar && prev.veriVar ? cur.soru - prev.soru : 0) +
       stat('Hedef gerçekleşme', num(st.hafSoru) ? fPct(cur.hedefeSayilan / num(st.hafSoru)) : '—', cur.hedefeSayilan + ' / ' + num(st.hafSoru) + ' soru') +
       stat('Net (soru çözümü)', cur.soru ? fNet(cur.net) : '—', 'başarı ' + fPct(cur.basari)) +
-      stat('Çalışma süresi', fSure(cur.sure), 'hedef ' + fSure(st.hafSure)) +
+      stat('Çalışma süresi', fSure(cur.sure), 'hedef ' + fSure(st.hafSure) + (cur.mola ? ', mola ' + fSure(cur.mola) : '') + (cur.sayacli ? ', kesintisiz ort. ' + Math.round(cur.kesToplam / cur.sayacli) + ' dk' : '')) +
       stat('Günlük ortalama', fN(cur.soru / gun, 1) + ' soru', cur.gunSayisi + ' gün kayıt girildi') + '</div>';
     var tekrarKonu = memo('konuStats', function () { return konuStats(S, t); }).filter(function (k) { return k.bekleyen > 0; }).sort(function (x, y) { return y.bekleyen - x.bekleyen; });
     h += '<div class="grid2"><section class="panel"><h2>Günlere göre</h2>' + chartSlot('r-hafta', { type: 'col', h: 220, target: num(st.gunSoru), targetLabel: 'Günlük hedef ' + num(st.gunSoru),
@@ -4212,13 +4985,14 @@ VIEWS.rapor = function () {
     var mp = dparts(ma);
     h += '<div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px"><button class="icon-btn" data-act="ay" data-d="-1" aria-label="Önceki ay">' + icon('left') + '</button>' +
       '<div style="text-align:center"><b>' + AYLAR[mp.m] + ' ' + mp.y + '</b><div class="small muted">' + (UI.ayOff === 0 ? 'Bu ay, ' + gunC + '. gün' : '') + '</div></div>' +
-      '<button class="icon-btn" data-act="ay" data-d="1" aria-label="Sonraki ay"' + (UI.ayOff >= 0 ? ' disabled' : '') + '>' + icon('right') + '</button></div>';
+      '<button class="icon-btn" data-act="ay" data-d="1" aria-label="Sonraki ay"' + (UI.ayOff >= 0 ? ' disabled' : '') + '>' + icon('right') + '</button></div>' +
+      '<div class="actions" style="margin:-4px 0 16px;justify-content:flex-end">' + btn('pdf-donem', 'Bu ayın PDF raporu', 'sm', { a: ma, b: mb }, 'download') + '</div>';
     if (!c.veriVar) h += '<div class="banner info"><span class="grow">Bu ay için kayıt yok.</span></div>';
     var hedefSoru = num(st.gunSoru) * gunC, hedefSure = num(st.gunSure) * gunC, hedefOk = num(st.gunOkuma) * gunC;
     h += '<div class="kv" style="margin-bottom:16px">' +
       stat('Çözülen soru', c.soru, 'önceki ay ' + p.soru, c.veriVar && p.veriVar ? c.soru - p.soru : 0) +
       stat('Soru hedefi', hedefSoru ? fPct(c.hedefeSayilan / hedefSoru) : '—', c.hedefeSayilan + ' / ' + hedefSoru + (UI.ayOff === 0 ? ' (bugüne kadar)' : '')) +
-      stat('Süre hedefi', hedefSure ? fPct(c.sure / hedefSure) : '—', fSure(c.sure)) +
+      stat('Süre hedefi', hedefSure ? fPct(c.sure / hedefSure) : '—', fSure(c.sure) + (c.mola ? ', mola ' + fSure(c.mola) : '')) +
       stat('Okuma hedefi', hedefOk ? fPct(c.okunan / hedefOk) : '—', c.okunan + ' sayfa') +
       stat('Deneme ortalaması', c.genelOrt != null ? fNet(c.genelOrt) : '—', c.genelNetler.length + ' genel deneme', c.genelOrt != null && p.genelOrt != null ? c.genelOrt - p.genelOrt : 0) + '</div>';
     var hk = HATA_TURLERI.filter(function (k) { return c.hata[k]; });
@@ -4486,9 +5260,9 @@ function csvNum(v, dec) { return v == null ? '' : Number(v).toFixed(dec || 0).re
 ACT['csv'] = function (t) {
   var k = t.dataset.k, rows = [];
   if (k === 'kayit') {
-    rows.push(['Tarih', 'Ders', 'Konu', 'Kitap', 'Test', 'Çalışma türü', 'Çözülen', 'Doğru', 'Yanlış', 'Boş', 'Net', 'Süre (dk)', 'Test bitti', 'Not']);
+    rows.push(['Tarih', 'Ders', 'Konu', 'Kitap', 'Test', 'Çalışma türü', 'Çözülen', 'Doğru', 'Yanlış', 'Boş', 'Net', 'Süre (dk)', 'Mola (dk)', 'Mola sayısı', 'En uzun kesintisiz (dk)', 'Test bitti', 'Not']);
     S.kayitlar.slice().sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); }).forEach(function (r) {
-      rows.push([r.tarih, DERS[r.dersId].ad, konuAd(r.konuId), kaynakAd(r.kaynakId), testAd(r.testId), r.tur, r.soru, r.d, r.y, r.b, csvNum(net(r.d, r.y), 2), r.sure, r.bitti ? 'Evet' : '', r.not || '']);
+      rows.push([r.tarih, DERS[r.dersId].ad, konuAd(r.konuId), kaynakAd(r.kaynakId), testAd(r.testId), r.tur, r.soru, r.d, r.y, r.b, csvNum(net(r.d, r.y), 2), r.sure, r.mola || '', r.molaSayisi || '', r.kesintisiz || '', r.bitti ? 'Evet' : '', r.not || '']);
     });
   } else if (k === 'deneme') {
     rows.push(['Tarih', 'Deneme', 'Tür'].concat([].concat.apply([], DERSLER.map(function (D) { return [D.kisa + ' D', D.kisa + ' Y', D.kisa + ' B', D.kisa + ' Net']; }))).concat(['Toplam net']));
@@ -4512,6 +5286,7 @@ ACT['csv'] = function (t) {
 ACT['hepsini-sil'] = async function () {
   if (!(await askConfirm('Bu cihazdaki TÜM veriler silinecek' + (syncLinked() ? '; canlı eşitleme açık olduğu için buluttaki ve diğer cihazdaki veriler de silinir. Yalnızca bu cihazı temizlemek istiyorsan önce Canlı eşitleme › Bağlantıyı kes' : '') + '. Önce yedek aldığından emin ol. Devam edilsin mi?', 'Devam', true))) return;
   if (!(await askConfirm('Son kez soruyorum: her şey silinsin mi? Bu işlem geri alınamaz.', 'Her şeyi sil', true))) return;
+  if (typeof fotoAllIds === 'function') fotoAllIds().then(function (ids) { ids.forEach(function (id) { FOTO.out[id] = 'del'; }); fotoSaveOut(); return fotoClear(); }).then(function () { fotoFlush(); });
   S = newState(); save(); showToast('Tüm veriler silindi');
 };
 
