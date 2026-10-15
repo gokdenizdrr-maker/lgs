@@ -462,8 +462,8 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.4.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.4.0';
+/* LGS Takip, sürüm 1.4.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.4.1';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -1553,8 +1553,8 @@ function pdfTable(doc, cols, rows, o) {
   });
   doc.y += o.after == null ? 14 : o.after;
 }
-function pdfSection(doc, title, sub) {
-  doc.ensure(70);
+function pdfSection(doc, title, sub, need) {
+  doc.ensure(need || 110);
   doc.y += 6;
   doc.text(title, doc.M.l, doc.y + 12, { f: 'B', s: 13, c: PC.ink });
   if (sub) doc.text(sub, doc.M.l + doc.cw(), doc.y + 12, { s: 8, c: PC.mute, align: 'right', maxW: doc.cw() * 0.5 });
@@ -1576,8 +1576,9 @@ function pdfKpis(doc, items, perRow) {
       var x = doc.M.l + j * (w + gap);
       doc.rrect(x, doc.y, w, h, 6, { fill: PC.soft, stroke: PC.line, lw: 0.5 });
       doc.text(it[0], x + 8, doc.y + 14, { s: 7.5, c: PC.mute, maxW: w - 16 });
-      doc.text(it[1], x + 8, doc.y + 33, { f: 'B', s: 14, c: PC.ink, maxW: w - 16 });
-      if (it[2]) doc.text(it[2], x + 8, doc.y + 46, { s: 7, c: it[3] || PC.mute, maxW: w - 16 });
+      var vs = 14; while (vs > 9 && doc.width(String(it[1]), 'B', vs) > w - 16) vs -= 0.5;
+      doc.text(it[1], x + 8, doc.y + 33, { f: 'B', s: vs, c: PC.ink, maxW: w - 16 });
+      if (it[2]) { var ss = 7; while (ss > 5.5 && doc.width(String(it[2]), 'R', ss) > w - 16) ss -= 0.25; doc.text(it[2], x + 8, doc.y + 46, { s: ss, c: it[3] || PC.mute, maxW: w - 16 }); }
     });
     doc.y += h + gap;
   }
@@ -1674,7 +1675,7 @@ function buildReportDoc(R, opts) {
     ['Çözülen soru', tnum(o.soru), hedef ? 'hedef ' + tnum(hedef) + ', %' + Math.round(o.hedefeSayilan / hedef * 100) : ''],
     ['Doğru / Yanlış / Boş', o.d + ' / ' + o.y + ' / ' + o.b, 'başarı ' + fPct(o.basari)],
     ['Net (soru çözümü)', o.soru ? fNet(o.net) : '—', 'D − Y ÷ 3'],
-    ['Çalışma süresi', fSure(o.sure), (gecen ? 'günde ort. ' + fSure(o.sure / gecen) : '') + (o.mola ? (gecen ? ', ' : '') + 'mola ' + fSure(o.mola) : '') + (o.enUzun ? ', en uzun ' + o.enUzun + ' dk kesintisiz' : '')],
+    ['Çalışma süresi', fSure(o.sure), gecen ? 'günde ort. ' + fSure(o.sure / gecen) : ''],
     ['Çalışılan gün', R.aktifGun + ' / ' + R.gunSayisi, gs != null ? 'günde ort. ' + tnum(gs, 1) + ' soru' : ''],
     ['Deneme', String(o.denemeSayisi), o.genelOrt != null ? 'genel ort. ' + fNet(o.genelOrt) + ' net' : 'genel deneme yok'],
     ['Biten test / tur', o.testTamam + ' / ' + o.turTamam.length, 'kitap-konu turu'],
@@ -1682,6 +1683,7 @@ function buildReportDoc(R, opts) {
     ['Okunan sayfa', tnum(o.okunan), o.kitapBiten ? o.kitapBiten + ' kitap bitti' : ''],
     ['Görev', o.gorevTamam + ' / ' + o.gorevPlan, 'biten / planlanan']
   ], 5);
+  if (o.sayacli) pdfNote(doc, 'Zamanlayıcıyla ' + o.sayacli + ' çalışma yapıldı: toplam mola ' + fSure(o.mola) + ' (' + o.molaSayisi + ' mola), masada en uzun kesintisiz çalışma ' + o.enUzun + ' dk, ortalama kesintisiz ' + Math.round(o.kesToplam / o.sayacli) + ' dk.');
   // günlük grafik
   var weekly = R.gunler.length > 62;
   var barItems;
@@ -1713,7 +1715,7 @@ function buildReportDoc(R, opts) {
     var gunRows = R.gunler.filter(function (g) { return !weekly || g.kayit || g.deneme || g.okunan; });
     pdfSection(doc, 'Gün gün döküm', weekly ? 'Uzun aralık: yalnızca kayıt olan günler' : R.gunSayisi + ' gün');
     pdfTable(doc, [{ h: 'Tarih', w: 50 }, { h: 'Gün', w: 30 }, { h: 'Soru', w: 32, align: 'right' }, { h: 'D', w: 26, align: 'right' }, { h: 'Y', w: 24, align: 'right' },
-      { h: 'B', w: 24, align: 'right' }, { h: 'Net', w: 36, align: 'right' }, { h: 'Süre', w: 46, align: 'right' }, { h: 'Hedef', w: 36, align: 'right' }, { h: 'Dersler', w: 128, wrap: 2 },
+      { h: 'B', w: 24, align: 'right' }, { h: 'Net', w: 36, align: 'right' }, { h: 'Süre', w: 52, align: 'right' }, { h: 'Hedef', w: 36, align: 'right' }, { h: 'Dersler', w: 122, wrap: 2 },
       { h: 'Deneme', w: 42, align: 'right' }, { h: 'Okuma', w: 42, align: 'right' }],
       gunRows.map(function (g) {
         var dd = dn(g.tarih), fut = dd > t;
@@ -1726,7 +1728,7 @@ function buildReportDoc(R, opts) {
   }
 
   if (on('deneme')) {
-    pdfSection(doc, 'Denemeler', R.denemeler.length + ' deneme');
+    pdfSection(doc, 'Denemeler', R.denemeler.length + ' deneme', 230);
     if (!R.denemeler.length) pdfNote(doc, 'Bu aralıkta deneme kaydı yok.');
     else {
       var gen = R.denemeler.filter(denemeGenelMi);
@@ -1758,7 +1760,7 @@ function buildReportDoc(R, opts) {
     pdfSection(doc, 'Konu karnesi', K.denemeSayisi + ' deneme, ' + K.isaretli + ' / ' + K.toplamY + ' yanlışın konusu işaretli');
     if (!K.rows.length) pdfNote(doc, K.denemeSayisi ? 'Bu aralıktaki denemelerde yanlışların konusu işaretlenmemiş.' : 'Bu aralıkta deneme yok.');
     else {
-      pdfTable(doc, [{ h: 'Konu', w: 150 }, { h: 'Ders', w: 58 }, { h: 'Denemede yanlış', w: 64, align: 'right' }, { h: 'Boş', w: 34, align: 'right' }, { h: 'Deneme', w: 44, align: 'right' }, { h: 'Soru bankası', w: 80, align: 'right' }, { h: 'Durum', w: 170, wrap: 2 }],
+      pdfTable(doc, [{ h: 'Konu', w: 150 }, { h: 'Ders', w: 58 }, { h: 'Yanlış', w: 64, align: 'right' }, { h: 'Boş', w: 34, align: 'right' }, { h: 'Deneme', w: 44, align: 'right' }, { h: 'Soru bankası', w: 80, align: 'right' }, { h: 'Durum', w: 170, wrap: 2 }],
         K.rows.slice(0, 25).map(function (r) {
           return { cells: [r.konu.ad, pdk(r.dersId), String(r.y), r.b ? String(r.b) : '—', String(r.denemeSayisi), r.bankaBasari == null ? 'çözülmedi' : fPct(r.bankaBasari) + ' (' + r.bankaSoru + ' soru)', r.durum],
             dots: [PC[r.dersId]], colors: [null, null, null, null, null, null, r.tip === 'eksik' ? PC.bad : (r.tip === 'dikkat' ? PC.warn : null)] };
@@ -1770,25 +1772,27 @@ function buildReportDoc(R, opts) {
   if (on('kayit')) {
     pdfSection(doc, 'Çalışma kayıtları', R.kayitlar.length + ' kayıt');
     if (!R.kayitlar.length) pdfNote(doc, 'Bu aralıkta çalışma kaydı yok.');
-    else pdfTable(doc, [{ h: 'Tarih', w: 44 }, { h: 'Ders', w: 62, dot: true }, { h: 'Konu', w: 104, wrap: 2 }, { h: 'Kitap, test', w: 116, wrap: 2 }, { h: 'Tür', w: 58, wrap: 2, muted: true },
-      { h: 'Soru', w: 28, align: 'right' }, { h: 'D', w: 22, align: 'right' }, { h: 'Y', w: 22, align: 'right' }, { h: 'B', w: 22, align: 'right' }, { h: 'Net', w: 32, align: 'right' }, { h: 'Süre', w: 38, align: 'right' }],
+    else pdfTable(doc, [{ h: 'Tarih', w: 44 }, { h: 'Ders', w: 62, dot: true }, { h: 'Konu', w: 104, wrap: 2 }, { h: 'Kitap, test', w: 110, wrap: 2 }, { h: 'Tür', w: 58, wrap: 2, muted: true },
+      { h: 'Soru', w: 28, align: 'right' }, { h: 'D', w: 22, align: 'right' }, { h: 'Y', w: 22, align: 'right' }, { h: 'B', w: 22, align: 'right' }, { h: 'Net', w: 32, align: 'right' }, { h: 'Süre', w: 44, align: 'right' }],
       R.kayitlar.map(function (k) {
         var kt = [k.kaynakId ? kaynakAd(k.kaynakId) : 'Kitapsız', k.testId ? testAd(k.testId) : ''].filter(Boolean).join(', ') + (k.bitti ? ' (test bitti)' : '') + (k.turNo ? ', ' + k.turNo + '. tur' : '');
         return { cells: [fDateS(k.tarih), pdk(k.dersId), k.konuId ? konuAd(k.konuId) : '—', kt, k.tur, k.soru || '', k.soru ? k.d : '', k.soru ? k.y : '', k.soru ? k.b : '',
-          k.soru ? fNet(net(k.d, k.y)) : '', fSure(k.sure)], dots: [null, PC[k.dersId]] };
+          k.soru ? fNet(net(k.d, k.y)) : '', k.oturum && !num(k.sure) ? '—' : fSure(k.sure)], dots: [null, PC[k.dersId]] };
       }), { fs: 7.2 });
+    if (R.kayitlar.some(function (k) { return k.oturum && !num(k.sure); })) pdfNote(doc, 'Aynı oturumda birden fazla test çözüldüyse oturumun süresi ilk teste yazılır; diğer testlerde — görünür.');
   }
 
   if (on('yanlis')) {
     pdfSection(doc, 'Yanlış sorular', R.yanlislar.length + ' yeni kayıt');
     if (!R.yanlislar.length) pdfNote(doc, 'Bu aralıkta yanlış soru kaydı yok.');
     else {
-      pdfTable(doc, [{ h: 'Tarih', w: 44 }, { h: 'Ders', w: 62, dot: true }, { h: 'Konu', w: 92, wrap: 2 }, { h: 'Kitap, test, soru', w: 100, wrap: 2 }, { h: 'Hata türü', w: 70, wrap: 2 },
-        { h: 'Neden', w: 110, wrap: 3 }, { h: 'Tekrar', w: 60 }],
+      pdfTable(doc, [{ h: 'Tarih', w: 44 }, { h: 'Ders', w: 62, dot: true }, { h: 'Konu', w: 92, wrap: 2 }, { h: 'Kitap, test, soru', w: 98, wrap: 2 }, { h: 'Hata türü', w: 66, wrap: 2 },
+        { h: 'Neden', w: 104, wrap: 3 }, { h: 'Tekrar', w: 74 }],
         R.yanlislar.map(function (y) {
-          var kts = [y.kaynakId ? kaynakAd(y.kaynakId) : '', y.testId ? testAd(y.testId) : '', y.soruNo ? 'soru ' + y.soruNo : ''].filter(Boolean).join(', ');
+          var dnm = y.denemeId ? S.denemeler.find(function (x) { return x.id === y.denemeId; }) : null;
+          var kts = [dnm ? dnm.ad : '', y.kaynakId ? kaynakAd(y.kaynakId) : '', y.testId ? testAd(y.testId) : '', y.soruNo ? 'soru ' + y.soruNo : ''].filter(Boolean).join(', ');
           var tk = y.tekrar, ts = tk.durum === 'Gerek yok' ? 'Gerek yok' : tk.done + '/' + tk.n + ', ' + tk.durum.toLocaleLowerCase('tr');
-          return { cells: [fDateS(y.tarih), pdk(y.dersId), konuAd(y.konuId), kts || '—', y.hata, y.neden || '', ts], dots: [null, PC[y.dersId]],
+          return { cells: [fDateS(y.tarih), pdk(y.dersId), y.konuId ? konuAd(y.konuId) : (y.denemeKonuYok ? 'Konusu belli değil' : '—'), kts || '—', y.hata, y.neden || '', ts], dots: [null, PC[y.dersId]],
             colors: [null, null, null, null, null, null, tk.durum === 'Gecikmiş' ? PC.bad : null] };
         }), { fs: 7.2 });
       var hk = HATA_TURLERI.filter(function (h) { return o.hata[h]; }).sort(function (a, b) { return o.hata[b] - o.hata[a]; });
@@ -1821,7 +1825,7 @@ function buildReportDoc(R, opts) {
     else pdfTable(doc, [{ h: 'Tarih', w: 46 }, { h: 'Görev', w: 170, wrap: 2 }, { h: 'Ders', w: 56 }, { h: 'Hedef', w: 70, align: 'right' }, { h: 'Gerçekleşen', w: 76, align: 'right' }, { h: 'Durum', w: 70 }],
       R.gorevler.map(function (g) {
         var hd = num(g.hedefSoru) ? g.hedefSoru + ' soru' : (num(g.hedefSure) ? fSure(g.hedefSure) : '—');
-        var gr = num(g.hedefSoru) ? g.gercek.soru + ' soru' : (num(g.hedefSure) ? fSure(g.gercek.sure) : g.gercek.soru + ' soru');
+        var gr = num(g.hedefSoru) ? g.gercek.soru + ' soru' : (num(g.hedefSure) ? fSure(g.gercek.sure) : '—');
         var du = g.durum || 'Bekliyor';
         return { cells: [fDateS(g.tarih), g.aciklama, g.dersId ? pdk(g.dersId) : 'Genel', hd, gr, du], colors: [null, null, null, null, null, du === 'Tamamlandı' ? PC.good : (du === 'İptal' ? PC.mute : PC.warn)] };
       }), { fs: 7.5 });
