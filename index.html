@@ -457,13 +457,20 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 }
 @media print { .rail, .actions, .btn { display: none !important; } .app { display: block; } body { background: #fff; } }
 
+/* günün sözü */
+.head-sag { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; justify-content: flex-end; margin-left: auto; }
+.soz { margin: 0; max-width: 340px; text-align: right; border-right: 3px solid var(--pencil); padding: 2px 12px 2px 0; }
+.soz blockquote { margin: 0; font-size: 14px; line-height: 1.45; font-style: italic; color: var(--ink-2); }
+.soz figcaption { margin-top: 4px; font-size: 12px; color: var(--ink-3); }
+@media (max-width: 700px) { .head-sag { margin-left: 0; justify-content: flex-start; } .soz { text-align: left; border-right: 0; border-left: 3px solid var(--pencil); padding: 2px 0 2px 12px; max-width: none; } }
+
 </style>
 </head>
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.4.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.4.1';
+/* LGS Takip, sürüm 1.5.2. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.5.2';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -546,7 +553,12 @@ function normalize(S) {
   var base = newState();
   if (!S || typeof S !== 'object') return base;
   ['konular', 'kaynaklar', 'planlar', 'testler', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar',
-    'okumalar'].forEach(function (k) { if (!Array.isArray(S[k])) S[k] = k === 'konular' ? base.konular : []; });
+    'okumalar'].forEach(function (k) {
+    if (!Array.isArray(S[k])) S[k] = k === 'konular' ? base.konular : [];
+    // bozuk öğeler (null, sayı, metin) atılır; kimliği olmayan kayda kimlik verilir
+    S[k] = S[k].filter(function (x) { return x && typeof x === 'object' && !Array.isArray(x); });
+    S[k].forEach(function (x) { if (x.id == null || x.id === '') x.id = uid('fx'); });
+  });
   S.settings = Object.assign(clone(DEFAULT_SETTINGS), S.settings || {});
   S.settings.dersSoru = Object.assign(clone(DEFAULT_SETTINGS.dersSoru), S.settings.dersSoru || {});
   S.settings.hedefNet = Object.assign(clone(DEFAULT_SETTINGS.hedefNet), S.settings.hedefNet || {});
@@ -582,6 +594,8 @@ function testsOfPlan(S, planId, includePassive) {
 
 /* ---------- testler ve turlar ---------- */
 /* Her test için: ilk tamamlanma günü ve çalışma sayısı. Aynı test birden çok kez çözülse de bir kez sayılır. */
+/* Takip başlamadan önce çözülmüş testler (test.onceden): ayrıntısı yok; bitmiş sayılır ama hiçbir tarihe ve istatistiğe girmez. */
+var ONCEDEN_GUN = -1;
 function testStatus(S) {
   var done = {}, cnt = {};
   S.kayitlar.forEach(function (k) {
@@ -589,6 +603,7 @@ function testStatus(S) {
     cnt[k.testId] = (cnt[k.testId] || 0) + 1;
     if (k.bitti) { var d = dn(k.tarih); if (done[k.testId] == null || d < done[k.testId]) done[k.testId] = d; }
   });
+  S.testler.forEach(function (t) { if (t.onceden) done[t.id] = ONCEDEN_GUN; });
   return { done: done, cnt: cnt };
 }
 
@@ -603,15 +618,16 @@ function planStats(S) {
   });
   S.planlar.forEach(function (p, order) {
     var tests = testsOfPlan(S, p.id, false);
-    var planlanan = tests.length, tamam = 0, lastDone = null;
+    var planlanan = tests.length, tamam = 0, lastDone = null, onceden = 0;
     tests.forEach(function (t) {
       if (ts.done[t.id] != null) { tamam++; if (lastDone == null || ts.done[t.id] > lastDone) lastDone = ts.done[t.id]; }
+      if (t.onceden) onceden++;
     });
     var beklenen = num(p.beklenen);
     var planTam = beklenen > 0 && beklenen === planlanan;
     // Kural 9: tamamlanmış tura sonradan test eklendiyse "yeniden açıldı" bilgisi (eski bitiş tarihi korunur)
     var acik = tests.filter(function (t) { return ts.done[t.id] == null; });
-    var yeniden = tamam > 0 && acik.length && acik.every(function (t) { return t.eklendi && dn(t.eklendi) > lastDone; }) ? lastDone : null;
+    var yeniden = tamam > 0 && lastDone > ONCEDEN_GUN && acik.length && acik.every(function (t) { return t.eklendi && dn(t.eklendi) > lastDone; }) ? lastDone : null;
     var logs = logsByKey[p.kaynakId + '|' + p.konuId] || [];
     // Tamamlanan test yoksa ama bu kitap+konu için kayıt varsa tur başlamış sayılır.
     var durum = tamam === 0 ? (logs.length ? 'Devam ediyor' : 'Başlanmadı') : (tamam < planlanan ? 'Devam ediyor' : (planTam ? 'Tamamlandı' : 'Plan eksik'));
@@ -629,7 +645,7 @@ function planStats(S) {
       id: p.id, kaynakId: p.kaynakId, konuId: p.konuId, order: order, planlanan: planlanan, tamamlanan: tamam,
       kalan: planlanan - tamam, beklenen: beklenen, oran: tamam / Math.max(1, planlanan, beklenen), planTam: planTam,
       durum: durum, baslangic: bas, son: son, tamamlanma: durum === 'Tamamlandı' ? lastDone : null, planNot: planNot,
-      soru: soru, dogru: dog, yanlis: yan, basari: soru > 0 ? dog / soru : null, turNo: null, yenidenAcildi: yeniden
+      soru: soru, dogru: dog, yanlis: yan, basari: soru > 0 ? dog / soru : null, turNo: null, yenidenAcildi: yeniden, onceden: onceden
     };
     out.push(r);
     (byKonu[p.konuId] = byKonu[p.konuId] || []).push(r);
@@ -1091,6 +1107,38 @@ function mergeSetup(S, o) {
   (o.gorevler || []).forEach(function (g) { if (!gIds[g.id]) { S.gorevler.push(g); report.gorev++; } });
   normalize(S);
   return report;
+}
+/* Kitap paketi: hazır kitaplar, konu planları ve testler. Ayarlara, hedeflere, görevlere ve kayıtlara dokunmaz.
+   Kimlikler sabittir: aynı paket ikinci kez yüklenirse kopya oluşmaz, kitaplar güncellenir. atla: eklenmeyecek kitap kimlikleri. */
+function kitapPaketiOzet(S, o) {
+  var var_ = {}, ayni = [];
+  S.kaynaklar.forEach(function (k) { var_[String(k.ad || '').trim().toLocaleLowerCase('tr')] = k.id; });
+  (o.kaynaklar || []).forEach(function (k) {
+    var id = var_[String(k.ad || '').trim().toLocaleLowerCase('tr')];
+    if (id && id !== k.id) ayni.push(k);
+  });
+  return { kitap: (o.kaynaklar || []).length, test: (o.testler || []).length, ayni: ayni };
+}
+function mergeKitapPaketi(S, o, atla) {
+  if (!o || o.app !== 'lgs-takip' || o.kind !== 'kitap-paketi') throw new Error('Bu dosya bir kitap paketi değil.');
+  atla = atla || {};
+  var r = { kitap: 0, guncellenen: 0, plan: 0, test: 0, konu: 0, atlanan: Object.keys(atla).length };
+  var konuVar = {}; S.konular.forEach(function (k) { konuVar[k.id] = 1; });
+  (o.konular || []).forEach(function (k) { if (!konuVar[k.id] && DERS[k.dersId]) { S.konular.push(clone(k)); konuVar[k.id] = 1; r.konu++; } });
+  var planAtla = {};
+  (o.planlar || []).forEach(function (p) { if (atla[p.kaynakId] || !konuVar[p.konuId]) planAtla[p.id] = 1; });
+  function upsert(list, items, sayac) {
+    var byId = {}; list.forEach(function (x, i) { byId[x.id] = i; });
+    items.forEach(function (x) {
+      if (byId[x.id] != null) { list[byId[x.id]] = clone(x); if (sayac === 'kitap') r.guncellenen++; }
+      else { list.push(clone(x)); r[sayac]++; }
+    });
+  }
+  upsert(S.kaynaklar, (o.kaynaklar || []).filter(function (k) { return !atla[k.id] && DERS[k.dersId]; }), 'kitap');
+  upsert(S.planlar, (o.planlar || []).filter(function (p) { return !planAtla[p.id]; }), 'plan');
+  upsert(S.testler, (o.testler || []).filter(function (t) { return !planAtla[t.planId]; }), 'test');
+  normalize(S);
+  return r;
 }
 function validateBackup(o) {
   var data = o && o.data ? o.data : o;
@@ -1892,12 +1940,27 @@ function today() { return dn(todayStr()); }
 function P() { return memo('plans', function () { return planStats(S); }); }
 function IX() { return memo('index', function () { return index(S); }); }
 
+/* Kayıtlı veri okunamazsa (bozulmuşsa) sessizce boş başlayıp üzerine yazmayız:
+   bozuk metin ayrı bir anahtarda saklanır, canlı eşitleme açıksa bulut verisinin tamamı yeniden indirilir. */
+var VERI_BOZUK; // loadState() bu satırdan önce çalışır; burada değer verilmez
 function loadState() {
+  var raw = null;
+  try { raw = localStorage.getItem(STORE_KEY); } catch (e) { }
+  if (!raw) return newState();
   try {
-    var raw = localStorage.getItem(STORE_KEY);
-    if (raw) return normalize(JSON.parse(raw));
-  } catch (e) { console.warn('Veri okunamadı', e); }
-  return newState();
+    var o = JSON.parse(raw);
+    if (!o || typeof o !== 'object' || Array.isArray(o)) throw new Error('Veri biçimi beklenmedik');
+    return normalize(o);
+  } catch (e) {
+    console.warn('Veri okunamadı', e);
+    VERI_BOZUK = true;
+    try {
+      if (!localStorage.getItem(STORE_KEY + '-bozuk')) localStorage.setItem(STORE_KEY + '-bozuk', raw);
+      var c = JSON.parse(localStorage.getItem('lgs-takip-sync') || 'null');
+      if (c && c.linkedUid) { c.since = {}; localStorage.setItem('lgs-takip-sync', JSON.stringify(c)); }
+    } catch (e2) { }
+    return newState();
+  }
 }
 function save(silent) {
   MEMO = {};
@@ -1923,8 +1986,8 @@ var GUN_K = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function toN(x) { return typeof x === 'string' ? dn(x) : x; }
 function dparts(n) { var d = new Date(n * 864e5); return { y: d.getUTCFullYear(), m: d.getUTCMonth(), d: d.getUTCDate(), w: (d.getUTCDay() + 6) % 7 }; }
-function fDate(x) { var p = dparts(toN(x)); return p.d + ' ' + AYLAR[p.m] + ' ' + p.y; }
-function fDateS(x) { var p = dparts(toN(x)); return p.d + ' ' + AY_K[p.m]; }
+function fDate(x) { if (toN(x) === ONCEDEN_GUN) return 'Önceden'; var p = dparts(toN(x)); return p.d + ' ' + AYLAR[p.m] + ' ' + p.y; }
+function fDateS(x) { if (toN(x) === ONCEDEN_GUN) return 'önceden'; var p = dparts(toN(x)); return p.d + ' ' + AY_K[p.m]; }
 function fDay(x) { return GUNLER[dparts(toN(x)).w]; }
 function relDay(x) {
   var n = toN(x), t = today();
@@ -1991,7 +2054,7 @@ var VIEWS = {};
 function go(v) {
   if (!VIEWS[v]) v = 'bugun';
   UI.view = v;
-  if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v);
+  if (location.hash !== '#' + v) { if (location.hash) history.pushState(null, '', '#' + v); else history.replaceState(null, '', '#' + v); } // geri tuşu önceki ekrana döner
   render();
   window.scrollTo(0, 0);
 }
@@ -2106,7 +2169,7 @@ document.addEventListener('change', function (e) {
 var PAGE_INPUT = {};
 ACT['go'] = function (t) { closeSheet(); go(t.dataset.v); };
 ACT['close-sheet'] = function () { closeSheet(); };
-window.addEventListener('hashchange', function () { var v = location.hash.slice(1); if (v && v !== UI.view && VIEWS[v]) { UI.view = v; render(); } });
+window.addEventListener('hashchange', function () { var v = location.hash.slice(1); if (v && v !== UI.view && VIEWS[v]) { closeSheet(); UI.view = v; render(); window.scrollTo(0, 0); } });
 
 /* ---------- ortak form parçaları ---------- */
 function chipsHtml(name, options, value, extra) { // options: [{v, t}]
@@ -2283,7 +2346,7 @@ function openKayit(rec, preset) {
       if (F.testId && !kayitCoklu(F)) {
         var dn0 = testStatus(S).done[F.testId], self = rec && rec.bitti && rec.testId === F.testId;
         h += '<label class="switch" style="margin-top:14px"><input type="checkbox" data-f="bitti"' + (F.bitti ? ' checked' : '') + '> <span><b>Bu testi bitirdim</b>' +
-          (dn0 != null && !self ? '<br><span class="small muted">Bu test ' + fDate(dn0) + ' tarihinde bitirilmişti. Tekrar çözüm olarak kaydedilir; tur sayısı değişmez.</span>' : '') + '</span></label>';
+          (dn0 != null && !self ? '<br><span class="small muted">Bu test ' + (dn0 === ONCEDEN_GUN ? 'daha önce' : fDate(dn0) + ' tarihinde') + ' bitirilmişti. Tekrar çözüm olarak kaydedilir; tur sayısı değişmez.</span>' : '') + '</span></label>';
       }
       h += field('Not (isteğe bağlı)', '<input class="input" data-f="not" value="' + esc(F.not) + '" maxlength="200">');
       h += '<div class="errors" role="alert"></div>';
@@ -2557,7 +2620,7 @@ function denemeKonuAlan(F, dersler) {
       var mm = (F.konular[ders] && F.konular[ders][tip]) || {}, top = 0;
       Object.keys(mm).forEach(function (k) { top += num(mm[k]); });
       var durum = top === lim ? 'good' : (top > lim ? 'bad' : 'warn');
-      var konular = konularOf(S, ders).concat([{ id: KONU_BILINMIYOR, ad: 'Konusu belli değil' }]);
+      var konular = konularOf(S, ders).filter(function (k) { return !k.karma; }).concat([{ id: KONU_BILINMIYOR, ad: 'Konusu belli değil' }]);
       bloklar.push('<div class="dk-blok' + (top === lim ? ' tamam' : '') + '"><div class="dk-bas">' + dersDot(ders) + '<span><b>' + esc(DERS[ders].kisa) + '</b>: ' + lim + ' ' + (tip === 'y' ? 'yanlış' : 'boş') + '</span>' +
         '<span class="pill ' + durum + '">' + (top === lim ? '✓ ' : '') + top + ' / ' + lim + '</span>' + (top > lim ? ' <span class="small" style="color:var(--bad)">fazla seçildi</span>' : '') + '</div><div class="chips">' +
         konular.map(function (k) {
@@ -2822,17 +2885,6 @@ ACT['tekrar-yaptim'] = function (t) {
   var res = t.dataset.kind === 'yanlis' ? yanlisTekrar(S, r, today()) : konuTekrar(S, r, today());
   showToast(res.next != null ? 'Tekrar işaretlendi. Sıradaki: ' + fDate(res.next) : 'Tekrarlar tamamlandı');
 };
-ACT['tekrar-geri'] = function (t) {
-  var list = t.dataset.kind === 'yanlis' ? S.yanlislar : S.tekrarlar, key = t.dataset.kind === 'yanlis' ? 'tekrarlar' : 'yapilan';
-  var r = list.find(function (x) { return x.id === t.dataset.id; }); if (!r || !r[key].length) return;
-  r[key] = r[key].slice(0, -1); save(); showToast('Son tekrar geri alındı');
-};
-ACT['yanlis-ogrendim'] = function (t) {
-  var r = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (!r) return;
-  r.sonDurum = r.sonDurum === 'Öğrenildi' ? null : 'Öğrenildi'; save();
-  showToast(r.sonDurum ? 'Öğrenildi olarak işaretlendi; kalan tekrarlar kapatıldı' : 'Yeniden açıldı');
-};
-
 /* ---------- görev ---------- */
 function openGorev(rec) {
   var F = rec ? Object.assign({}, rec, { dersId: rec.dersId || '', konuId: rec.konuId || '', hedefSoru: strN(rec.hedefSoru), hedefSure: strN(rec.hedefSure) })
@@ -3054,7 +3106,7 @@ ACT['toplu-kaydet'] = function (t) {
 ACT['toplu-plan'] = function (t) { openTopluPlan(t.dataset.id); };
 function openPlan(planId) {
   var p = IX().plan[planId]; if (!p) return;
-  var tests = testsOfPlan(S, planId, true).map(function (t) { return { id: t.id, ad: t.ad, soru: strN(t.soru), aktif: t.aktif !== false, sira: t.sira, not: t.not || '' }; });
+  var tests = testsOfPlan(S, planId, true).map(function (t) { return { id: t.id, ad: t.ad, soru: strN(t.soru), aktif: t.aktif !== false, sira: t.sira, not: t.not || '', onceden: !!t.onceden }; });
   var F = { beklenen: String(p.beklenen || ''), tests: tests, ekle: '' };
   var ts = testStatus(S);
   var used = S.kayitlar.some(function (k) { return k.kaynakId === p.kaynakId && k.konuId === p.konuId; });
@@ -3063,14 +3115,16 @@ function openPlan(planId) {
     body: function () {
       var h = '<div class="fields2">' + fieldDiv('Kitapta bu konuya ait test sayısı', stepper('beklenen', F.beklenen, { label: 'Kitaptaki test sayısı' }),
         'Tur, bu sayı kadar test tanımlı ve hepsi bitirilmiş olunca "Tamamlandı" sayılır.') + '</div>';
-      h += '<div class="field"><span class="lbl">Testler</span><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Test adı</th><th class="r">Soru</th><th>Not</th><th>Durum</th><th>Aktif</th></tr></thead><tbody>' +
+      h += '<div class="field"><span class="lbl">Testler</span><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Test adı</th><th class="r">Soru</th><th>Not</th><th>Durum</th><th title="Takip başlamadan önce çözüldü">Önceden</th><th>Aktif</th></tr></thead><tbody>' +
         F.tests.map(function (t, i) {
-          var st = ts.done[t.id] != null ? pill('Tamamlandı', fDateS(ts.done[t.id])) : (ts.cnt[t.id] ? pill('Başlandı') : '<span class="muted small">Çözülmedi</span>');
-          return '<tr><td><input class="input" data-f="t.' + i + '.ad" value="' + esc(t.ad) + '" maxlength="40" aria-label="Test adı"></td>' +
+          var dd = t.onceden ? ONCEDEN_GUN : (ts.done[t.id] !== ONCEDEN_GUN ? ts.done[t.id] : null);
+          var st = dd != null ? pill('Tamamlandı', fDateS(dd)) : (ts.cnt[t.id] ? pill('Başlandı') : '<span class="muted small">Çözülmedi</span>');
+          return '<tr><td><input class="input" data-f="t.' + i + '.ad" value="' + esc(t.ad) + '" maxlength="70" aria-label="Test adı"></td>' +
             '<td class="r" style="width:90px"><input class="input" style="text-align:right" inputmode="numeric" pattern="[0-9]*" data-f="t.' + i + '.soru" value="' + esc(t.soru) + '" aria-label="Soru sayısı"></td>' +
             '<td><input class="input" data-f="t.' + i + '.not" value="' + esc(t.not) + '" maxlength="80" aria-label="Test notu" placeholder="—"></td>' +
-            '<td>' + st + '</td><td><input type="checkbox" style="width:24px;height:24px;accent-color:var(--pencil)" data-f="t.' + i + '.aktif"' + (t.aktif ? ' checked' : '') + ' aria-label="Aktif"></td></tr>';
-        }).join('') + '</tbody></table></div></div>';
+            '<td>' + st + '</td><td><input type="checkbox" style="width:24px;height:24px;accent-color:var(--pencil)" data-f="t.' + i + '.onceden"' + (t.onceden ? ' checked' : '') + ' aria-label="' + esc(t.ad) + ' takipten önce çözüldü"></td>' +
+            '<td><input type="checkbox" style="width:24px;height:24px;accent-color:var(--pencil)" data-f="t.' + i + '.aktif"' + (t.aktif ? ' checked' : '') + ' aria-label="Aktif"></td></tr>';
+        }).join('') + '</tbody></table></div><p class="hint">"Önceden": uygulamayı kullanmaya başlamadan önce çözülmüş test. Bitmiş sayılır, tur ilerlemesine girer; ama tarihi ve doğru-yanlışı olmadığı için soru sayılarına, raporlara ve karneye girmez.</p></div>';
       h += '<div class="fields2" style="align-items:end">' + field('Test ekle (adet)', '<input class="input" data-f="ekle" inputmode="numeric" pattern="[0-9]*" value="' + esc(F.ekle) + '" placeholder="Örn. 1">') +
         '<div class="field"><button class="btn" data-act="plan-test-ekle">' + icon('plus') + 'Test ekle</button></div></div>';
       h += '<p class="hint">Bir testi plandan çıkarmak için "Aktif" işaretini kaldır. Silmek yerine pasif yapmak geçmiş kayıtları korur.</p>';
@@ -3081,7 +3135,7 @@ function openPlan(planId) {
         '<span class="spacer"></span><button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="plan-kaydet" data-id="' + planId + '">Kaydet</button>';
     },
     onInput: function (k, v) {
-      if (k.indexOf('t.') === 0) { var q = k.split('.'); F.tests[+q[1]][q[2]] = q[2] === 'aktif' ? !!v : v; return; }
+      if (k.indexOf('t.') === 0) { var q = k.split('.'); F.tests[+q[1]][q[2]] = q[2] === 'aktif' || q[2] === 'onceden' ? !!v : v; if (q[2] === 'onceden') paintSheet(); return; }
       F[k] = v;
     }
   });
@@ -3110,8 +3164,8 @@ ACT['plan-kaydet'] = function (t) {
   if (errs.length) return sheetErrors(errs.filter(function (e, i, a) { return a.indexOf(e) === i; }));
   p.beklenen = bek;
   F.tests.forEach(function (x, i) {
-    if (x.id) { var tt = IX().test[x.id]; tt.ad = String(x.ad).trim(); tt.soru = x.soru === '' ? null : Number(x.soru); tt.aktif = !!x.aktif; tt.sira = i + 1; tt.not = String(x.not || '').trim(); }
-    else S.testler.push({ id: uid('ts'), planId: p.id, ad: String(x.ad).trim(), soru: x.soru === '' ? null : Number(x.soru), aktif: !!x.aktif, sira: i + 1, not: String(x.not || '').trim(), eklendi: todayStr() });
+    if (x.id) { var tt = IX().test[x.id]; tt.ad = String(x.ad).trim(); tt.soru = x.soru === '' ? null : Number(x.soru); tt.aktif = !!x.aktif; tt.sira = i + 1; tt.not = String(x.not || '').trim(); if (x.onceden) tt.onceden = true; else delete tt.onceden; }
+    else { var nt = { id: uid('ts'), planId: p.id, ad: String(x.ad).trim(), soru: x.soru === '' ? null : Number(x.soru), aktif: !!x.aktif, sira: i + 1, not: String(x.not || '').trim(), eklendi: todayStr() }; if (x.onceden) nt.onceden = true; S.testler.push(nt); }
   });
   closeSheet(); save(); showToast('Plan kaydedildi');
 };
@@ -3195,6 +3249,9 @@ function btn(act, text, cls, data, ic) {
   return '<button class="btn ' + (cls || '') + '" data-act="' + act + '"' + d + '>' + (ic ? icon(ic) : '') + esc(text) + '</button>';
 }
 function backupBanner() {
+  if (VERI_BOZUK) return '<div class="banner warn"><span class="grow"><b>Bu cihazdaki kayıtlı veriler okunamadı.</b> Eski veri silinmedi, ayrı saklandı. ' +
+    (syncLinked() ? 'Canlı eşitleme açık: buluttaki veriler birkaç saniye içinde yeniden indirilir. Gelmezse uygulamayı kapatıp açın.' :
+      'Son yedek dosyanızı Kurulum › Yedek ve aktarım › Yedek dosyası seç ile yükleyin.') + '</span></div>';
   if (syncLinked()) return '';
   var yk = S.meta.yedekYuklendi;
   if (yk) return '<div class="banner info"><span class="grow"><b>Bu cihazdaki veriler ' + (yk.yedekTarihi ? fDate(yk.yedekTarihi) + ' tarihli yedekten' : 'bir yedekten') + ' yüklendi.</b> ' +
@@ -3219,7 +3276,7 @@ VIEWS.bugun = function () {
       (g.durum === 'bugun' ? '<div class="countdown son100"><div class="n">Bugün LGS</div><div class="l">Başarılar!</div></div>' :
         '<div class="countdown"><div class="l">LGS ' + (-g.gun) + ' gün önceydi</div></div>'));
   var h = '<div class="page-head"><div><h1>' + fDay(t) + ', ' + fDateS(t) + '</h1><div class="sub">' + (S.kayitlar.length ? 'İyi çalışmalar.' : 'Hoş geldin. Önce kurulumu tamamlayalım.') +
-    ' <button class="linkbtn" data-act="go" data-v="rehber">Nasıl kullanılır?</button></div></div>' + cd + '</div>';
+    ' <button class="linkbtn" data-act="go" data-v="rehber">Nasıl kullanılır?</button></div></div><div class="head-sag">' + sozHtml() + cd + '</div></div>';
   h += backupBanner();
   h += onboarding();
   // optik form kahraman
@@ -3394,7 +3451,9 @@ VIEWS.turlar = function () {
     h += '<div class="konu"><div class="konu-head"><div><div class="t">' + esc(k.ad) + '</div><div class="small muted">' + esc(k.unite || '') + '</div></div><div style="display:flex;gap:8px;align-items:center">' +
       '<span class="small muted">' + m.tamamTur + '/' + m.hedefTur + ' tur hedefi</span>' + pill(m.durum) + '</div></div>';
     dps.filter(function (p) { return p.konuId === k.id; }).sort(function (a, b) { return (a.turNo || 99) - (b.turNo || 99) || a.order - b.order; }).forEach(function (p) {
-      var dates = p.durum === 'Tamamlandı' ? 'Başladı ' + fDateS(p.baslangic) + ', bitti ' + fDateS(p.tamamlanma) : (p.son != null ? 'Başladı ' + fDateS(p.baslangic) + ', son çalışma ' + relDay(p.son).toLocaleLowerCase('tr') : 'Henüz çalışılmadı');
+      var dates = p.durum === 'Tamamlandı' && p.tamamlanma === ONCEDEN_GUN ? 'Takipten önce bitirildi' :
+        (p.durum === 'Tamamlandı' && p.baslangic != null ? 'Başladı ' + fDateS(p.baslangic) + ', bitti ' + fDateS(p.tamamlanma) :
+          (p.son != null ? 'Başladı ' + fDateS(p.baslangic) + ', son çalışma ' + relDay(p.son).toLocaleLowerCase('tr') : (p.onceden ? p.onceden + ' test takipten önce çözülmüş' : 'Henüz çalışılmadı')));
       var kalan = Math.max(p.planlanan, p.beklenen) - p.tamamlanan;
       h += '<button class="plan" data-act="tur-detay" data-id="' + p.id + '"><div><div class="k">' + esc(kaynakAd(p.kaynakId)) + '</div><div class="s">' + (p.turNo ? p.turNo + '. tur, ' : '') + dates + '</div></div>' +
         '<div>' + bar(p.oran, p.durum === 'Tamamlandı' ? 'good' : (p.durum === 'Plan eksik' ? 'optik' : 'warn')) + '<div class="s" style="margin-top:4px">' + p.tamamlanan + ' / ' + p.planlanan + ' test, %' + Math.round(p.oran * 100) +
@@ -3577,6 +3636,68 @@ VIEWS.kitap = function () {
   }).join('') + '</ul></section>';
   return h;
 };
+
+/* ---- sozler.js ---- */
+/* Günün sözü. Yalnızca kaynağı bilinen sözler; söyleyeni belirsiz olanlar atasözü olarak verilir.
+   Her gün sıradaki söz gelir; iPad ve bilgisayarda aynı gün aynı söz görünür. */
+var SOZLER = [
+  ['Hayatta en hakiki mürşit ilimdir.', 'Mustafa Kemal Atatürk'],
+  ['Hayal gücü bilgiden daha önemlidir.', 'Albert Einstein'],
+  ['Deha yüzde bir ilham, yüzde doksan dokuz terdir.', 'Thomas Edison'],
+  ['Damlaya damlaya göl olur.', 'Atasözü'],
+  ['Bin millik yolculuk tek bir adımla başlar.', 'Lao Tzu'],
+  ['Hayatta hiçbir şeyden korkulmamalı, yalnızca anlaşılmalı.', 'Marie Curie'],
+  ['Kariyerimde 9.000’den fazla atışı kaçırdım, 300’e yakın maç kaybettim. Hayatım boyunca tekrar tekrar başarısız oldum. İşte bu yüzden başarılıyım.', 'Michael Jordan'],
+  ['Eğitimin kökleri acı, meyveleri tatlıdır.', 'Aristoteles'],
+  ['İşleyen demir ışıldar.', 'Atasözü'],
+  ['Matematikteki zorlukların için endişelenme; benimkilerin daha büyük olduğundan emin olabilirsin.', 'Albert Einstein (bir öğrenciye mektubundan)'],
+  ['Bir çocuk, bir öğretmen, bir kitap ve bir kalem dünyayı değiştirebilir.', 'Malala Yusufzay'],
+  ['Hiçbir şeye ihtiyacımız yok, yalnız bir şeye ihtiyacımız vardır: çalışkan olmak.', 'Mustafa Kemal Atatürk'],
+  ['Öğrenip de düşünmeyen kaybolur; düşünüp de öğrenmeyen tehlikededir.', 'Konfüçyüs'],
+  ['Sabır acıdır, meyvesi tatlıdır.', 'Atasözü'],
+  ['Daha ileriyi görebildiysem, devlerin omuzlarında durduğum içindir.', 'Isaac Newton'],
+  ['Eğitim, dünyayı değiştirmek için kullanabileceğiniz en güçlü silahtır.', 'Nelson Mandela'],
+  ['Hayat bisiklete binmek gibidir; dengede kalmak için hareket etmeye devam etmelisin.', 'Albert Einstein'],
+  ['Bugünün işini yarına bırakma.', 'Atasözü'],
+  ['Hata yapıp onu düzeltmemek, asıl hatadır.', 'Konfüçyüs'],
+  ['Öğretirken öğreniriz.', 'Seneca'],
+  ['İlim ilim bilmektir, ilim kendin bilmektir.', 'Yunus Emre'],
+  ['Antrenmanın her dakikasından nefret ettim ama kendime dedim ki: Pes etme. Şimdi acı çek ve hayatının geri kalanını şampiyon olarak yaşa.', 'Muhammed Ali'],
+  ['Emek olmadan yemek olmaz.', 'Atasözü'],
+  ['Ayaklarınıza değil, yıldızlara bakmayı unutmayın.', 'Stephen Hawking'],
+  ['Bir şeye yetenekli olduğumuza inanmalıyız ve o şeye ne pahasına olursa olsun ulaşmalıyız.', 'Marie Curie'],
+  ['Benim özel bir yeteneğim yok. Yalnızca tutkulu bir merakım var.', 'Albert Einstein'],
+  ['Erken kalkan yol alır.', 'Atasözü'],
+  ['Öğretmenler! Yeni nesil sizin eseriniz olacaktır.', 'Mustafa Kemal Atatürk'],
+  ['Başarısız olmadan yaşamak imkânsızdır; meğer ki hiçbir şeyi denemeyecek kadar dikkatli yaşayasınız.', 'J. K. Rowling'],
+  ['Tek başımıza çok az şey yapabiliriz; birlikte çok şey yapabiliriz.', 'Helen Keller'],
+  ['Kervan yolda düzülür.', 'Atasözü'],
+  ['Önemli olan, soru sormayı bırakmamaktır.', 'Albert Einstein'],
+  ['Harika işler çıkarmanın tek yolu, yaptığınız işi sevmektir.', 'Steve Jobs'],
+  ['Demir kullanılmayınca paslanır; zihin de kullanılmayınca körelir.', 'Leonardo da Vinci'],
+  ['Hatasız kul olmaz.', 'Atasözü'],
+  ['Gençler! Cesaretimizi takviye ve idame eden sizsiniz.', 'Mustafa Kemal Atatürk'],
+  ['Bildiğim tek şey, hiçbir şey bilmediğimdir.', 'Sokrates'],
+  ['Ne ekersen onu biçersin.', 'Atasözü'],
+  ['Sabreden derviş muradına ermiş.', 'Atasözü'],
+  ['Aç kalın, budala kalın.', 'Steve Jobs (Stanford konuşmasından)'],
+  ['Ağaç yaşken eğilir.', 'Atasözü'],
+  ['Biz her şeyi gençliğe bırakacağız. Geleceğin ümidi, ışıklı çiçekleri onlardır.', 'Mustafa Kemal Atatürk'],
+  ['Acele işe şeytan karışır.', 'Atasözü'],
+  ['Bilmemek ayıp değil, öğrenmemek ayıptır.', 'Atasözü'],
+  ['Yuvarlanan taş yosun tutmaz.', 'Atasözü'],
+  ['Az olsun, öz olsun.', 'Atasözü'],
+  ['Taşıma su ile değirmen dönmez.', 'Atasözü'],
+  ['Bir elin nesi var, iki elin sesi var.', 'Atasözü']
+];
+function gununSozu(gun) {
+  var n = SOZLER.length, i = ((gun % n) + n) % n;
+  return { metin: SOZLER[i][0], kim: SOZLER[i][1] };
+}
+function sozHtml() {
+  var s = gununSozu(today());
+  return '<figure class="soz"><blockquote>' + esc(s.metin) + '</blockquote><figcaption>' + esc(s.kim) + '</figcaption></figure>';
+}
 
 /* ---- ui-yanlis.js ---- */
 /* ===================== YANLIŞLAR VE TEKRARLAR ===================== */
@@ -3791,7 +3912,7 @@ VIEWS.panel = function () {
   var first = null; S.kayitlar.forEach(function (k) { var d = dn(k.tarih); if (first == null || d < first) first = d; });
   var bas = st.baslangic ? dn(st.baslangic) : first, gunS = bas != null ? Math.max(1, t - bas + 1) : null;
   var h = head('Panel', 'Öğrencinin genel durumu. Bütün sayılar çalışma, deneme ve yanlış kayıtlarından otomatik hesaplanır.',
-    btn('pdf-ac', 'Raporlar ve PDF', 'primary', null, 'chart') + lockBtn());
+    btn('pdf-ac', 'Raporlar ve PDF', 'primary', null, 'chart') + lockBtn()).replace('<div class="actions">', '<div class="head-sag">' + sozHtml() + '<div class="actions">').replace(/<\/div><\/div>$/, '</div></div></div>');
   if (!S.kayitlar.length && !S.denemeler.length) h += '<div class="banner info"><span class="grow">Henüz çalışma ya da deneme kaydı yok. Göstergeler, öğrenci kayıt girdikçe dolar' + (syncLinked() ? '; canlı eşitleme açık olduğu için iPad’de girilenler buraya kendiliğinden gelir.' : '. Bilgisayarda öğrencinin verilerini görmek için canlı eşitlemeyi açın ya da Kurulum › Yedek ve aktarım bölümünden yedek dosyasını yükleyin.') + '</span></div>';
   // LGS geri sayımı
   var g = lgsGeriSayim(S, t);
@@ -4180,7 +4301,8 @@ VIEWS.rehber = function () {
       'Veli bilgisayarda uygulamayı açar, Kurulum › Yedek ve aktarım › <b>Yedek dosyası seç</b>. Bilgisayardaki veriler öğrencinin son durumuyla değişir.',
       'Kurulumda değişiklik yaptıysanız <b>Kurulum dosyası oluştur</b> deyip dosyayı iPad’e gönderin; iPad’de "Kurulum dosyasını içe aktar". Öğrencinin kayıtlarına dokunulmaz.',
       'Sıra önemli: bilgisayarda kurulumu değiştirmeden önce en son yedeği yükleyin. Bilgisayarda çalışma kaydı girmeyin; kayıtların tek yeri iPad’dir.'
-    ])) +
+    ]) + '<p><b>Kitap paketi.</b> Hazırlanmış bir kitap listesi dosyası (lgs-kitaplar.json) da aynı düğmeyle yüklenir: Kurulum › Yedek ve aktarım › <b>Kurulum dosyasını içe aktar</b>. Yalnızca kitaplar, konu planları ve testler eklenir; hedeflere, ayarlara, görevlere ve kayıtlara dokunulmaz. Aynı adla zaten var olan kitaplar atlanır. Paket ikinci kez yüklenirse kopya oluşmaz.</p>' +
+      '<p><b>Takipten önce çözülmüş testler</b> "önceden" olarak işaretlidir: tur ilerlemesinde bitmiş sayılır ama tarihi ve doğru-yanlışı olmadığı için soru sayılarına, raporlara ve Konu karnesine girmez. Bir testi önceden çözülmüş yapmak ya da geri almak için Kurulum › Kitaplar ve testler’de kitabın konusunu açıp "Önceden" kutusunu işaretleyin.</p>') +
     sec('sorun', 'Bir sorun olursa ne yapmalıyım?', ul([
       '<b>Kitap listede görünmüyor:</b> Kurulum › Kitaplar’da kitabın dersi doğru mu ve Aktif mi bakın. Çalışma formunda önce doğru dersi seçin.',
       '<b>Konu veya test listede yok:</b> Konu için Kurulum › Konu listesi › Konu ekle. Test için Kurulum › Kitaplar › ilgili konu düğmesi › Test ekle.',
@@ -5508,11 +5630,26 @@ ACT['kurulum-disa'] = function () {
 ACT['kurulum-ice'] = async function () {
   var txt = await pickFile(); if (txt == null) return;
   var o; try { o = JSON.parse(txt); } catch (e) { return showToast('Dosya okunamadı.'); }
+  if (o && o.app === 'lgs-takip' && o.kind === 'kitap-paketi') return kitapPaketiYukle(o);
   if (!o || o.kind !== 'kurulum') return showToast(o && o.app === 'lgs-takip' ? 'Bu bir yedek dosyası; "Yedekten geri yükle" ile yükleyin.' : 'Bu dosya bir kurulum dosyası değil.');
   if (!(await askConfirm('Kurulum içe aktarılsın mı? Kitaplar, testler, konular, hedefler ve yeni görevler eklenir ya da güncellenir; çalışma kayıtlarına dokunulmaz.', 'İçe aktar'))) return;
   try { var r = mergeSetup(S, o); S.meta.lastSetupImport = todayStr(); save(); showToast('Kurulum aktarıldı: ' + r.eklenen + ' yeni, ' + r.guncellenen + ' güncellenen öğe, ' + r.gorev + ' görev'); }
   catch (e) { showToast(e.message); }
 };
+async function kitapPaketiYukle(o) {
+  var oz = kitapPaketiOzet(S, o), atla = {};
+  var msg = 'Kitap paketinde ' + oz.kitap + ' kitap ve ' + oz.test + ' test var. Kitaplar, konu planları ve testler eklenir; hedeflere, ayarlara, görevlere ve çalışma kayıtlarına dokunulmaz.';
+  if (oz.ayni.length) {
+    oz.ayni.forEach(function (k) { atla[k.id] = 1; });
+    msg += ' Şu kitaplar bu cihazda aynı adla zaten var, onlar atlanacak: ' + oz.ayni.map(function (k) { return k.ad; }).join(', ') + '.';
+  }
+  if (syncLinked()) msg += ' Canlı eşitleme açık; kitaplar diğer cihaza da gider.';
+  if (!(await askConfirm(msg + ' İçe aktarılsın mı?', 'İçe aktar'))) return;
+  try {
+    var r = mergeKitapPaketi(S, o, atla); S.meta.lastSetupImport = todayStr(); save();
+    showToast(r.kitap + ' kitap, ' + r.test + ' test eklendi' + (r.guncellenen ? ', ' + r.guncellenen + ' kitap güncellendi' : '') + (r.atlanan ? ', ' + r.atlanan + ' kitap atlandı' : '') + '.', true);
+  } catch (e) { showToast(e.message); }
+}
 function csvCell(v) { var s = v == null ? '' : String(v); return /[;"\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
 function csvNum(v, dec) { return v == null ? '' : Number(v).toFixed(dec || 0).replace('.', ','); }
 ACT['csv'] = function (t) {
