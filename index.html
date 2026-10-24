@@ -469,8 +469,8 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.6.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.6.0';
+/* LGS Takip, sürüm 1.8.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.8.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -544,7 +544,7 @@ function newState(now) {
     app: 'lgs-takip', v: 1, created: todayStr(now),
     settings: clone(DEFAULT_SETTINGS),
     konular: seedKonular(), kaynaklar: [], planlar: [], testler: [],
-    kayitlar: [], denemeler: [], yanlislar: [], tekrarlar: [], gorevler: [], kitaplar: [], okumalar: [],
+    kayitlar: [], denemeler: [], yanlislar: [], tekrarlar: [], gorevler: [], kitaplar: [], okumalar: [], notlar: [],
     meta: { lastBackup: null, lastSetupImport: null }
   };
 }
@@ -553,7 +553,7 @@ function normalize(S) {
   var base = newState();
   if (!S || typeof S !== 'object') return base;
   ['konular', 'kaynaklar', 'planlar', 'testler', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar',
-    'okumalar'].forEach(function (k) {
+    'okumalar', 'notlar'].forEach(function (k) {
     if (!Array.isArray(S[k])) S[k] = k === 'konular' ? base.konular : [];
     // bozuk öğeler (null, sayı, metin) atılır; kimliği olmayan kayda kimlik verilir
     S[k] = S[k].filter(function (x) { return x && typeof x === 'object' && !Array.isArray(x); });
@@ -1068,6 +1068,7 @@ function konuKarnesi(S, o) {
 }
 
 function gorevGerceklesen(S, g) {
+  if (g.testIds && g.testIds.length) return odevGerceklesen(S, g);
   var soru = 0, sure = 0;
   S.kayitlar.forEach(function (k) {
     if (k.tarih !== g.tarih) return;
@@ -1077,6 +1078,19 @@ function gorevGerceklesen(S, g) {
   });
   return { soru: soru, sure: sure,
     oran: num(g.hedefSoru) > 0 ? soru / num(g.hedefSoru) : (num(g.hedefSure) > 0 ? sure / num(g.hedefSure) : null) };
+}
+
+/* Test seçilerek verilen ödev: verildiği günden sonra "bitti" işaretiyle kaydedilen testler sayılır (öğrenci tarihinden bağımsız). */
+function odevGerceklesen(S, g) {
+  var ids = {}, from = g.verildi ? dn(g.verildi) : -Infinity, biten = {}, soru = 0, d = 0, y = 0, sure = 0, son = null;
+  g.testIds.forEach(function (id) { ids[id] = 1; });
+  S.kayitlar.forEach(function (k) {
+    if (!k.testId || !ids[k.testId] || dn(k.tarih) < from) return;
+    soru += num(k.soru); d += num(k.d); y += num(k.y); sure += num(k.sure);
+    if (k.bitti) { biten[k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
+  });
+  var n = Object.keys(biten).length, top = g.testIds.length;
+  return { soru: soru, sure: sure, d: d, y: y, biten: n, toplam: top, basari: soru ? d / soru : null, son: son, bitenIds: biten, oran: top ? n / top : null };
 }
 
 /* ---------- kurulum aktarımı ---------- */
@@ -2042,14 +2056,35 @@ var BRAND = '<svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><cir
 
 /* ---------- gezinme ---------- */
 var NAV = [
+  { id: 'ogretmen', ad: 'Öğretmen', ic: 'gauge', okur: true },
   { id: 'bugun', ad: 'Bugün', ic: 'home' }, { id: 'calisma', ad: 'Çalışma', ic: 'pencil' }, { id: 'deneme', ad: 'Deneme', ic: 'clipboard' },
   { id: 'yanlis', ad: 'Yanlışlar', ic: 'mistake' }, { id: 'tekrar', ad: 'Tekrarlar', ic: 'repeat' }, { id: 'turlar', ad: 'Turlar', ic: 'layers' },
   { id: 'gorev', ad: 'Görevler', ic: 'check' }, { id: 'kitap', ad: 'Kitaplar', ic: 'book' },
   { sep: 'Yönetici' },
+  { id: 'yonetici', ad: 'Yönetici paneli', ic: 'lock' },
   { id: 'panel', ad: 'Panel', ic: 'gauge' }, { id: 'rapor', ad: 'Raporlar', ic: 'chart' }, { id: 'kurulum', ad: 'Kurulum', ic: 'gear' }
 ];
-var ADMIN = { panel: 1, rapor: 1, kurulum: 1 };
-function locked() { return !!S.settings.pin && !UI.unlocked; }
+var ADMIN = { panel: 1, rapor: 1, kurulum: 1, yonetici: 1 };
+/* Cihazdaki rol: öğretmen (davetle bağlı, şifresiz analiz), yönetici (şifre yok, şifre girildi ya da yönetici cihazı), öğrenci (yönetici kısmı gizli) */
+var YONETICI_CIHAZ_KEY = 'lgs-takip-yonetici-cihaz';
+function yoneticiCihaz() { try { return localStorage.getItem(YONETICI_CIHAZ_KEY) === '1'; } catch (e) { return false; } }
+function rol() {
+  if (typeof syncReader === 'function' && syncReader()) return 'ogretmen';
+  if (!S.settings.pin || UI.unlocked || yoneticiCihaz()) return 'yonetici';
+  return 'ogrenci';
+}
+function locked() { return rol() === 'ogrenci'; }
+var OGRETMENE_KAPALI = { kurulum: 1, yonetici: 1 };
+function navRol() { // menüyü role göre göster/gizle
+  var r = rol(), show = function (v, on) { var b = document.querySelector('.nav-btn[data-v="' + v + '"]'); if (b) b.style.display = on ? '' : 'none'; };
+  show('ogretmen', r === 'ogretmen'); show('yonetici', r === 'yonetici'); show('kurulum', r === 'yonetici');
+  show('panel', r !== 'ogrenci'); show('rapor', r !== 'ogrenci');
+  var sep = document.querySelector('.nav-sep'); if (sep) { sep.style.display = r === 'ogrenci' ? 'none' : ''; sep.querySelector('span').textContent = r === 'ogretmen' ? 'Analiz' : 'Yönetici'; }
+  var rs = document.getElementById('rail-sync'); if (rs) { rs.dataset.v = r === 'ogretmen' ? 'ogretmen' : (r === 'ogrenci' ? 'bugun' : 'kurulum'); }
+}
+function ogretmenKapali() {
+  return '<div class="panel empty" style="max-width:520px;margin:40px auto"><strong>Bu bölüm yalnızca yöneticiye açık</strong>Öğretmen ekranından ödev verebilir, not yazabilir, hedefleri düzenleyebilir ve rapor alabilirsiniz.<div style="margin-top:12px">' + btn('go', 'Öğretmen ekranına dön', 'sm primary', { v: 'ogretmen' }) + '</div></div>';
+}
 var VIEWS = {};
 function go(v) {
   if (!VIEWS[v]) v = 'bugun';
@@ -2060,10 +2095,10 @@ function go(v) {
 }
 function shell() {
   var app = document.getElementById('app');
-  app.innerHTML = '<nav class="rail" aria-label="Bölümler"><div class="brand">' + BRAND + '</div><button class="rail-cd" id="rail-cd" data-act="go" data-v="bugun" aria-label="LGS geri sayımı"></button><button class="rail-sync" id="rail-sync" data-act="go" data-v="kurulum" data-tab="esitle" aria-label="Canlı eşitleme durumu"></button>' +
+  app.innerHTML = '<nav class="rail" aria-label="Bölümler"><div class="brand" data-act="gizli-giris">' + BRAND + '</div><button class="rail-cd" id="rail-cd" data-act="go" data-v="bugun" aria-label="LGS geri sayımı"></button><button class="rail-sync" id="rail-sync" data-act="go" data-v="kurulum" data-tab="esitle" aria-label="Canlı eşitleme durumu"></button>' +
     NAV.map(function (n) {
       if (n.sep) return '<div class="nav-sep" role="presentation"><span>' + n.sep + '</span></div>';
-      return '<button class="nav-btn" data-act="go" data-v="' + n.id + '">' + icon(n.ic) + '<span>' + n.ad + '</span></button>';
+      return '<button class="nav-btn" data-act="go" data-v="' + n.id + '"' + (n.okur || n.id === 'yonetici' ? ' style="display:none"' : '') + '>' + icon(n.ic) + '<span>' + n.ad + '</span></button>';
     }).join('') + '</nav><main class="main" id="main"></main>';
 }
 function render() {
@@ -2071,7 +2106,7 @@ function render() {
   var main = document.getElementById('main');
   if (!main) { shell(); main = document.getElementById('main'); }
   CHARTS = {};
-  main.innerHTML = (typeof sayacBar === 'function' ? sayacBar() : '') + '<div class="page">' + (ADMIN[UI.view] && locked() ? pinGate() : VIEWS[UI.view]()) + '</div>';
+  main.innerHTML = (typeof sayacBar === 'function' ? sayacBar() : '') + '<div class="page">' + (rol() === 'ogretmen' && OGRETMENE_KAPALI[UI.view] ? ogretmenKapali() : (ADMIN[UI.view] && locked() ? pinGate() : VIEWS[UI.view]())) + '</div>';
   var rc = document.getElementById('rail-cd');
   if (rc) {
     var g = lgsGeriSayim(S, today());
@@ -2081,8 +2116,7 @@ function render() {
     rc.title = g ? 'LGS: ' + fDate(g.tarih) + (g.tahmini ? ' (tahmini)' : '') : 'LGS tarihi girilmedi';
   }
   if (typeof syncPaint === 'function') syncPaint();
-  var sep = document.querySelector('.nav-sep span');
-  if (sep) sep.innerHTML = 'Yönetici' + (S.settings.pin ? (locked() ? ' ' + icon('lock') : '') : '');
+  navRol();
   document.querySelectorAll('.nav-btn').forEach(function (b) {
     if (b.dataset.v === UI.view) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     var old = b.querySelector('.dot'); if (old) old.remove();
@@ -2259,6 +2293,14 @@ function pickFile(accept) {
     inp.click();
   });
 }
+
+/* Öğrenci cihazında yönetici paneline gizli giriş: logoya 3 saniye içinde 5 kez dokunun (ya da adresin sonuna #yonetici yazın) */
+var GIZLI = { n: 0, t: 0 };
+ACT['gizli-giris'] = function () {
+  var now = Date.now(); if (now - GIZLI.t > 3000) GIZLI.n = 0;
+  GIZLI.t = now; GIZLI.n++;
+  if (GIZLI.n >= 5) { GIZLI.n = 0; if (rol() !== 'ogretmen') go('yonetici'); }
+};
 
 /* ---- ui-forms.js ---- */
 /* ===================== FORMLAR ===================== */
@@ -2887,48 +2929,100 @@ ACT['tekrar-yaptim'] = function (t) {
   var res = t.dataset.kind === 'yanlis' ? yanlisTekrar(S, r, today()) : konuTekrar(S, r, today());
   showToast(res.next != null ? 'Tekrar işaretlendi. Sıradaki: ' + fDate(res.next) : 'Tekrarlar tamamlandı');
 };
-/* ---------- görev ---------- */
+/* ---------- görev / ödev ----------
+   Kitaptan test seçilirse görev "ödev" olur: ilerleme, verildiği günden sonra bitirilen bu testlerden kendiliğinden hesaplanır.
+   Öğretmen cihazında görev kaydedilince öğretmenin adı eklenir; öğretmen yalnızca kendi verdiği ödevi düzenleyebilir. */
+function gorevSahibiBen(g) {
+  if (syncReader()) return !!(g.ogretmen && g.ogretmen.uid === SYNC.uid);
+  return !(g.ogretmen && rol() === 'ogrenci'); // öğretmen ödevini öğrenci değiştiremez; yönetici değiştirebilir
+}
+function odevAciklama(F) {
+  var tl = (F.testIds || []).map(function (id) { return testAd(id); }).filter(Boolean);
+  var kisa = tl.map(function (t) { return /^Test \d+$/.test(t) ? t.slice(5) : t; });
+  var tests = tl.length ? (tl.every(function (t) { return /^Test \d+$/.test(t); }) ? 'Test ' + kisa.join(', ') : tl.join(', ')) : '';
+  return [kaynakAd(F.kaynakId), F.konuId ? konuAd(F.konuId) : '', tests].filter(Boolean).join(' · ');
+}
+function odevSoru(F) { var I = IX(), n = 0; (F.testIds || []).forEach(function (id) { var t = I.test[id]; if (t) n += num(t.soru); }); return n; }
+function gorevOzetHtml(g) {
+  var gr = gorevGerceklesen(S, g), h = '';
+  if (g.testIds && g.testIds.length) {
+    h += '<div class="calc-line"><span>Biten test: <b>' + gr.biten + '/' + gr.toplam + '</b></span><span>Çözülen: <b>' + gr.soru + ' soru</b></span>' +
+      (gr.basari != null ? '<span>Başarı: <b>' + fPct(gr.basari) + '</b> (' + gr.d + ' D, ' + gr.y + ' Y)</span>' : '') + '<span>Süre: <b>' + fSure(gr.sure) + '</b></span></div>';
+    h += '<ul class="list" style="margin-top:8px">' + g.testIds.map(function (id) {
+      return '<li><span class="grow">' + esc(testAd(id) || 'Silinmiş test') + '</span>' + (gr.bitenIds[id] ? pill('Tamamlandı') : pill('Bekliyor')) + '</li>'; }).join('') + '</ul>';
+  } else h += '<div class="calc-line"><span>Gerçekleşen: <b>' + gr.soru + ' soru</b></span><span>Süre: <b>' + fSure(gr.sure) + '</b></span></div>';
+  return h;
+}
 function openGorev(rec) {
-  var F = rec ? Object.assign({}, rec, { dersId: rec.dersId || '', konuId: rec.konuId || '', hedefSoru: strN(rec.hedefSoru), hedefSure: strN(rec.hedefSure) })
-    : { id: null, tarih: todayStr(), dersId: '', konuId: '', aciklama: '', tur: 'Soru çözümü', oncelik: 'Orta', hedefSoru: '', hedefSure: '', durum: 'Bekliyor', not: '' };
+  if (rec && !gorevSahibiBen(rec)) { // başkasının verdiği ödev: yalnızca görüntüle
+    openSheet({ title: 'Ödev', body: function () {
+      return '<p style="margin-top:0"><b>' + esc(rec.aciklama) + '</b></p><p class="muted" style="margin-top:0">Teslim: ' + fDate(dn(rec.tarih)) + (rec.ogretmen ? ' · Veren: ' + esc(rec.ogretmen.ad || 'Öğretmen') : ' · Öğrencinin kendi görevi') + '</p>' +
+        (rec.not ? '<p>' + esc(rec.not) + '</p>' : '') + gorevOzetHtml(rec) + '<p class="hint">Bu görevi yalnızca ' + (rec.ogretmen ? 'veren öğretmen' : 'öğrenci') + ' düzenleyebilir.</p>'; },
+      foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Kapat</button>'; } });
+    return;
+  }
+  var F = rec ? Object.assign({}, rec, { dersId: rec.dersId || '', konuId: rec.konuId || '', kaynakId: rec.kaynakId || '', testIds: (rec.testIds || []).slice(), hedefSoru: strN(rec.hedefSoru), hedefSure: strN(rec.hedefSure) })
+    : { id: null, tarih: todayStr(), dersId: '', konuId: '', kaynakId: '', testIds: [], aciklama: '', tur: 'Soru çözümü', oncelik: 'Orta', hedefSoru: '', hedefSure: '', durum: 'Bekliyor', not: '' };
+  var ogr = syncReader();
   openSheet({
-    title: rec ? 'Görevi düzenle' : 'Görev ekle', F: F,
+    title: rec ? (ogr ? 'Ödevi düzenle' : 'Görevi düzenle') : (ogr ? 'Ödev ver' : 'Görev ekle'), F: F,
     body: function () {
-      var h = '<div class="fields2">' + field('Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '">') +
+      var odev = F.testIds.length > 0;
+      var h = '<div class="fields2">' + field(ogr ? 'Teslim tarihi' : 'Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '">') +
         fieldDiv('Öncelik', chipsHtml('oncelik', ['Yüksek', 'Orta', 'Düşük'].map(function (t) { return { v: t, t: t }; }), F.oncelik)) + '</div>';
-      h += field('Görev', '<input class="input" data-f="aciklama" value="' + esc(F.aciklama) + '" placeholder="Örn. Üslü İfadeler Test 5-6" maxlength="160">');
-      h += fieldDiv('Ders (isteğe bağlı)', dersChips('dersId', F.dersId, 'Genel'));
-      if (F.dersId) h += fieldDiv('Konu (isteğe bağlı)', selectHtml('konuId', konularOf(S, F.dersId).map(function (k) { return { v: k.id, t: k.ad }; }), F.konuId, 'Konu seçilmedi'));
-      h += fieldDiv('Görev türü', chipsHtml('tur', GOREV_TURLERI.map(function (t) { return { v: t, t: t }; }), F.tur));
-      h += '<div class="fields2">' + fieldDiv('Hedef soru', stepper('hedefSoru', F.hedefSoru, { label: 'Hedef soru' })) + fieldDiv('Hedef süre (dk)', stepper('hedefSure', F.hedefSure, { label: 'Hedef süre' })) + '</div>';
-      h += fieldDiv('Durum', chipsHtml('durum', GOREV_DURUMLARI.map(function (t) { return { v: t, t: t }; }), F.durum));
-      h += field('Not (isteğe bağlı)', '<input class="input" data-f="not" value="' + esc(F.not || '') + '" maxlength="200">');
-      if (rec) { var gr = gorevGerceklesen(S, Object.assign({}, rec, { tarih: F.tarih, dersId: F.dersId || null, konuId: F.konuId || null })); h += '<div class="calc-line"><span>Gerçekleşen: <b>' + gr.soru + ' soru</b></span><span>Süre: <b>' + fSure(gr.sure) + '</b></span></div>'; }
-      h += '<p class="hint">Gerçekleşen soru ve süre, aynı gün (ve seçildiyse aynı ders/konu) için girilen çalışma kayıtlarından otomatik hesaplanır. Görevi tamamlamak tek başına soru çözülmüş saymaz.</p>';
+      h += fieldDiv(ogr ? 'Ders' : 'Ders (isteğe bağlı)', dersChips('dersId', F.dersId, 'Genel'));
+      if (F.dersId) {
+        var kl = kaynaklarOf(S, F.dersId);
+        h += fieldDiv('Kitap' + (ogr ? '' : ' (isteğe bağlı)'), kl.length ? selectHtml('kaynakId', kl.map(function (k) { return { v: k.id, t: k.ad }; }), F.kaynakId, 'Kitap seçilmedi') : '<p class="hint">Bu derste kayıtlı kitap yok.</p>');
+        h += fieldDiv('Konu (isteğe bağlı)', F.kaynakId ? konuSelect('konuId', F.dersId, F.kaynakId, F.konuId) : selectHtml('konuId', konularOf(S, F.dersId).map(function (k) { return { v: k.id, t: k.ad }; }), F.konuId, 'Konu seçilmedi'));
+        var plan = F.kaynakId && F.konuId ? IX().planByKey[F.kaynakId + '|' + F.konuId] : null;
+        if (plan) h += fieldDiv('Testler', testChips(F, plan.id, testStatus(S).done), 'Birden fazla test seçebilirsiniz. ✓ işaretli testleri öğrenci daha önce bitirmiş.');
+        else if (F.kaynakId && F.konuId) h += '<p class="hint">Bu kitapta bu konu için test tanımlı değil.</p>';
+      }
+      if (odev) h += '<div class="calc-line"><span>Seçilen: <b>' + F.testIds.length + ' test</b></span><span><b>' + odevSoru(F) + ' soru</b></span></div>';
+      h += field(odev ? 'Ödev adı (boş bırakılırsa kitap ve testlerden oluşur)' : 'Görev', '<input class="input" data-f="aciklama" value="' + esc(F.aciklama) + '" placeholder="' + esc(odev ? odevAciklama(F) : 'Örn. Üslü İfadeler Test 5-6') + '" maxlength="160">');
+      if (!odev) {
+        h += fieldDiv('Görev türü', chipsHtml('tur', GOREV_TURLERI.map(function (t) { return { v: t, t: t }; }), F.tur));
+        h += '<div class="fields2">' + fieldDiv('Hedef soru', stepper('hedefSoru', F.hedefSoru, { label: 'Hedef soru' })) + fieldDiv('Hedef süre (dk)', stepper('hedefSure', F.hedefSure, { label: 'Hedef süre' })) + '</div>';
+        if (!ogr) h += fieldDiv('Durum', chipsHtml('durum', GOREV_DURUMLARI.map(function (t) { return { v: t, t: t }; }), F.durum));
+      }
+      h += field(ogr ? 'Öğrenciye not (isteğe bağlı)' : 'Not (isteğe bağlı)', '<input class="input" data-f="not" value="' + esc(F.not || '') + '" maxlength="200">');
+      if (rec) h += gorevOzetHtml(Object.assign({}, rec, { tarih: F.tarih, dersId: F.dersId || null, konuId: F.konuId || null, testIds: F.testIds }));
+      h += '<p class="hint">' + (odev ? 'Ödev, öğrenci bu testleri çözüp “bitti” olarak kaydettikçe kendiliğinden ilerler; hepsi bitince tamamlanır.' :
+        'Gerçekleşen soru ve süre, aynı gün (ve seçildiyse aynı ders/konu) için girilen çalışma kayıtlarından otomatik hesaplanır.') + '</p>';
       return h + '<div class="errors" role="alert"></div>';
     },
     foot: function () {
       return (rec ? '<button class="btn danger" data-act="gorev-sil">Sil</button><span class="spacer"></span>' : '<span class="spacer"></span>') +
-        '<button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="gorev-kaydet">Kaydet</button>';
+        '<button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="gorev-kaydet">' + (ogr && !rec ? 'Ödevi ver' : 'Kaydet') + '</button>';
     },
     onInput: function (k, v, el, kind) {
-      if (k === 'dersId') { F.dersId = v; F.konuId = ''; paintSheet(); return; }
+      if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testIds = []; paintSheet(); return; }
+      if (k === 'kaynakId') { F.kaynakId = v; F.testIds = []; if (F.konuId && v && !IX().planByKey[v + '|' + F.konuId]) F.konuId = ''; paintSheet(); return; }
+      if (k === 'konuId') { F.konuId = v; F.testIds = []; paintSheet(); return; }
+      if (k === 'testId') { var i = F.testIds.indexOf(v), I = IX(); if (i >= 0) F.testIds.splice(i, 1); else F.testIds.push(v); F.testIds.sort(function (x, y) { return ((I.test[x] || {}).sira || 0) - ((I.test[y] || {}).sira || 0); }); paintSheet(); return; }
       if (kind === 'chip') { F[k] = v; paintChipState(k, v); return; }
       F[k] = v;
     }
   });
 }
 ACT['gorev-kaydet'] = function () {
-  var F = M.F, errs = [];
+  var F = M.F, errs = [], odev = F.testIds && F.testIds.length > 0, ogr = syncReader();
   if (!F.tarih || isNaN(dn(F.tarih))) errs.push('Tarih seçin.');
-  if (!F.aciklama.trim()) errs.push('Görevi yazın.');
-  var hs = parseCount(F.hedefSoru, 'Hedef soru', errs), hd = parseCount(F.hedefSure, 'Hedef süre', errs);
+  var ac = (F.aciklama || '').trim() || (odev ? odevAciklama(F) : '');
+  if (!ac) errs.push(ogr ? 'Kitaptan test seçin ya da ödevi yazın.' : 'Görevi yazın.');
+  var hs = odev ? odevSoru(F) : parseCount(F.hedefSoru, 'Hedef soru', errs), hd = odev ? 0 : parseCount(F.hedefSure, 'Hedef süre', errs);
   if (errs.length) return sheetErrors(errs);
-  var rec = { id: F.id || uid('gv'), tarih: F.tarih, dersId: F.dersId || null, konuId: F.konuId || null, aciklama: F.aciklama.trim(), tur: F.tur,
-    oncelik: F.oncelik, hedefSoru: hs, hedefSure: hd, durum: F.durum, not: (F.not || '').trim(), ts: F.ts || Date.now() };
+  var eski = F.id ? S.gorevler.find(function (x) { return x.id === F.id; }) : null;
+  var rec = { id: F.id || uid('gv'), tarih: F.tarih, dersId: F.dersId || null, konuId: F.konuId || null, aciklama: ac, tur: odev ? 'Soru çözümü' : F.tur,
+    oncelik: F.oncelik, hedefSoru: hs, hedefSure: hd, durum: odev ? ((eski && eski.durum === 'İptal') ? 'İptal' : 'Bekliyor') : F.durum, not: (F.not || '').trim(), ts: F.ts || Date.now() };
+  if (F.kaynakId) rec.kaynakId = F.kaynakId;
+  if (odev) { rec.testIds = F.testIds.slice(); rec.verildi = (eski && eski.verildi) || todayStr(); }
+  var sahip = (eski && eski.ogretmen) || (ogr ? { uid: SYNC.uid, ad: (SYNC.cfg.okur && SYNC.cfg.okur.a) || 'Öğretmen' } : null);
+  if (sahip) rec.ogretmen = sahip;
   var i = S.gorevler.findIndex(function (x) { return x.id === rec.id; });
   if (i >= 0) S.gorevler[i] = rec; else S.gorevler.push(rec);
-  closeSheet(); save(); showToast('Görev kaydedildi');
+  closeSheet(); save(); showToast(ogr ? 'Ödev verildi; öğrencinin uygulamasına gidiyor' : 'Görev kaydedildi');
 };
 ACT['gorev-sil'] = async function () {
   var id = M.F.id;
@@ -2938,7 +3032,7 @@ ACT['gorev-sil'] = async function () {
 ACT['gorev-ac'] = function (t) { var r = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (r) openGorev(r); };
 ACT['gorev-yeni'] = function () { openGorev(null); };
 ACT['gorev-durum'] = function (t) {
-  var g = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (!g) return;
+  var g = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (!g || !gorevSahibiBen(g) || syncReader()) return;
   var order = ['Bekliyor', 'Devam ediyor', 'Tamamlandı'];
   var i = order.indexOf(g.durum || 'Bekliyor');
   g.durum = order[(i + 1) % order.length]; save();
@@ -3272,12 +3366,12 @@ VIEWS.bugun = function () {
   var ws = weekStart(t), w = periodStats(S, ws, ws + 6, t);
   var hedef = num(st.gunSoru), done = ps.hedefeSayilan;
   var g = lgsGeriSayim(S, t);
-  var cd = !g ? '<div class="countdown"><div class="l">LGS tarihi girilmedi</div><button class="btn xs ghost" data-act="go" data-v="kurulum" data-tab="hedef" style="padding:0">Tarihi gir</button></div>' :
+  var cd = !g ? '<div class="countdown"><div class="l">LGS tarihi girilmedi</div>' + (rol() === 'yonetici' ? '<button class="btn xs ghost" data-act="go" data-v="kurulum" data-tab="hedef" style="padding:0">Tarihi gir</button>' : '') + '</div>' :
     (g.durum === 'once' ? '<div class="countdown' + (g.gun <= 100 ? ' son100' : '') + '"><div class="n num">' + g.gun + ' gün</div><div class="l">LGS’ye kaldı, ' + lgsKalanTxt(g) + '</div>' +
       '<div class="l">' + fDate(g.tarih) + (g.tahmini ? ' <span class="tag">tahmini</span>' : '') + '</div></div>' :
       (g.durum === 'bugun' ? '<div class="countdown son100"><div class="n">Bugün LGS</div><div class="l">Başarılar!</div></div>' :
         '<div class="countdown"><div class="l">LGS ' + (-g.gun) + ' gün önceydi</div></div>'));
-  var h = '<div class="page-head"><div><h1>' + fDay(t) + ', ' + fDateS(t) + '</h1><div class="sub">' + (S.kayitlar.length ? 'İyi çalışmalar.' : 'Hoş geldin. Önce kurulumu tamamlayalım.') +
+  var h = '<div class="page-head"><div><h1 data-act="gizli-giris">' + fDay(t) + ', ' + fDateS(t) + '</h1><div class="sub">' + (S.kayitlar.length ? 'İyi çalışmalar.' : (rol() === 'yonetici' ? 'Hoş geldin. Önce kurulumu tamamlayalım.' : 'Hoş geldin.')) +
     ' <button class="linkbtn" data-act="go" data-v="rehber">Nasıl kullanılır?</button></div></div><div class="head-sag">' + sozHtml() + cd + '</div></div>';
   h += backupBanner();
   h += onboarding();
@@ -3298,7 +3392,7 @@ VIEWS.bugun = function () {
     (done > hedef && hedef > 0 ? '<span><b>Hedefin ' + (done - hedef) + ' soru üstündesin</b></span>' : '') + '</div></section>';
   // iki sütun
   var tl = tekrarListesi(S, t).filter(function (x) { return x.next <= t; });
-  var gorevler = S.gorevler.filter(function (g) { return dn(g.tarih) === t || (dn(g.tarih) < t && ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, g)) < 0); })
+  var gorevler = S.gorevler.filter(function (g) { return !(g.testIds && g.testIds.length && g.ogretmen) && (dn(g.tarih) === t || (dn(g.tarih) < t && ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, g)) < 0)); })
     .sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
   var left = '<section class="panel"><h2>Bu hafta <span class="muted small">' + fDateS(ws) + ' – ' + fDateS(ws + 6) + '</span></h2>' +
     '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span><b class="num" style="font-size:22px">' + w.hedefeSayilan + '</b> <span class="muted">/ ' + num(st.hafSoru) + ' soru</span></span><span class="muted small">Süre ' + fSure(w.sure) + '</span></div>' +
@@ -3312,7 +3406,7 @@ VIEWS.bugun = function () {
     return '<li><div class="grow"><div class="title">' + esc(konuAd(p.konuId)) + '</div><div class="sub">' + esc(kaynakAd(p.kaynakId)) + (p.turNo ? ', ' + p.turNo + '. tur' : '') + '</div>' +
       '<div style="margin-top:6px">' + bar(p.oran, 'warn') + '</div></div><div class="num small">' + p.tamamlanan + '/' + p.planlanan + '</div></li>';
   }).join('') + '</ul>' : '<div class="empty">Devam eden tur yok. Bir kitaptan test çözüp kaydettiğinde burada görünür.</div>') + '</section>';
-  var right = '<section class="panel"><h2>Bugünün tekrarları ' + btn('go', 'Takvim', 'xs ghost', { v: 'tekrar' }) + '</h2>' + (tl.length ? '<ul class="list">' + tl.slice(0, 6).map(tekrarRow).join('') + '</ul>' +
+  var right = (typeof ogretmenBugunPanel === 'function' ? ogretmenBugunPanel() : '') + '<section class="panel"><h2>Bugünün tekrarları ' + btn('go', 'Takvim', 'xs ghost', { v: 'tekrar' }) + '</h2>' + (tl.length ? '<ul class="list">' + tl.slice(0, 6).map(tekrarRow).join('') + '</ul>' +
     (tl.length > 6 ? '<p class="hint">+' + (tl.length - 6) + ' tekrar daha</p>' : '') : '<div class="empty">Bugün yapılacak tekrar yok.</div>') + '</section>';
   right += '<section class="panel"><h2>Bugünün görevleri ' + btn('gorev-yeni', 'Görev ekle', 'xs', null, 'plus') + '</h2>' + (gorevler.length ? '<ul class="list">' + gorevler.slice(0, 8).map(gorevRow).join('') + '</ul>' :
     '<div class="empty">Bugün için görev yok.</div>') + '</section>';
@@ -3335,6 +3429,7 @@ function onboardingList() {
   }).join('') + '</ul>';
 }
 function onboarding() {
+  if (rol() !== 'yonetici') return '';
   if (onboardingSteps().every(function (s) { return s.ok; }) || S.meta.onboardingHidden) return '';
   return '<section class="panel" style="margin-bottom:16px"><h2>Başlarken <span>' + btn('go', 'Rehber', 'xs ghost', { v: 'rehber' }) + btn('onb-gizle', 'Gizle', 'xs ghost') + '</span></h2>' + onboardingList() + '</section>';
 }
@@ -3375,13 +3470,16 @@ function tekrarRow(x) {
     (x.next <= today() ? '<button class="btn sm primary" data-act="tekrar-yaptim" data-kind="' + x.kind + '" data-id="' + x.id + '">Yaptım</button>' : '') + '</span></li>';
 }
 function gorevRow(g) {
-  var gr = gorevGerceklesen(S, g), du = gorevDurum(S, g), oto = du === 'Tamamlandı' && (g.durum || 'Bekliyor') !== 'Tamamlandı';
-  var hedef = num(g.hedefSoru) ? gr.soru + '/' + g.hedefSoru + ' soru' : (num(g.hedefSure) ? fSure(gr.sure) + ' / ' + fSure(g.hedefSure) : '');
+  var gr = gorevGerceklesen(S, g), du = gorevDurum(S, g), odev = !!(g.testIds && g.testIds.length), oto = odev || (du === 'Tamamlandı' && (g.durum || 'Bekliyor') !== 'Tamamlandı');
+  var hedef = odev ? gr.biten + '/' + gr.toplam + ' test' + (gr.basari != null ? ', ' + fPct(gr.basari) + ' doğru' : '') :
+    (num(g.hedefSoru) ? gr.soru + '/' + g.hedefSoru + ' soru' : (num(g.hedefSure) ? fSure(gr.sure) + ' / ' + fSure(g.hedefSure) : ''));
   var late = dn(g.tarih) < today() && ['Tamamlandı', 'İptal'].indexOf(du) < 0;
+  if (odev && du !== 'Tamamlandı' && du !== 'İptal' && gr.biten > 0) du = 'Devam ediyor';
+  var kim = g.ogretmen ? '<span class="pill info" style="margin-left:6px;font-size:12px">' + esc(g.ogretmen.ad || 'Öğretmen') + '</span>' : '';
   return '<li><button class="row-btn grow" data-act="gorev-ac" data-id="' + g.id + '">' + (g.dersId ? dersDot(g.dersId) : '<i class="ders-dot" style="background:var(--line-2)"></i>') +
-    '<span class="grow"><span class="title" style="display:block">' + esc(g.aciklama) + '</span><span class="sub">' + (late ? '<span style="color:var(--bad)">Gecikti, ' + relDay(g.tarih) + '</span>' : relDay(g.tarih)) +
-    (g.konuId ? ', ' + esc(konuAd(g.konuId)) : '') + (hedef ? ', ' + hedef : '') + '</span></span></button>' +
-    (oto ? '<span title="Hedef tuttu; kendiliğinden tamamlandı">' + pill(du) + '</span>' : '<button class="btn xs" data-act="gorev-durum" data-id="' + g.id + '" aria-label="Durumu değiştir: ' + esc(du) + '">' + pill(du) + '</button>') + '</li>';
+    '<span class="grow"><span class="title" style="display:block">' + esc(g.aciklama) + kim + '</span><span class="sub">' + (late ? '<span style="color:var(--bad)">Gecikti, ' + relDay(g.tarih) + '</span>' : (odev ? 'Teslim ' : '') + relDay(g.tarih)) +
+    (g.konuId && !odev ? ', ' + esc(konuAd(g.konuId)) : '') + (hedef ? ', ' + hedef : '') + '</span></span></button>' +
+    (oto || syncReader() ? '<span title="' + (odev ? 'Testler bitirildikçe kendiliğinden ilerler' : 'Hedef tuttu; kendiliğinden tamamlandı') + '">' + pill(du) + '</span>' : '<button class="btn xs" data-act="gorev-durum" data-id="' + g.id + '" aria-label="Durumu değiştir: ' + esc(du) + '">' + pill(du) + '</button>') + '</li>';
 }
 
 /* ---------- ÇALIŞMA ---------- */
@@ -3447,7 +3545,7 @@ VIEWS.turlar = function () {
   var withPlans = konular.filter(function (k) { return dps.some(function (p) { return p.konuId === k.id; }); });
   var without = konular.filter(function (k) { return !dps.some(function (p) { return p.konuId === k.id; }); });
   h += '<div class="panel">';
-  if (!withPlans.length) h += '<div class="empty"><strong>Bu derste henüz kitap planı yok</strong>Kurulum › Kitaplar ve testler bölümünden bir kitap ve konularını ekleyin.<div style="margin-top:12px">' + btn('go', 'Kuruluma git', 'sm', { v: 'kurulum', tab: 'kitaplar' }) + '</div></div>';
+  if (!withPlans.length) h += '<div class="empty"><strong>Bu derste henüz kitap planı yok</strong>' + (rol() === 'yonetici' ? 'Kurulum › Kitaplar ve testler bölümünden bir kitap ve konularını ekleyin.<div style="margin-top:12px">' + btn('go', 'Kuruluma git', 'sm', { v: 'kurulum', tab: 'kitaplar' }) + '</div>' : 'Kitaplar eklendiğinde burada görünür.') + '</div>';
   withPlans.forEach(function (k) {
     var m = ks.find(function (x) { return x.konu.id === k.id; });
     h += '<div class="konu"><div class="konu-head"><div><div class="t">' + esc(k.ad) + '</div><div class="small muted">' + esc(k.unite || '') + '</div></div><div style="display:flex;gap:8px;align-items:center">' +
@@ -3905,7 +4003,7 @@ function statS(l, v, d, sign) {
   return '<div class="stat"><div class="l">' + l + '</div><div class="v sm">' + v + '</div>' + (d ? '<div class="d ' + (sign > 0 ? 'up' : (sign < 0 ? 'down' : 'muted')) + '">' + d + '</div>' : '') + '</div>';
 }
 function oranTxt(a, b) { return b ? '%' + Math.round(a / b * 100) + ' gerçekleşti' : 'hedef yok'; }
-function lockBtn() { return S.settings.pin && UI.unlocked ? btn('kilitle', 'Kilitle', 'sm ghost', null, 'lock') : ''; }
+function lockBtn() { return S.settings.pin && UI.unlocked && !yoneticiCihaz() && !syncReader() ? btn('kilitle', 'Kilitle', 'sm ghost', null, 'lock') : ''; }
 
 /* ---------- PANEL (Excel'deki ANA PANEL) ---------- */
 VIEWS.panel = function () {
@@ -4331,9 +4429,9 @@ VIEWS.rehber = function () {
    - Bulut belgesi: { r: kayıt, u: sunucu zamanı, x: silindi mi }. Silinen kayıt "x" işaretiyle kalır;
      böylece her açılışta yalnızca son görülen zamandan (since) sonra değişen belgeler okunur (ücretsiz kota korunur). */
 var SYNC_CFG_KEY = 'lgs-takip-sync', OUTBOX_KEY = 'lgs-takip-outbox';
-var SYNC_COLS = ['konular', 'kaynaklar', 'planlar', 'testler', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar', 'okumalar'];
+var SYNC_COLS = ['konular', 'kaynaklar', 'planlar', 'testler', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar', 'okumalar', 'notlar'];
 var FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.12.2/';
-var FIRESTORE_RULES = "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{uid}/{document=**} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    // Öğretmenler: davetle katılan, yalnızca okuyabilen kullanıcılar\n    match /users/{uid}/{col}/{doc} {\n      allow read: if request.auth != null && col != 'davet' && col != 'okuyucu'\n        && exists(/databases/$(database)/documents/users/$(uid)/okuyucu/$(request.auth.uid));\n    }\n    match /users/{uid}/okuyucu/{rid} {\n      allow get: if request.auth != null && request.auth.uid == rid;\n      allow create: if request.auth != null && request.auth.uid == rid\n        && request.resource.data.keys().hasOnly(['t', 'ad', 'at'])\n        && exists(/databases/$(database)/documents/users/$(uid)/davet/$(request.resource.data.t));\n    }\n  }\n}";
+var FIRESTORE_RULES = "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    function okur(uid) {\n      return request.auth != null && exists(/databases/$(database)/documents/users/$(uid)/okuyucu/$(request.auth.uid));\n    }\n    function kendi(d) { return d.r.ogretmen.uid == request.auth.uid; }\n    // Hesap sahibi (öğrenci ve veli cihazları): her şey\n    match /users/{uid}/{document=**} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    // Öğretmenler: davetle katılan kullanıcılar okur\n    match /users/{uid}/{col}/{doc} {\n      allow read: if col != 'davet' && col != 'okuyucu' && okur(uid);\n    }\n    // Öğretmen yalnızca kendi verdiği ödevi ve kendi notunu ekler, düzenler, siler\n    match /users/{uid}/gorevler/{id} {\n      allow create: if okur(uid) && request.resource.data.x == false && kendi(request.resource.data);\n      allow update: if okur(uid) && resource.data.x == false && kendi(resource.data)\n        && (request.resource.data.x == true || kendi(request.resource.data));\n    }\n    match /users/{uid}/notlar/{id} {\n      allow create: if okur(uid) && request.resource.data.x == false && kendi(request.resource.data);\n      allow update: if okur(uid) && resource.data.x == false && kendi(resource.data)\n        && (request.resource.data.x == true || kendi(request.resource.data));\n    }\n    // Öğretmen hedefleri değiştirebilir; diğer ayarlar (şifre vb.) değişemez\n    match /users/{uid}/ayar/genel {\n      allow update: if okur(uid) && request.resource.data.x == false\n        && request.resource.data.r.keys().hasOnly(['settings'])\n        && request.resource.data.r.settings.diff(resource.data.r.settings).affectedKeys()\n             .hasOnly(['gunSoru', 'hafSoru', 'gunSure', 'hafSure', 'hedefNet']);\n    }\n    match /users/{uid}/okuyucu/{rid} {\n      allow get: if request.auth != null && request.auth.uid == rid;\n      allow create: if request.auth != null && request.auth.uid == rid\n        && request.resource.data.keys().hasOnly(['t', 'ad', 'at'])\n        && exists(/databases/$(database)/documents/users/$(uid)/davet/$(request.resource.data.t));\n    }\n  }\n}";
 var SYNC = { cfg: null, shadow: {}, outbox: {}, seq: 0, backend: null, uid: null, email: null, phase: 'kapali', err: null, lastAck: null, lastRemote: null,
   flushing: false, ready: false, firstSnap: {}, unsub: [], renderT: null, retryT: null, authUnsub: null, waitSettings: false, sinceNext: {}, touched: false, listenRetryT: null };
 
@@ -4353,6 +4451,26 @@ function buildShadow(st) {
   return m;
 }
 function syncReader() { return !!(SYNC.cfg && SYNC.cfg.okur); } // öğretmen cihazı: yalnızca okur, hiçbir şey göndermez
+var OKUR_HEDEF_ANAHTARLARI = ['gunSoru', 'hafSoru', 'gunSure', 'hafSure', 'hedefNet'];
+function okurIzinli(k, op) {
+  var i = k.indexOf('/'), col = k.slice(0, i), id = k.slice(i + 1), me = SYNC.uid;
+  if (col === 'gorevler' || col === 'notlar') {
+    var r = op === 'set' ? syncFindRec(col, id) : null;
+    if (r) return !!(r.ogretmen && r.ogretmen.uid === me) && (!SYNC.shadowEskiRec(k) || SYNC.shadowEskiRec(k) === me);
+    return SYNC.shadowEskiRec(k) === me; // silme: yalnızca kendi kaydı
+  }
+  if (k === 'ayar/genel' && op === 'set') { // yalnızca hedef ayarları değişmişse
+    var eski = SYNC.shadow[k]; if (!eski) return false;
+    try { var o = JSON.parse(eski); } catch (e) { return false; }
+    var deg = Object.keys(Object.assign({}, o, S.settings)).filter(function (x) { return canon(o[x]) !== canon(S.settings[x]); });
+    return deg.length > 0 && deg.every(function (x) { return OKUR_HEDEF_ANAHTARLARI.indexOf(x) >= 0; });
+  }
+  return false;
+}
+SYNC.shadowEskiRec = function (k) { // gölge kopyadaki kaydın öğretmeni (uid) ya da null
+  var v = SYNC.shadow[k]; if (!v) return null;
+  try { var o = JSON.parse(v); return o && o.ogretmen ? o.ogretmen.uid || '' : ''; } catch (e) { return ''; }
+};
 function syncLinked() { return !!(SYNC.cfg && SYNC.cfg.linkedUid); }
 function hasUserData(st) {
   return ['kaynaklar', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar', 'okumalar'].some(function (k) { return (st[k] || []).length > 0; });
@@ -4364,10 +4482,26 @@ function syncTrack() {
   var now = buildShadow(S);
   if (SYNC.waitSettings) { delete now['ayar/genel']; } // buluttaki ayarlar gelmeden yerel varsayılanlar gönderilmesin
   if (!syncLinked()) { SYNC.shadow = now; return; }
-  if (syncReader()) { // öğretmen cihazında yapılan değişiklik buluta gitmez
-    var ch = Object.keys(now).some(function (k) { return k !== 'ayar/genel' && SYNC.shadow[k] !== now[k]; }) || Object.keys(SYNC.shadow).some(function (k) { return !(k in now); });
+  if (syncReader()) { // öğretmen: yalnızca kendi ödevleri, kendi notları ve hedefler gönderilir; gerisi bu cihazda kalır
+    var geri = [], m = 0;
+    var dene = function (k, op) { if (okurIzinli(k, op)) { SYNC.outbox[k] = { op: op, n: ++SYNC.seq }; m++; } else geri.push(k); };
+    Object.keys(now).forEach(function (k) { if (SYNC.shadow[k] !== now[k]) dene(k, 'set'); });
+    Object.keys(SYNC.shadow).forEach(function (k) { if (!(k in now)) dene(k, 'del'); });
+    if (geri.length) { // izinsiz değişiklik bu cihazda da geri alınır: öğretmen ekranı öğrencinin gerçek verisini göstermeye devam eder
+      geri.forEach(function (k) {
+        var eski = SYNC.shadow[k], i = k.indexOf('/'), col = k.slice(0, i), id = k.slice(i + 1), o = null;
+        try { o = eski ? JSON.parse(eski) : null; } catch (e) { o = null; }
+        if (col === 'ayar') { if (o) S.settings = Object.assign(clone(DEFAULT_SETTINGS), o); now[k] = eski; return; }
+        if (!S[col]) return;
+        var j = S[col].findIndex(function (r) { return r.id === id; });
+        if (o) { if (j >= 0) S[col][j] = o; else S[col].push(o); now[k] = eski; }
+        else { if (j >= 0) S[col].splice(j, 1); delete now[k]; }
+      });
+      persistLocal(); MEMO = {}; setTimeout(render, 0);
+      showToast('Öğretmen modunda yalnızca ödev, not ve hedef değiştirilebilir; bu değişiklik geri alındı.', true);
+    }
     SYNC.shadow = now;
-    if (ch && !SYNC.readerWarned) { SYNC.readerWarned = true; showToast('Öğretmen modu: bu cihazdaki değişiklikler öğrenciye gitmez.', true); }
+    if (m) { saveOutbox(); syncFlush(); syncPaint(); }
     return;
   }
   var n = 0;
@@ -4383,7 +4517,6 @@ function syncFindRec(col, id) {
   return null;
 }
 function syncFlush() {
-  if (syncReader()) { if (Object.keys(SYNC.outbox).length) { SYNC.outbox = {}; saveOutbox(); } return; }
   if (!SYNC.ready || SYNC.flushing) return;
   var keys = Object.keys(SYNC.outbox);
   if (!keys.length) { syncPaint(); return; }
@@ -4402,7 +4535,14 @@ function syncFlush() {
     saveOutbox(); SYNC.lastAck = Date.now(); SYNC.err = null; SYNC.flushing = false;
     syncFlush(); syncPaint();
   }, function (e) {
-    SYNC.flushing = false; SYNC.err = syncErrText(e); syncPaint();
+    SYNC.flushing = false;
+    if (syncReader() && e && e.code === 'permission-denied') { // öğretmenin izni olmayan değişiklik: kuyruktan çıkar, tekrar denenmesin
+      Object.keys(sent).forEach(function (k) { if (SYNC.outbox[k] && SYNC.outbox[k].n === sent[k]) delete SYNC.outbox[k]; });
+      saveOutbox(); SYNC.err = null; syncPaint();
+      showToast('Bu değişiklik öğrenciye gönderilemedi: izin yok ya da kayıt bu arada değişti. Kurulumu yapan kişi Firestore kuralını güncellemeli.', true);
+      return;
+    }
+    SYNC.err = syncErrText(e); syncPaint();
     clearTimeout(SYNC.retryT); SYNC.retryT = setTimeout(syncFlush, 15000);
   });
 }
@@ -4461,6 +4601,7 @@ function syncStart() {
   Object.keys(SYNC.outbox).forEach(function (k) { if (typeof SYNC.outbox[k] !== 'object') SYNC.outbox[k] = { op: SYNC.outbox[k], n: 0 }; });
   SYNC.shadow = buildShadow(S);
   setTimeout(davetBaslangic, 300);
+  if (SYNC.cfg && SYNC.cfg.okur && !location.hash.slice(1)) setTimeout(function () { go('ogretmen'); }, 0); // öğretmen cihazı kendi ekranıyla açılır
   if (!SYNC.cfg || !SYNC.cfg.config) { SYNC.phase = 'kapali'; return; }
   syncConnect();
 }
@@ -4637,7 +4778,7 @@ function syncPaint() {
   var s = syncState();
   el.className = 'rail-sync ' + s.k; el.title = s.t + (s.s ? ': ' + s.s : '');
   el.innerHTML = s.k === 'kapali' ? '' : '<i></i>' + (s.k === 'ok' ? 'Canlı' : (s.k === 'bekle' ? (syncPend() ? syncPend() + ' bekliyor' : 'Bağlanıyor') : (s.k === 'uyari' ? 'Giriş' : 'Sorun')));
-  var box = document.getElementById('sync-status'); if (box && UI.view === 'kurulum') box.innerHTML = syncStatusHtml();
+  var box = document.getElementById('sync-status'); if (box && (UI.view === 'kurulum' || UI.view === 'ogretmen')) box.innerHTML = syncStatusHtml();
   var sig = SYNC.phase + '|' + (SYNC.uid || '') + '|' + syncLinked();
   if (sig !== SYNC.paintSig) { // bağlantı aşaması değişince Canlı eşitleme ekranı yeniden çizilsin
     SYNC.paintSig = sig;
@@ -4739,7 +4880,6 @@ function firebaseBackend() {
       }, err);
     },
     write: function (ops) {
-      if (dataUid) return Promise.reject({ code: 'okur', message: 'Öğretmen modunda gönderim yok.' });
       var b = F.fs.writeBatch(db), now = F.fs.serverTimestamp();
       ops.forEach(function (o) { b.set(ref(o.col, o.id), o.type === 'del' ? { r: null, u: now, x: true } : { r: o.data, u: now, x: false }); });
       return b.commit();
@@ -4798,6 +4938,14 @@ ACT['sync-yeniden'] = function () { // ör. Firestore kuralı yayınlandıktan s
   if (syncLinked() && SYNC.cfg.linkedUid === SYNC.uid) syncListen(); else syncAfterLogin();
 };
 ACT['sync-kes'] = async function () {
+  var okr = syncReader();
+  if (okr) { // öğretmen: öğrencinin bu cihazdaki kopyası da silinir; öğrencinin kendi verileri etkilenmez
+    if (!(await askConfirm('Takip bırakılsın mı? Öğrencinin bu cihazdaki kopyası silinir. Öğrencinin kendi verileri etkilenmez; yeniden takip için yeni davet linki gerekir.', 'Takibi bırak', true))) return;
+    syncDisconnect(false); UI.unlocked = false;
+    S = newState(); persistLocal(); SYNC.shadow = buildShadow(S); MEMO = {};
+    if (typeof fotoClear === 'function') { try { fotoClear(); } catch (e) { } }
+    showToast('Takip bırakıldı'); go('bugun'); return;
+  }
   if (!(await askConfirm('Canlı eşitleme bu cihazda kapatılsın mı? Bu cihazdaki veriler kalır; bulut ve diğer cihaz etkilenmez.', 'Bağlantıyı kes', true))) return;
   syncDisconnect(true); showToast('Canlı eşitleme kapatıldı');
 };
@@ -4912,6 +5060,7 @@ function davetKatil(inv) {
   saveSyncCfg(); SYNC.readerWarned = false;
   showToast('Bağlanılıyor…');
   SYNC.backend = null; syncConnect();
+  go('ogretmen');
 }
 ACT['sheet-kapat'] = function () { closeSheet(); };
 ACT['davet-onayla'] = function () { var inv = UI.davetBekleyen; closeSheet(); if (inv) davetKatil(inv); };
@@ -4983,6 +5132,167 @@ ACT['davet-kaldir'] = async function (t) {
   if (!(await askConfirm('“' + (t.dataset.ad || 'Bu davet') + '” kaldırılsın mı? Bu davetle bağlanan cihazlar öğrencinin verilerini artık göremez. Öğrencinin verileri etkilenmez.', 'Daveti kaldır', true))) return;
   SYNC.backend.revokeInvite(t.dataset.t).then(function () { showToast('Davet kaldırıldı'); var b = document.getElementById('davet-yeni'); if (b) b.innerHTML = ''; davetListeYukle(); }, function (e) { showToast('Kaldırılamadı: ' + syncErrText(e), true); });
 };
+
+/* ---- ogretmen.js ---- */
+/* ===================== ÖĞRETMEN EKRANI, NOTLAR, HEDEFLER =====================
+   Öğretmen cihazı (davetle bağlanan) öğrencinin verilerini okur; yalnızca kendi ödevlerini, kendi notlarını ve hedefleri değiştirebilir.
+   Öğrenci, öğretmen ödevlerini ve okunmamış notları Bugün ekranında görür. */
+function benimNot(n) { return !!(n.ogretmen && SYNC.uid && n.ogretmen.uid === SYNC.uid); }
+function ogrAd() { return (SYNC.cfg && SYNC.cfg.okur && SYNC.cfg.okur.a) || 'Öğretmen'; }
+function gunOzet(a, b) { // [a, b] günleri için çalışma özeti
+  var out = {};
+  for (var d = a; d <= b; d++) out[d] = { soru: 0, d: 0, y: 0, sure: 0 };
+  S.kayitlar.forEach(function (k) {
+    var x = dn(k.tarih); if (!out[x]) return;
+    out[x].soru += num(k.soru); out[x].d += num(k.d); out[x].y += num(k.y); out[x].sure += num(k.sure);
+  });
+  return out;
+}
+function odevAcik(g) { var du = gorevDurum(S, g); return du !== 'Tamamlandı' && du !== 'İptal'; }
+
+VIEWS.ogretmen = function () {
+  var t = today(), st = S.settings;
+  if (!syncReader()) return '<div class="panel empty"><strong>Bu ekran öğretmen cihazları içindir</strong>Öğretmen davetle bağlandığında burada öğrencinin özetini görür.</div>';
+  var h = '<header class="page-head"><div><h1>Öğretmen ekranı</h1><p class="muted" style="margin:4px 0 0">' + esc(ogrAd()) + ' · öğrencinin kayıtları birkaç saniye içinde buraya gelir.</p></div></header>';
+  h += '<div class="actions" style="margin:0 0 16px">' + btn('gorev-yeni', 'Ödev ver', 'primary', null, 'plus') + btn('not-yeni', 'Öğrenciye not yaz', '', null, 'pencil') +
+    btn('hedef-duzenle', 'Hedefleri düzenle', '', null, 'gauge') + btn('go', 'PDF rapor', '', { v: 'rapor' }, 'download') + '</div>';
+
+  // özet sayılar
+  var g7 = gunOzet(t - 6, t), bugun = g7[t], w = { soru: 0, d: 0, sure: 0 }, ws = t - ((new Date(t * 864e5).getUTCDay() + 6) % 7);
+  var hafta = gunOzet(ws, t), hs = 0; Object.keys(hafta).forEach(function (k) { hs += hafta[k].soru; });
+  Object.keys(g7).forEach(function (k) { w.soru += g7[k].soru; w.d += g7[k].d; w.sure += g7[k].sure; });
+  var dl = denemelerSirali(S), son = dl[dl.length - 1], once = dl[dl.length - 2];
+  var sonN = son ? denemeNetleri(son).toplam : null, onceN = once ? denemeNetleri(once).toplam : null;
+  h += '<div class="kv" style="margin-bottom:16px">' +
+    stat('Bugün', bugun.soru + ' soru', num(st.gunSoru) ? 'hedef ' + num(st.gunSoru) : '') +
+    stat('Bu hafta', hs + ' soru', num(st.hafSoru) ? 'hedef ' + num(st.hafSoru) : '') +
+    stat('Son 7 gün başarı', w.soru ? fPct(w.d / w.soru) : '—', w.soru + ' soru, ' + fSure(w.sure)) +
+    stat('Son deneme', son ? fNet(sonN) + ' net' : '—', son ? fDateS(dn(son.tarih)) + (onceN != null ? ', önceki ' + fNet(onceN) : '') : 'deneme yok') + '</div>';
+
+  // ödevler
+  var benim = S.gorevler.filter(function (g) { return g.ogretmen && g.ogretmen.uid === SYNC.uid; });
+  var diger = S.gorevler.filter(function (g) { return g.ogretmen && g.ogretmen.uid !== SYNC.uid && odevAcik(g); });
+  var gec = benim.filter(function (g) { return odevAcik(g) && dn(g.tarih) < t; }).sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
+  var acik = benim.filter(function (g) { return odevAcik(g) && dn(g.tarih) >= t; }).sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
+  var biten = benim.filter(function (g) { return !odevAcik(g); }).sort(function (a, b) { return dn(b.tarih) - dn(a.tarih); }).slice(0, 8);
+  var grup = function (bas, l, bos) { return '<h3 style="font-size:15px;margin:14px 0 4px">' + bas + ' <span class="muted small">' + l.length + '</span></h3>' + (l.length ? '<ul class="list">' + l.map(gorevRow).join('') + '</ul>' : '<p class="hint" style="margin:0">' + bos + '</p>'); };
+  var left = '<section class="panel"><h2>Verdiğim ödevler ' + btn('gorev-yeni', 'Ödev ver', 'xs', null, 'plus') + '</h2>' +
+    (benim.length ? grup('Geciken', gec, 'Geciken ödev yok.') + grup('Açık', acik, 'Açık ödev yok.') + grup('Son tamamlananlar', biten, 'Henüz tamamlanan yok.') :
+      '<div class="empty"><strong>Henüz ödev vermediniz</strong>Ödev ver’e dokunun; kayıtlı kitaplardan ders, kitap, konu ve testleri seçin. Öğrenci testleri bitirdikçe ödev kendiliğinden ilerler.</div>') +
+    (diger.length ? '<h3 style="font-size:15px;margin:16px 0 4px">Diğer öğretmenlerin açık ödevleri</h3><ul class="list">' + diger.map(gorevRow).join('') + '</ul>' : '') + '</section>';
+
+  // son 7 gün
+  left += '<section class="panel"><h2>Son 7 gün</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Gün</th><th class="r">Soru</th><th class="r">Doğru</th><th class="r">Süre</th></tr></thead><tbody>' +
+    Object.keys(g7).map(Number).sort(function (a, b) { return b - a; }).map(function (d) {
+      var r = g7[d]; return '<tr><td>' + esc(relDay(ds(d))) + '</td><td class="r num">' + r.soru + '</td><td class="r">' + (r.soru ? fPct(r.d / r.soru) : '—') + '</td><td class="r">' + (r.sure ? fSure(r.sure) : '—') + '</td></tr>';
+    }).join('') + '</tbody></table></div></section>';
+
+  // denemeler ve karne
+  var right = '<section class="panel"><h2>Son denemeler ' + btn('go', 'Tümü', 'xs ghost', { v: 'deneme' }) + '</h2>' + (dl.length ? '<ul class="list">' + dl.slice(-4).reverse().map(function (d) {
+    var n = denemeNetleri(d); return '<li><span class="grow"><span class="title" style="display:block">' + esc(d.ad || d.tur || 'Deneme') + '</span><span class="sub">' + fDateS(dn(d.tarih)) + ', ' + n.d + ' D, ' + n.y + ' Y</span></span><b class="num">' + fNet(n.toplam) + '</b></li>';
+  }).join('') + '</ul>' : '<div class="empty">Henüz deneme yok.</div>') + '</section>';
+  right += '<section class="panel"><h2>Önce bunlara dönmeli ' + btn('go', 'Konu karnesi', 'xs ghost', { v: 'panel' }) + '</h2>' + karneKisa(konuKarnesi(S, { son: 5 })) + '</section>';
+
+  // notlar
+  var notlar = S.notlar.slice().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); }).slice(0, 10);
+  right += '<section class="panel"><h2>Öğrenciye notlar ' + btn('not-yeni', 'Not yaz', 'xs', null, 'plus') + '</h2>' + (notlar.length ? '<ul class="list">' + notlar.map(notRow).join('') + '</ul>' :
+    '<div class="empty">Henüz not yok. Yazdığınız not öğrencinin Bugün ekranında görünür.</div>') + '</section>';
+
+  right += '<section class="panel"><h2>Bağlantı</h2><div id="sync-status">' + syncStatusHtml() + '</div><p class="hint">Bu cihaz öğrenciyi davetle takip ediyor' + (SYNC.cfg.okur.a ? ' (' + esc(SYNC.cfg.okur.a) + ')' : '') + '. Takibi bırakmak öğrencinin verilerini etkilemez.</p>' + btn('sync-kes', 'Takibi bırak', 'sm danger') + '</section>';
+  h += '<div class="grid2"><div class="stack">' + left + '</div><div class="stack">' + right + '</div></div>';
+  return h;
+};
+
+function karneKisa(K) {
+  if (!K.denemeSayisi) return '<div class="empty">Henüz deneme yok.</div>';
+  if (!K.rows.length) return '<div class="empty">Denemelerde yanlışların konusu işaretlenmemiş.</div>';
+  return '<ol style="margin:0;padding-left:20px;display:grid;gap:10px">' + K.rows.slice(0, 5).map(function (r) {
+    return '<li><b>' + dersDot(r.dersId) + ' ' + esc(r.konu.ad) + '</b> <span class="muted small">' + esc(DERS[r.dersId].kisa) + '</span><div class="small">' + esc(karneNeden(r)) + '</div></li>';
+  }).join('') + '</ol><p class="hint">Son 5 deneme ve soru bankası sonuçlarına göre.</p>';
+}
+function notRow(n) {
+  var d = n.denemeId ? S.denemeler.find(function (x) { return x.id === n.denemeId; }) : null;
+  return '<li><span class="grow"><span style="display:block;white-space:pre-wrap">' + esc(n.metin) + '</span><span class="sub">' + esc((n.ogretmen && n.ogretmen.ad) || 'Öğretmen') + ', ' + relDay(n.tarih) +
+    (d ? ', deneme: ' + esc(d.ad || d.tur || fDateS(dn(d.tarih))) : '') + '</span></span>' + (n.okundu ? pill('Tamamlandı', 'okundu') : pill('Bekliyor', 'okunmadı')) +
+    (benimNot(n) ? btn('not-sil', 'Sil', 'xs ghost', { id: n.id }) : '') + '</li>';
+}
+
+/* Öğrenciye not */
+ACT['not-yeni'] = function () {
+  var F = { metin: '', denemeId: '' };
+  var dl = denemelerSirali(S).slice(-10).reverse();
+  openSheet({
+    title: 'Öğrenciye not', F: F,
+    body: function () {
+      return field('Not', '<textarea class="input" data-f="metin" rows="4" maxlength="500" placeholder="Örn. Bu hafta Üslü İfadeler testlerinde süreye dikkat et.">' + esc(F.metin) + '</textarea>') +
+        (dl.length ? fieldDiv('İlgili deneme (isteğe bağlı)', selectHtml('denemeId', dl.map(function (d) { return { v: d.id, t: fDateS(dn(d.tarih)) + ' · ' + (d.ad || d.tur || 'Deneme') }; }), F.denemeId, 'Genel not')) : '') +
+        '<p class="hint">Not öğrencinin Bugün ekranında görünür; okuduğunda burada “okundu” yazar.</p><div class="errors" role="alert"></div>';
+    },
+    foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="not-kaydet">Gönder</button>'; },
+    onInput: function (k, v) { F[k] = v; }
+  });
+};
+ACT['not-kaydet'] = function () {
+  var F = M.F, m = (F.metin || '').trim();
+  if (!m) return sheetErrors(['Notu yazın.']);
+  var rec = { id: uid('nt'), tarih: todayStr(), metin: m, okundu: false, ts: Date.now() };
+  if (F.denemeId) rec.denemeId = F.denemeId;
+  if (syncReader()) rec.ogretmen = { uid: SYNC.uid, ad: ogrAd() };
+  S.notlar.push(rec); closeSheet(); save(); showToast('Not gönderildi');
+};
+ACT['not-sil'] = async function (t) {
+  var n = S.notlar.find(function (x) { return x.id === t.dataset.id; }); if (!n || (syncReader() && !benimNot(n))) return;
+  if (!(await askConfirm('Bu not silinsin mi?', 'Sil', true))) return;
+  S.notlar = S.notlar.filter(function (x) { return x.id !== n.id; }); save();
+};
+ACT['not-okudum'] = function (t) {
+  var n = S.notlar.find(function (x) { return x.id === t.dataset.id; }); if (!n || syncReader()) return;
+  n.okundu = true; n.okunma = todayStr(); save();
+};
+
+/* Hedefler (öğretmen ve veli) */
+ACT['hedef-duzenle'] = function () {
+  var st = S.settings, F = { gunSoru: strN(st.gunSoru), hafSoru: strN(st.hafSoru), gunSure: strN(st.gunSure), hafSure: strN(st.hafSure) };
+  Object.keys(DERS).forEach(function (k) { F['net_' + k] = st.hedefNet && st.hedefNet[k] != null ? String(st.hedefNet[k]) : ''; });
+  openSheet({
+    title: 'Hedefler', F: F,
+    body: function () {
+      return '<div class="fields2">' + fieldDiv('Günlük soru', stepper('gunSoru', F.gunSoru, { label: 'Günlük soru' })) + fieldDiv('Haftalık soru', stepper('hafSoru', F.hafSoru, { label: 'Haftalık soru' })) + '</div>' +
+        '<div class="fields2">' + fieldDiv('Günlük süre (dk)', stepper('gunSure', F.gunSure, { label: 'Günlük süre' })) + fieldDiv('Haftalık süre (dk)', stepper('hafSure', F.hafSure, { label: 'Haftalık süre' })) + '</div>' +
+        '<h3 style="font-size:15px;margin:14px 0 4px">Deneme net hedefleri</h3><div class="fields2">' + Object.keys(DERS).map(function (k) {
+          return field(esc(DERS[k].ad || DERS[k].kisa || k), '<input class="input" data-f="net_' + k + '" inputmode="decimal" value="' + esc(F['net_' + k]) + '" placeholder="boş">');
+        }).join('') + '</div><p class="hint">Değişiklik öğrencinin uygulamasına da gider.</p><div class="errors" role="alert"></div>';
+    },
+    foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="hedef-kaydet">Kaydet</button>'; },
+    onInput: function (k, v) { F[k] = v; }
+  });
+};
+ACT['hedef-kaydet'] = function () {
+  var F = M.F, errs = [], st = S.settings, hn = {};
+  var v = { gunSoru: parseCount(F.gunSoru, 'Günlük soru', errs), hafSoru: parseCount(F.hafSoru, 'Haftalık soru', errs), gunSure: parseCount(F.gunSure, 'Günlük süre', errs), hafSure: parseCount(F.hafSure, 'Haftalık süre', errs) };
+  Object.keys(DERS).forEach(function (k) {
+    var x = intOrNull(F['net_' + k]);
+    if (x !== null && (isNaN(x) || x < 0 || x > num(st.dersSoru && st.dersSoru[k]) && num(st.dersSoru && st.dersSoru[k]) > 0)) errs.push((DERS[k].ad || k) + ' net hedefi geçersiz.');
+    hn[k] = x === null || isNaN(x) ? null : x;
+  });
+  if (errs.length) return sheetErrors(errs);
+  Object.assign(st, v); st.hedefNet = hn;
+  closeSheet(); save(); showToast('Hedefler kaydedildi');
+};
+
+/* Öğrencinin Bugün ekranı: öğretmen ödevleri ve okunmamış notlar */
+function ogretmenBugunPanel() {
+  if (syncReader()) return '';
+  var od = S.gorevler.filter(function (g) { return g.ogretmen && odevAcik(g); }).sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
+  var nt = S.notlar.filter(function (n) { return !n.okundu; }).sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+  if (!od.length && !nt.length) return '';
+  var h = '<section class="panel"><h2>Öğretmenden</h2>';
+  if (nt.length) h += '<ul class="list">' + nt.map(function (n) {
+    return '<li><span class="grow"><span style="display:block;white-space:pre-wrap">' + esc(n.metin) + '</span><span class="sub">' + esc((n.ogretmen && n.ogretmen.ad) || 'Öğretmen') + ', ' + relDay(n.tarih) + '</span></span>' + btn('not-okudum', 'Okudum', 'xs', { id: n.id }) + '</li>';
+  }).join('') + '</ul>';
+  if (od.length) h += '<h3 style="font-size:15px;margin:12px 0 4px">Ödevler</h3><ul class="list">' + od.map(gorevRow).join('') + '</ul><p class="hint" style="margin-bottom:0">Ödevdeki testleri çözüp kaydederken “bitti”yi işaretle; ödev kendiliğinden ilerler.</p>';
+  return h + '</section>';
+}
 
 /* ---- foto.js ---- */
 /* ===================== YANLIŞ SORU FOTOĞRAFLARI =====================
@@ -5642,6 +5952,35 @@ ACT['rtab'] = function (t) { UI.raporTab = t.dataset.v; render(); };
 ACT['hafta'] = function (t) { UI.haftaOff = Math.min(0, UI.haftaOff + Number(t.dataset.d)); render(); };
 ACT['ay'] = function (t) { UI.ayOff = Math.min(0, UI.ayOff + Number(t.dataset.d)); render(); };
 
+/* ---------- YÖNETİCİ PANELİ ---------- */
+VIEWS.yonetici = function () {
+  var st = S.settings, cihaz = yoneticiCihaz(), sync = syncLinked() && !syncReader();
+  var kart = function (v, tab, baslik, aciklama, ic) {
+    return '<button class="panel" data-act="go" data-v="' + v + '"' + (tab ? ' data-tab="' + tab + '"' : '') + ' style="text-align:left;cursor:pointer;display:block;width:100%;font:inherit;color:inherit">' +
+      '<div style="display:flex;gap:10px;align-items:center"><span class="yk-ic">' + icon(ic) + '</span><b style="font-size:17px">' + baslik + '</b></div><p class="muted" style="margin:6px 0 0">' + aciklama + '</p></button>';
+  };
+  var h = '<style>.yk-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}</style>' + head('Yönetici paneli', 'Öğrencinin menüsünde görünmeyen bölümler burada.', st.pin && !cihaz ? btn('kilitle', 'Kilitle ve öğrenci moduna dön', 'sm', null, 'lock') : '');
+  if (!st.pin) h += '<div class="banner warn" style="margin-bottom:16px"><span class="grow"><b>Yönetici şifresi yok.</b> Şifre koyana kadar öğrenci de bu bölümleri görür. Şifre koyunca Panel, Raporlar ve Kurulum öğrencinin menüsünden kalkar.</span>' + btn('pin-ayarla', 'Şifre koy', 'sm primary', null, 'lock') + '</div>';
+  h += '<div class="grid2"><div class="stack">' +
+    kart('panel', '', 'Panel', 'Geri sayım, hedefler, konu karnesi ve gidişat.', 'gauge') +
+    kart('rapor', '', 'Raporlar', 'Haftalık, aylık ve tarih aralıklı raporlar; PDF.', 'chart') +
+    kart('kurulum', 'kitaplar', 'Kitaplar ve testler', 'Soru bankaları, konular ve test sayıları.', 'book') +
+    kart('kurulum', 'hedef', 'Hedefler ve ayarlar', 'LGS tarihi, günlük ve haftalık hedefler.', 'gear') +
+    '</div><div class="stack">' +
+    kart('kurulum', 'esitle', 'Canlı eşitleme ve öğretmen davetleri', sync ? 'Bağlı. Öğretmenlere davet linki oluşturun, erişimi kaldırın.' : 'Kapalı. Cihazları bağlamak için açın.', 'share') +
+    kart('kurulum', 'yedek', 'Yedek ve aktarım', 'Son yedek: ' + (S.meta.lastBackup ? fDate(S.meta.lastBackup) : 'hiç alınmadı'), 'download') +
+    '<section class="panel"><h2>Bu cihaz</h2>' +
+    '<label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" data-act="yonetici-cihaz"' + (cihaz ? ' checked' : '') + ' style="width:20px;height:20px;margin-top:2px"><span><b>Bu benim cihazım (yönetici cihazı)</b><span class="sub" style="display:block">İşaretliyse bu cihazda şifre sorulmaz ve yönetici bölümleri hep görünür. Öğrencinin cihazında işaretlemeyin.</span></span></label>' +
+    '<div class="actions" style="margin-top:12px">' + (st.pin ? btn('pin-ayarla', 'Şifreyi değiştir', 'sm', null, 'lock') : '') + '</div>' +
+    '<p class="hint">Öğrencinin cihazında yönetici paneline girmek için: Bugün ekranındaki tarih başlığına (tablette sol üstteki logoya) 3 saniye içinde 5 kez dokunun ve şifreyi girin. Uygulama 5 dakikadan uzun arka planda kalınca yeniden kilitlenir.</p></section>' +
+    '</div></div>';
+  return h;
+};
+ACT['yonetici-cihaz'] = function (t) {
+  try { if (t.checked) localStorage.setItem(YONETICI_CIHAZ_KEY, '1'); else localStorage.removeItem(YONETICI_CIHAZ_KEY); } catch (e) { }
+  showToast(t.checked ? 'Bu cihaz yönetici cihazı olarak işaretlendi' : 'Bu cihazda yönetici bölümleri şifreyle açılacak'); render();
+};
+
 /* ---------- KURULUM ---------- */
 VIEWS.kurulum = function () {
   var h = head('Kurulum', 'Kitaplar, testler, hedefler ve yedekler. Öğrencinin günlük kullanımı için burası gerekmez.', btn('go', 'Kullanım rehberi', 'sm ghost', { v: 'rehber' }, 'help') + lockBtn());
@@ -5666,7 +6005,7 @@ ACT['pin'] = function (t) {
   if (UI.pinBuf.length === 4) { if (UI.pinBuf === S.settings.pin) UI.unlocked = true; else UI.pinErr = true; UI.pinBuf = ''; }
   render();
 };
-ACT['kilitle'] = function () { UI.unlocked = false; render(); };
+ACT['kilitle'] = function () { UI.unlocked = false; if (locked()) go('bugun'); else render(); };
 ACT['ktab'] = function (t) { UI.kTab = t.dataset.v; render(); };
 
 function kurKitaplar() {
