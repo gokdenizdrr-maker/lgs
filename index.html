@@ -474,8 +474,8 @@ body.okur .sheet:has([data-act="gorev-kaydet"]) input, body.okur .sheet:has([dat
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.9.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.9.0';
+/* LGS Takip, sürüm 1.11.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.11.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -498,6 +498,8 @@ DERSLER.forEach(function (d) { DERS[d.id] = d; });
 var CALISMA_TURLERI = ['Soru çözümü', 'Konu öğrenme', 'Tekrar', 'Yanlış soru çalışması', 'Deneme analizi'];
 var HATA_TURLERI = ['Konu eksikliği', 'Bilgi unutma', 'Dikkat hatası', 'İşlem hatası', 'Soruyu yanlış anlama',
   'Süre problemi', 'Yöntem seçimi hatası', 'Diğer'];
+var DENEME_YERLERI = ['Evde', 'Deneme kulübünde']; // denemenin çözüldüğü yer (eski kayıtlarda boş: belirtilmemiş)
+function denemeYer(d) { return d && DENEME_YERLERI.indexOf(d.yer) >= 0 ? d.yer : ''; }
 var DENEME_TURLERI = {
   'Genel deneme': ['TUR', 'INK', 'DIN', 'ING', 'MAT', 'FEN'],
   'Sözel bölüm': ['TUR', 'INK', 'DIN', 'ING'],
@@ -2191,7 +2193,7 @@ function showToast(msg, big) {
 
 /* ---------- olay yönetimi ---------- */
 var ACT = {};
-var OKUR_YASAK = {'kayit-yeni': 1, 'kayit-kaydet': 1, 'kayit-sil': 1, 'deneme-yeni': 1, 'deneme-kaydet': 1, 'deneme-sil': 1, 'dy-ekle': 1, 'dk-art': 1, 'dk-azalt': 1, 'yanlis-yeni': 1, 'yanlis-kaydet': 1, 'yanlis-sil': 1, 'ktekrar-yeni': 1, 'ktekrar-kaydet': 1, 'ktekrar-sil': 1, 'tekrar-yaptim': 1, 'soru-yaptim': 1, 'soru-not': 1, 'okuma-yeni': 1, 'okuma-kaydet': 1, 'okuma-sil': 1, 'kitap-yeni': 1, 'kitap-kaydet': 1, 'kitap-sil': 1, 'foto-ekle': 1, 'foto-ciz': 1, 'foto-kaldir': 1, 'sayac-ac': 1, 'sayac-basla': 1, 'sayac-bitir': 1, 'sayac-kaydet': 1, 'sayac-mola': 1, 'sayac-devam': 1, 'sayac-at': 1, 'kaynak-yeni': 1, 'kaynak-kaydet': 1, 'kaynak-sil': 1, 'plan-kaydet': 1, 'plan-sil': 1, 'plan-test-ekle': 1, 'toplu-plan': 1, 'toplu-kaydet': 1, 'konu-yeni': 1, 'konu-kaydet': 1, 'hepsini-sil': 1, 'yedek-yukle': 1, 'onb-gizle': 1, 'not-okudum': 1, 'lgs-tahmini': 1, 'pin-ayarla': 1, 'pin-kaldir': 1, 'pin-kaydet': 1, 'gorev-durum': 1}; // öğretmen cihazında kayıt ekleme/düzenleme yok: yalnızca görüntüleme
+var OKUR_YASAK = {'kayit-yeni': 1, 'kayit-kaydet': 1, 'kayit-sil': 1, 'deneme-yeni': 1, 'deneme-kaydet': 1, 'deneme-sil': 1, 'dy-ekle': 1, 'dk-art': 1, 'dk-azalt': 1, 'yanlis-yeni': 1, 'yanlis-kaydet': 1, 'yanlis-sil': 1, 'ktekrar-yeni': 1, 'ktekrar-kaydet': 1, 'ktekrar-sil': 1, 'tekrar-yaptim': 1, 'soru-yaptim': 1, 'soru-not': 1, 'okuma-yeni': 1, 'okuma-kaydet': 1, 'okuma-sil': 1, 'kitap-yeni': 1, 'kitap-kaydet': 1, 'kitap-sil': 1, 'foto-ekle': 1, 'foto-ciz': 1, 'foto-kaldir': 1, 'sayac-ac': 1, 'sayac-basla': 1, 'sayac-bitir': 1, 'sayac-kaydet': 1, 'sayac-mola': 1, 'sayac-devam': 1, 'sayac-at': 1, 'kaynak-yeni': 1, 'kaynak-kaydet': 1, 'kaynak-sil': 1, 'plan-kaydet': 1, 'plan-sil': 1, 'plan-test-ekle': 1, 'toplu-plan': 1, 'toplu-kaydet': 1, 'konu-yeni': 1, 'konu-kaydet': 1, 'hepsini-sil': 1, 'yedek-yukle': 1, 'onb-gizle': 1, 'not-okudum': 1, 'lgs-tahmini': 1, 'pin-ayarla': 1, 'pin-kaldir': 1, 'pin-kaydet': 1, 'gorev-durum': 1, 'dn-art': 1, 'dn-azalt': 1}; // öğretmen cihazında kayıt ekleme/düzenleme yok: yalnızca görüntüleme
 document.addEventListener('click', function (e) {
   var t = e.target.closest('[data-act]');
   if (!t || t.disabled) return;
@@ -2573,15 +2575,17 @@ function openDeneme(rec) {
     rows[D.id] = s ? { soru: String(num(s.d) + num(s.y) + num(s.b)), d: String(s.d), y: String(s.y) } : { soru: String(S.settings.dersSoru[D.id] || D.soru), d: '', y: '' };
   });
   var brans = rec && rec.tur === 'Branş denemesi' ? denemeDersleri(rec)[0] : 'MAT';
-  var F = { id: rec ? rec.id : null, tarih: rec ? rec.tarih : todayStr(), ad: rec ? rec.ad : '', tur: rec ? rec.tur : 'Genel deneme', brans: brans || 'MAT', rows: rows, not: rec ? rec.not || '' : '', ts: rec ? rec.ts : null,
-    konular: rec && rec.konular ? clone(rec.konular) : {}, bosKonu: !!(rec && rec.konular && Object.keys(rec.konular).some(function (k) { return rec.konular[k].b && Object.keys(rec.konular[k].b).length; })) };
+  var sonYer = (denemelerSirali(S).slice(-1)[0] || {}).yer;
+  var F = { id: rec ? rec.id : null, yer: rec ? denemeYer(rec) : (DENEME_YERLERI.indexOf(sonYer) >= 0 ? sonYer : 'Evde'), tarih: rec ? rec.tarih : todayStr(), ad: rec ? rec.ad : '', tur: rec ? rec.tur : 'Genel deneme', brans: brans || 'MAT', rows: rows, not: rec ? rec.not || '' : '', ts: rec ? rec.ts : null,
+    konular: rec && rec.konular ? clone(rec.konular) : {}, nedenler: rec && rec.nedenler ? clone(rec.nedenler) : {}, bosKonu: !!(rec && rec.konular && Object.keys(rec.konular).some(function (k) { return rec.konular[k].b && Object.keys(rec.konular[k].b).length; })) };
   function list() { return F.tur === 'Branş denemesi' ? [F.brans] : DENEME_TURLERI[F.tur]; }
   openSheet({
     title: rec ? 'Denemeyi düzenle' : 'Deneme ekle', F: F, wide: true,
     body: function () {
       var h = '<div class="fields2">' + field('Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '" max="' + todayStr() + '">') +
         field('Deneme adı', '<input class="input" data-f="ad" value="' + esc(F.ad) + '" placeholder="Örn. Yayın X Deneme 3" maxlength="80">') + '</div>';
-      h += fieldDiv('Deneme türü', chipsHtml('tur', Object.keys(DENEME_TURLERI).map(function (t) { return { v: t, t: t }; }), F.tur));
+      h += '<div class="fields2">' + fieldDiv('Deneme türü', chipsHtml('tur', Object.keys(DENEME_TURLERI).map(function (t) { return { v: t, t: t }; }), F.tur)) +
+        fieldDiv('Nerede çözüldü?', chipsHtml('yer', DENEME_YERLERI.map(function (t) { return { v: t, t: t }; }), F.yer)) + '</div>';
       if (F.tur === 'Branş denemesi') h += fieldDiv('Ders', dersChips('brans', F.brans));
       h += '<div class="field"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ders</th><th class="r">Soru</th><th class="r">Doğru</th><th class="r">Yanlış</th><th class="r">Boş</th><th class="r">Net</th></tr></thead><tbody>';
       list().forEach(function (k) {
@@ -2601,7 +2605,8 @@ function openDeneme(rec) {
         '<button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="deneme-kaydet">Kaydet</button>';
     },
     onMount: function () { denemeCalc(); },
-    onInput: function (k, v) {
+    onInput: function (k, v, el, kind) {
+      if (k === 'yer') { F.yer = v; paintChipState(k, v); return; }
       if (k === 'tur' || k === 'brans') { F[k] = v; paintSheet(); denemeCalc(); return; }
       if (k.indexOf('r.') === 0) { var p = k.split('.'); F.rows[p[1]][p[2]] = v; denemeCalc(); denemeKonuBoya(); return; }
       F[k] = v;
@@ -2645,9 +2650,18 @@ ACT['deneme-kaydet'] = async function () {
       if (top) { konular[k] = konular[k] || {}; konular[k][tip] = temiz; }
     });
   });
+  var nedenler = {};
+  M.list().forEach(function (k) {
+    var mm = F.nedenler && F.nedenler[k]; if (!mm) return;
+    var temiz = {}, top = 0; NEDENLER.forEach(function (x) { var v = num(mm[x[0]]); if (v > 0) { temiz[x[0]] = v; top += v; } });
+    if (top > sonuc[k].y) errs.push(DERS[k].kisa + ': ' + top + ' yanlışa neden seçildi ama yanlış sayısı ' + sonuc[k].y + '. Fazlasını − ile azalt.');
+    if (top) nedenler[k] = temiz;
+  });
   if (errs.length) return sheetErrors(errs);
   var rec = { id: F.id || uid('dn'), tarih: F.tarih, ad: F.ad.trim(), tur: F.tur, sonuc: sonuc, not: (F.not || '').trim(), ts: F.ts || Date.now() };
   if (Object.keys(konular).length) rec.konular = konular;
+  if (Object.keys(nedenler).length) rec.nedenler = nedenler;
+  if (F.yer) rec.yer = F.yer;
   var dup = findDuplicateDeneme(S, rec);
   if (dup && !(await askConfirm('Aynı gün aynı adla bir deneme zaten var. Yine de eklensin mi?', 'Ekle'))) return;
   var i = S.denemeler.findIndex(function (x) { return x.id === rec.id; });
@@ -2655,7 +2669,7 @@ ACT['deneme-kaydet'] = async function () {
   closeSheet(); save();
   var eksik = denemeKonuEksik(rec), ne = Object.keys(eksik).reduce(function (t0, k) { return t0 + eksik[k]; }, 0);
   showToast('Deneme kaydedildi: toplam net ' + fNet(denemeNetleri(rec).toplam) + (ne ? '. ' + ne + ' yanlışın konusu seçilmedi; denemeye dokunup sonra tamamlayabilirsin.' : ''), !!ne);
-  if (rec.konular && Object.keys(rec.konular).some(function (k) { return rec.konular[k].y; })) setTimeout(function () { openDenemeYanlis(rec.id); }, 60);
+  UI.analizId = rec.id; go('analiz'); // kaydedince deneme analizi açılır; yanlışlar oradan tekrar listesine eklenir
 };
 /* ---------- deneme yanlışlarının konuları ---------- */
 function denemeLimit(F, ders, tip) {
@@ -2679,7 +2693,7 @@ function denemeKonuAlan(F, dersler) {
           var n = num(mm[k.id]);
           return '<span class="dk-c' + (n ? ' on' : '') + '"><button type="button" class="chip dk" data-act="dk-art" data-ders="' + ders + '" data-tip="' + tip + '" data-konu="' + esc(k.id) + '" aria-pressed="' + (n > 0) + '"' + (k.id === KONU_BILINMIYOR ? ' style="font-style:italic"' : '') + '>' + esc(k.ad) + (n ? ' <b class="dk-n">' + n + '</b>' : '') + '</button>' +
             (n ? '<button type="button" class="chip dk-eksi" data-act="dk-azalt" data-ders="' + ders + '" data-tip="' + tip + '" data-konu="' + esc(k.id) + '" aria-label="' + esc(k.ad) + ' bir azalt">−</button>' : '') + '</span>';
-        }).join('') + '</div></div>');
+        }).join('') + '</div>' + (tip === 'y' && typeof denemeNedenAlan === 'function' ? denemeNedenAlan(F, ders) : '') + '</div>');
     });
   });
   var h = '<div class="field"><span class="lbl">Yanlışların konuları</span><p class="hint" style="margin-top:0">Her yanlış soru için konusuna bir kez dokun; sayaç tamamlanınca ders yeşile döner. Bilmiyorsan "Konusu belli değil"i seç. İstersen sonra tamamlarsın.</p>' +
@@ -3397,7 +3411,7 @@ VIEWS.bugun = function () {
     '<div class="bubbles" role="img" aria-label="' + done + ' / ' + hedef + ' soru">' + cells + '</div>' +
     '<div class="meta"><span>Her daire ' + per + ' soru</span><span>Süre <b>' + fSure(ps.sure) + '</b> / ' + fSure(st.gunSure) + '</span>' + (ps.mola ? '<span>Mola <b>' + fSure(ps.mola) + '</b></span>' : '') + (ps.enUzun ? '<span>En uzun kesintisiz <b>' + ps.enUzun + ' dk</b></span>' : '') +
     (ps.soru ? '<span>Net <b>' + fNet(ps.net) + '</b></span><span>Başarı <b>' + fPct(ps.basari) + '</b></span>' : '') +
-    (done > hedef && hedef > 0 ? '<span><b>Hedefin ' + (done - hedef) + ' soru üstündesin</b></span>' : '') + '</div></section>';
+    (done > hedef && hedef > 0 ? '<span><b>Hedefin ' + (done - hedef) + ' soru üstündesin</b></span>' : '') + '</div>' + (typeof seriSatir === 'function' ? seriSatir() : '') + '</section>';
   // iki sütun
   var tl = tekrarListesi(S, t).filter(function (x) { return x.next <= t; });
   var gorevler = S.gorevler.filter(function (g) { return !(g.testIds && g.testIds.length && g.ogretmen) && (dn(g.tarih) === t || (dn(g.tarih) < t && ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, g)) < 0)); })
@@ -3414,7 +3428,7 @@ VIEWS.bugun = function () {
     return '<li><div class="grow"><div class="title">' + esc(konuAd(p.konuId)) + '</div><div class="sub">' + esc(kaynakAd(p.kaynakId)) + (p.turNo ? ', ' + p.turNo + '. tur' : '') + '</div>' +
       '<div style="margin-top:6px">' + bar(p.oran, 'warn') + '</div></div><div class="num small">' + p.tamamlanan + '/' + p.planlanan + '</div></li>';
   }).join('') + '</ul>' : '<div class="empty">Devam eden tur yok. Bir kitaptan test çözüp kaydettiğinde burada görünür.</div>') + '</section>';
-  var right = (typeof ogretmenBugunPanel === 'function' ? ogretmenBugunPanel() : '') + '<section class="panel"><h2>Bugünün tekrarları ' + btn('go', 'Takvim', 'xs ghost', { v: 'tekrar' }) + '</h2>' + (tl.length ? '<ul class="list">' + tl.slice(0, 6).map(tekrarRow).join('') + '</ul>' +
+  var right = (typeof ogretmenBugunPanel === 'function' ? ogretmenBugunPanel() : '') + (typeof haftaninKonulariPanel === 'function' && rol() !== 'ogretmen' ? haftaninKonulariPanel(false) : '') + '<section class="panel"><h2>Bugünün tekrarları ' + btn('go', 'Takvim', 'xs ghost', { v: 'tekrar' }) + '</h2>' + (tl.length ? '<ul class="list">' + tl.slice(0, 6).map(tekrarRow).join('') + '</ul>' +
     (tl.length > 6 ? '<p class="hint">+' + (tl.length - 6) + ' tekrar daha</p>' : '') : '<div class="empty">Bugün yapılacak tekrar yok.</div>') + '</section>';
   right += '<section class="panel"><h2>Bugünün görevleri ' + btn('gorev-yeni', 'Görev ekle', 'xs', null, 'plus') + '</h2>' + (gorevler.length ? '<ul class="list">' + gorevler.slice(0, 8).map(gorevRow).join('') + '</ul>' :
     '<div class="empty">Bugün için görev yok.</div>') + '</section>';
@@ -3659,7 +3673,7 @@ ACT['karne-ders'] = function (t) { UI.karneDers = t.dataset.v; render(); };
 
 VIEWS.deneme = function () {
   var an = denemeAnaliz(S), list = denemelerSirali(S).slice().reverse();
-  var h = head('Denemeler', 'Net = Doğru − Yanlış ÷ 3. Bu uygulama resmî LGS puanı hesaplamaz.', btn('deneme-yeni', 'Deneme ekle', 'primary', null, 'plus'));
+  var h = head('Denemeler', 'Net = Doğru − Yanlış ÷ 3. Bu uygulama resmî LGS puanı hesaplamaz.', (S.denemeler.length > 1 ? btn('analiz-ac', 'Süreç analizi', '', { id: 'tum' }, 'chart') : '') + (S.denemeler.length ? btn('analiz-ac', 'Son deneme analizi', '', null) : '') + btn('deneme-yeni', 'Deneme ekle', 'primary', null, 'plus'));
   if (!list.length) return h + '<div class="panel empty"><strong>Henüz deneme yok</strong>Çözdüğün denemeyi "Deneme ekle" ile kaydet; netler otomatik hesaplanır.</div>';
   h += '<div class="kv" style="margin-bottom:16px">' +
     stat('Son genel deneme', an.son ? fNet(an.son.net) : '—', an.son ? esc(an.son.d.ad) : 'Genel deneme yok') +
@@ -3690,14 +3704,14 @@ VIEWS.deneme = function () {
     '<div class="chips" style="margin-bottom:8px">' + [[5, 'Son 5 deneme'], [10, 'Son 10 deneme'], [0, 'Tümü']].map(function (x) { return '<button class="chip" data-act="karne-n" data-v="' + x[0] + '" aria-pressed="' + ((UI.karneN || 0) === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
     '<div class="chips" style="margin-bottom:12px">' + [{ v: '', t: 'Tüm dersler' }].concat(DERSLER.map(function (d) { return { v: d.id, t: d.kisa, pre: dersDot(d.id) }; })).map(function (x) {
       return '<button class="chip" data-act="karne-ders" data-v="' + x.v + '" aria-pressed="' + (UI.karneDers === x.v) + '">' + (x.pre || '') + esc(x.t) + '</button>'; }).join('') + '</div>' + karneHtml(K) + '</section>';
-  h += '<section class="panel" style="margin-top:16px"><h2>Tüm denemeler</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tarih</th><th>Deneme</th>' + DERSLER.map(function (D) { return '<th class="r">' + esc(D.kisa.split(' ')[0]) + '</th>'; }).join('') + '<th class="r">Toplam</th></tr></thead><tbody>' +
+  h += '<section class="panel" style="margin-top:16px"><h2>Tüm denemeler</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tarih</th><th>Deneme</th>' + DERSLER.map(function (D) { return '<th class="r">' + esc(D.kisa.split(' ')[0]) + '</th>'; }).join('') + '<th class="r">Toplam</th><th></th></tr></thead><tbody>' +
     list.map(function (x) {
       var n = denemeNetleri(x);
       var eks = denemeKonuBekler(x) ? denemeKonuEksik(x) : {}, ne = Object.keys(eks).reduce(function (t0, k) { return t0 + eks[k]; }, 0);
-      return '<tr data-act="deneme-ac" data-id="' + x.id + '" style="cursor:pointer"><td>' + fDateS(x.tarih) + '</td><td>' + esc(x.ad) + '<div class="tiny muted">' + esc(x.tur) + '</div>' +
+      return '<tr data-act="deneme-ac" data-id="' + x.id + '" style="cursor:pointer"><td>' + fDateS(x.tarih) + '</td><td>' + esc(x.ad) + '<div class="tiny muted">' + esc(x.tur) + (denemeYer(x) ? ' · ' + esc(denemeYer(x)) : '') + '</div>' +
         (ne ? '<div class="tiny" style="color:var(--warn)">' + ne + ' yanlışın konusu seçilmedi</div>' : '') + '</td>' +
-        DERSLER.map(function (D) { return '<td class="r">' + (n.dersler[D.id] == null ? '<span class="muted">—</span>' : fNet(n.dersler[D.id])) + '</td>'; }).join('') + '<td class="r"><b>' + fNet(n.toplam) + '</b></td></tr>';
-    }).join('') + '</tbody></table></div><p class="hint">Düzenlemek için satıra dokun.</p></section>';
+        DERSLER.map(function (D) { return '<td class="r">' + (n.dersler[D.id] == null ? '<span class="muted">—</span>' : fNet(n.dersler[D.id])) + '</td>'; }).join('') + '<td class="r"><b>' + fNet(n.toplam) + '</b></td><td class="r">' + btn('analiz-ac', 'Analiz', 'xs', { id: x.id }) + '</td></tr>';
+    }).join('') + '</tbody></table></div><p class="hint">Ayrıntı için satıra, analiz için Analiz’e dokun.</p></section>';
   return h;
 };
 function stat(l, v, d, sign) {
@@ -5180,7 +5194,8 @@ VIEWS.ogretmen = function () {
     stat('Bugün', bugun.soru + ' soru', num(st.gunSoru) ? 'hedef ' + num(st.gunSoru) : '') +
     stat('Bu hafta', hs + ' soru', num(st.hafSoru) ? 'hedef ' + num(st.hafSoru) : '') +
     stat('Son 7 gün başarı', w.soru ? fPct(w.d / w.soru) : '—', w.soru + ' soru, ' + fSure(w.sure)) +
-    stat('Son deneme', son ? fNet(sonN) + ' net' : '—', son ? fDateS(dn(son.tarih)) + (onceN != null ? ', önceki ' + fNet(onceN) : '') : 'deneme yok') + '</div>';
+    stat('Son deneme', son ? fNet(sonN) + ' net' : '—', son ? fDateS(dn(son.tarih)) + (onceN != null ? ', önceki ' + fNet(onceN) : '') : 'deneme yok') +
+    (function () { var r = seriHesapla(S); return stat('Çalışma serisi', r.seri + ' gün', r.enUzun > r.seri ? 'en uzun ' + r.enUzun + ' gün' : 'günlük ' + r.esik + '+ soru'); })() + '</div>';
 
   // ödevler
   var benim = S.gorevler.filter(function (g) { return g.ogretmen && g.ogretmen.uid === SYNC.uid; });
@@ -5201,8 +5216,13 @@ VIEWS.ogretmen = function () {
     }).join('') + '</tbody></table></div></section>';
 
   // denemeler ve karne
-  var right = '<section class="panel"><h2>Son denemeler ' + btn('go', 'Tümü', 'xs ghost', { v: 'deneme' }) + '</h2>' + (dl.length ? '<ul class="list">' + dl.slice(-4).reverse().map(function (d) {
-    var n = denemeNetleri(d); return '<li><span class="grow"><span class="title" style="display:block">' + esc(d.ad || d.tur || 'Deneme') + '</span><span class="sub">' + fDateS(dn(d.tarih)) + ', ' + n.d + ' D, ' + n.y + ' Y</span></span><b class="num">' + fNet(n.toplam) + '</b></li>';
+  var gen = denemelerSirali(S).filter(denemeGenelMi).slice(-10), hnT = Object.keys(DERS).every(function (k) { return st.hedefNet && st.hedefNet[k] != null; }) ? Object.keys(DERS).reduce(function (a, k) { return a + num(st.hedefNet[k]); }, 0) : null;
+  if (gen.length >= 2) left += '<section class="panel"><h2>Net gelişimi <span class="muted small">genel denemeler</span></h2>' + chartSlot('og-net', { type: 'line', h: 200, dec: 2,
+    labels: gen.map(function (x) { return fDateS(x.tarih); }), tipTitles: gen.map(function (x) { return x.ad; }),
+    series: [{ name: 'Toplam net', color: 'var(--c-TUR)', values: gen.map(function (x) { return denemeNetleri(x).toplam; }) }].concat(hnT != null ? [{ name: 'Hedef', color: 'var(--ink-3)', values: gen.map(function () { return hnT; }) }] : []),
+    aria: 'Genel denemelerde toplam net' }, 200) + '</section>';
+  var right = haftaninKonulariPanel(true) + '<section class="panel"><h2>Son denemeler <span>' + (S.denemeler.length > 1 ? btn('analiz-ac', 'Süreç analizi', 'xs ghost', { id: 'tum' }) : '') + btn('go', 'Tümü', 'xs ghost', { v: 'deneme' }) + '</span></h2>' + (dl.length ? '<ul class="list">' + dl.slice(-4).reverse().map(function (d) {
+    var n = denemeNetleri(d); return '<li><button class="row-btn grow" data-act="analiz-ac" data-id="' + d.id + '"><span class="grow"><span class="title" style="display:block">' + esc(d.ad || d.tur || 'Deneme') + '</span><span class="sub">' + fDateS(dn(d.tarih)) + (denemeYer(d) ? ', ' + esc(denemeYer(d)) : '') + ', ' + n.d + ' D, ' + n.y + ' Y · analiz</span></span></button><b class="num">' + fNet(n.toplam) + '</b></li>';
   }).join('') + '</ul>' : '<div class="empty">Henüz deneme yok.</div>') + '</section>';
   right += '<section class="panel"><h2>Önce bunlara dönmeli ' + btn('go', 'Konu karnesi', 'xs ghost', { v: 'panel' }) + '</h2>' + karneKisa(konuKarnesi(S, { son: 5 })) + '</section>';
 
@@ -5306,6 +5326,469 @@ function ogretmenBugunPanel() {
   if (od.length) h += '<h3 style="font-size:15px;margin:12px 0 4px">Ödevler</h3><ul class="list">' + od.map(gorevRow).join('') + '</ul><p class="hint" style="margin-bottom:0">Ödevdeki testleri çözüp kaydederken “bitti”yi işaretle; ödev kendiliğinden ilerler.</p>';
   return h + '</section>';
 }
+
+/* ---- analiz.js ---- */
+/* ===================== ÇALIŞMA SERİSİ VE DENEME ANALİZİ =====================
+   Seri: günlük soru hedefinin en az yarısı çözülen her gün seriye sayılır. Bugün henüz eşiğe ulaşılmadıysa seri dünden sayılır (gün içinde bozulmuş görünmez).
+   Deneme analizi: ders sonuçları ve önceki denemeye fark, net gelişimi, yanlış konularının kategorileri, yanlış nedenleri,
+   kronik konular, deneme / soru bankası başarı karşılaştırması ve "bu hafta önce bunlar" önerisi. */
+var NEDENLER = [['bilgi', 'Bilgi eksiği'], ['islem', 'İşlem hatası'], ['dikkat', 'Dikkat / okuma'], ['sure', 'Süre yetmedi']];
+
+/* ---------- seri ---------- */
+function seriHesapla(S) {
+  var esik = Math.max(1, Math.ceil(num(S.settings.gunSoru) / 2)), gun = {};
+  S.kayitlar.forEach(function (k) { var d = dn(k.tarih); if (isFinite(d)) gun[d] = (gun[d] || 0) + num(k.soru); });
+  var t = today(), ok = function (d) { return (gun[d] || 0) >= esik; };
+  var bugunTamam = ok(t), d = bugunTamam ? t : t - 1, seri = 0;
+  while (ok(d)) { seri++; d--; }
+  var gunler = Object.keys(gun).map(Number).filter(ok).sort(function (a, b) { return a - b; }), enUzun = 0, cur = 0, prev = null;
+  gunler.forEach(function (x) { cur = prev != null && x === prev + 1 ? cur + 1 : 1; if (cur > enUzun) enUzun = cur; prev = x; });
+  return { seri: seri, enUzun: Math.max(enUzun, seri), bugunTamam: bugunTamam, esik: esik, bugun: gun[t] || 0 };
+}
+function seriMetni(r, ogr) {
+  if (!r.seri) return r.bugun ? 'Bugün ' + r.esik + ' soruya ulaşınca seri başlar' + (ogr ? '' : ' (' + r.bugun + '/' + r.esik + ')') + '.' : 'Bugün ' + r.esik + ' soru çözünce seri başlar.';
+  return (ogr ? '' : '') + r.seri + ' gündür aralıksız çalış' + (ogr ? 'ıyor' : 'ıyorsun') + (r.bugunTamam ? '' : ' · bugün ' + r.esik + ' soruya ulaşınca ' + (r.seri + 1) + ' olur') + (r.enUzun > r.seri ? ' · en uzun seri ' + r.enUzun + ' gün' : '');
+}
+function seriSatir() {
+  var r = seriHesapla(S);
+  return '<div class="seri" style="display:flex;gap:10px;align-items:center;margin-top:10px;font-size:15px"><span class="pill ' + (r.seri ? 'good' : 'grey') + '" style="font-weight:700">' + r.seri + ' gün</span><span>' + esc(seriMetni(r, false)) + '</span></div>';
+}
+
+/* ---------- yardımcılar ---------- */
+function denemeSoruSay(dnm, ders) { var s = dnm.sonuc[ders]; return num(s.d) + num(s.y) + num(s.b); }
+function oncekiDeneme(dnm) { // aynı türden bir önceki deneme (yoksa herhangi bir önceki)
+  var l = denemelerSirali(S), i = l.findIndex(function (x) { return x.id === dnm.id; });
+  for (var j = i - 1; j >= 0; j--) if (l[j].tur === dnm.tur) return l[j];
+  return i > 0 ? l[i - 1] : null;
+}
+function karneMap() { var m = {}; konuKarnesi(S, {}).rows.forEach(function (r) { m[r.konuId] = r; }); return m; }
+var KAT = { eksik: ['Konu eksiği', 'bad', 'Soru bankasında da zayıf: konu anlatımına dönsün, kolaydan zora test çözsün.'],
+  dikkat: ['Dikkat / süre', 'warn', 'Bankada iyi, denemede kaçırıyor: süre tutarak karışık test çözsün.'],
+  az: ['Az çalışılmış', 'grey', 'Bankada yeterince soru çözülmemiş: bu konudan test çözsün.'],
+  tekrar: ['Tekrar edilmeli', 'info', 'Orta düzey: konuyu tekrar edip yanlışlarını yeniden çözsün.'] };
+var KAT_SIRA = { eksik: 0, dikkat: 1, az: 2, tekrar: 3 };
+function denemeKonuSatirlari(dnm) { // bu denemedeki yanlış (ve boş) konuları, kategoriyle
+  var km = karneMap(), out = [];
+  Object.keys(dnm.konular || {}).forEach(function (ders) {
+    var y = (dnm.konular[ders].y) || {}, b = (dnm.konular[ders].b) || {};
+    Object.keys(Object.assign({}, y, b)).forEach(function (kid) {
+      if (kid === KONU_BILINMIYOR) return;
+      var r = km[kid];
+      out.push({ ders: ders, konuId: kid, y: num(y[kid]), b: num(b[kid]), tip: r ? r.tip : 'az', bankaBasari: r ? r.bankaBasari : null, bankaSoru: r ? r.bankaSoru : 0 });
+    });
+  });
+  return out.sort(function (a, b) { return KAT_SIRA[a.tip] - KAT_SIRA[b.tip] || (b.y + b.b / 2) - (a.y + a.b / 2); });
+}
+function kronikKonular(n) { // son n konusu işaretli denemede tekrar eden yanlış konuları ve eğilim
+  var dl = denemelerSirali(S).filter(function (d) { return d.konular; }).slice(-(n || 6));
+  if (dl.length < 2) return [];
+  var m = {};
+  dl.forEach(function (d, i) {
+    Object.keys(d.konular).forEach(function (ders) {
+      var y = d.konular[ders].y || {};
+      Object.keys(y).forEach(function (kid) { if (kid === KONU_BILINMIYOR) return; var r = m[kid] || (m[kid] = { konuId: kid, ders: ders, seri: dl.map(function () { return 0; }) }); r.seri[i] += num(y[kid]); });
+    });
+  });
+  return Object.keys(m).map(function (k) {
+    var r = m[k], s = r.seri, adet = s.filter(function (x) { return x > 0; }).length, h = Math.min(2, Math.floor(s.length / 2));
+    var son = s.slice(-h).reduce(function (a, b) { return a + b; }, 0), once = s.slice(-2 * h, -h).reduce(function (a, b) { return a + b; }, 0);
+    r.adet = adet; r.toplam = s.reduce(function (a, b) { return a + b; }, 0); r.denemeSayisi = s.length;
+    r.egilim = son < once ? 'iyi' : (son > once ? 'kotu' : 'ayni');
+    return r;
+  }).filter(function (r) { return r.adet >= 2; }).sort(function (a, b) { return b.adet - a.adet || b.toplam - a.toplam; });
+}
+function dersBasari(ders) { // son 5 deneme başarısı ve son 30 gün soru bankası başarısı
+  var dl = denemelerSirali(S).filter(function (d) { return d.sonuc && d.sonuc[ders]; }).slice(-5), ds_ = 0, dd = 0;
+  dl.forEach(function (d) { ds_ += denemeSoruSay(d, ders); dd += num(d.sonuc[ders].d); });
+  var t = today(), bs = 0, bd = 0;
+  S.kayitlar.forEach(function (k) { if (k.dersId !== ders || k.tur === 'Konu öğrenme' || dn(k.tarih) < t - 29) return; bs += num(k.soru); bd += num(k.d); });
+  return { deneme: ds_ ? dd / ds_ : null, banka: bs ? bd / bs : null, bankaSoru: bs, denemeSayisi: dl.length };
+}
+/* Bu hafta önce bunlar: son denemeden (14 gün içinde) en öncelikli 3 konu */
+function haftaninKonulari() {
+  var son = denemelerSirali(S).filter(function (d) { return d.konular; }).pop();
+  if (!son || dn(son.tarih) < today() - 13) return null;
+  var l = denemeKonuSatirlari(son).filter(function (r) { return r.y > 0; }).slice(0, 3);
+  return l.length ? { deneme: son, konular: l } : null;
+}
+function haftaninKonulariPanel(ogretmen) {
+  var h = haftaninKonulari(); if (!h) return '';
+  return '<section class="panel"><h2>Bu hafta önce bunlar <span class="muted small">' + esc(h.deneme.ad) + ', ' + fDateS(dn(h.deneme.tarih)) + '</span></h2><ol style="margin:0;padding-left:20px;display:grid;gap:10px">' +
+    h.konular.map(function (r) {
+      return '<li><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>' + dersDot(r.ders) + ' ' + esc(konuAd(r.konuId)) + '</b><span class="pill ' + KAT[r.tip][1] + '">' + KAT[r.tip][0] + '</span>' +
+        (ogretmen ? '<span class="spacer" style="flex:1"></span>' + btn('analiz-odev', 'Ödev ver', 'xs', { ders: r.ders, konu: r.konuId }, 'plus') : '') + '</div><div class="small muted">Denemede ' + r.y + ' yanlış. ' + esc(KAT[r.tip][2]) + '</div></li>';
+    }).join('') + '</ol>' + btn('analiz-ac', 'Deneme analizini aç', 'xs ghost', { id: h.deneme.id }) + '</section>';
+}
+
+/* ---------- otomatik değerlendirme: uygulamanın kendi çıkardığı yorumlar ---------- */
+function otomatikYorum(d) {
+  var out = [], n = denemeNetleri(d), p = oncekiDeneme(d), pn = p ? denemeNetleri(p) : null, ks = denemeKonuSatirlari(d).filter(function (r) { return r.y > 0; });
+  var ad = function (l) { return l.slice(0, 3).map(function (r) { return konuAd(r.konuId); }).join(', ') + (l.length > 3 ? ' ve ' + (l.length - 3) + ' konu daha' : ''); };
+  if (pn) {
+    var f = n.toplam - pn.toplam, dz = denemeDersleri(d).filter(function (k) { return pn.dersler[k] != null; }).map(function (k) { return { k: k, f: n.dersler[k] - pn.dersler[k] }; }).sort(function (a, b) { return a.f - b.f; });
+    var iyi = dz[dz.length - 1], kotu = dz[0];
+    out.push(['info', 'Toplam net önceki denemeye göre ' + (Math.abs(f) < 0.25 ? 'aynı düzeyde' : (f > 0 ? signed(f, 2) + ' arttı' : signed(f, 2) + ' düştü')) + '.' +
+      (iyi && iyi.f > 0.5 ? ' En çok yükselen: ' + DERS[iyi.k].kisa + ' (' + signed(iyi.f, 2) + ').' : '') + (kotu && kotu.f < -0.5 ? ' En çok düşen: ' + DERS[kotu.k].kisa + ' (' + signed(kotu.f, 2) + ').' : '')]);
+  }
+  var yer = denemeYer(d);
+  if (yer) {
+    var ayni = denemelerSirali(S).filter(function (x) { return x.id !== d.id && x.tur === d.tur && denemeYer(x) === yer; });
+    if (ayni.length >= 2) { var ort = ortalama(ayni.map(function (x) { return denemeNetleri(x).toplam; })), fy = n.toplam - ort; out.push([Math.abs(fy) < 1 ? 'info' : (fy > 0 ? 'good' : 'warn'), (yer === 'Evde' ? 'Evde' : 'Deneme kulübünde') + ' çözülen ' + ayni.length + ' denemenin ortalaması ' + fNet(ort) + '; bu deneme ' + (Math.abs(fy) < 1 ? 'ortalamaya yakın.' : (fy > 0 ? signed(fy, 2) + ' net üstünde.' : signed(fy, 2) + ' net altında.'))]); }
+  }
+  var dik = ks.filter(function (r) { return r.tip === 'dikkat'; }), eks = ks.filter(function (r) { return r.tip === 'eksik'; }), az = ks.filter(function (r) { return r.tip === 'az'; });
+  if (dik.length) out.push(['warn', ad(dik) + ': soru bankasında başarılı (' + dik.slice(0, 3).map(function (r) { return fPct(r.bankaBasari); }).join(', ') + ') ama denemede yanlış. Konuyu biliyor; denemede süre baskısı ya da dikkat sorunu var. Süre tutarak karışık test çözmesi önerilir.']);
+  if (eks.length) out.push(['bad', ad(eks) + ': hem soru bankasında hem denemede zayıf. Bu bir konu eksiği; önce konu tekrarı, sonra kolaydan zora test.']);
+  if (az.length) out.push(['grey', ad(az) + ': soru bankasında yeterince soru çözülmemiş. Denemedeki yanlışın nedeni pratik eksikliği olabilir; bu konulardan test çözmeli.']);
+  denemeDersleri(d).forEach(function (k) {
+    var b = dersBasari(k);
+    if (b.deneme != null && b.banka != null && b.bankaSoru >= 40 && b.banka - b.deneme > 0.12) out.push(['warn', DERS[k].kisa + ': soru bankasında ' + fPct(b.banka) + ' başarı, denemelerde ' + fPct(b.deneme) + '. Bildiği soruları denemede kaçırıyor; deneme koşullarında (süreli) çalışma artırılmalı.']);
+    else if (b.deneme != null && b.bankaSoru < 20 && b.denemeSayisi >= 2) out.push(['grey', DERS[k].kisa + ': son 30 günde soru bankasında neredeyse hiç çalışılmamış.']);
+  });
+  var nd = d.nedenler || {}, nt = {}, top = 0;
+  Object.keys(nd).forEach(function (k) { NEDENLER.forEach(function (x) { var v = num(nd[k][x[0]]); nt[x[0]] = (nt[x[0]] || 0) + v; top += v; }); });
+  if (top >= 4) {
+    var en = NEDENLER.slice().sort(function (a, b) { return (nt[b[0]] || 0) - (nt[a[0]] || 0); })[0], oran = (nt[en[0]] || 0) / top;
+    var tav = { bilgi: 'konu tekrarına ağırlık verilmeli', islem: 'işlem adımlarını yazarak çözmeli ve kontrol alışkanlığı kazanmalı', dikkat: 'soru kökünü altını çizerek okumalı; "değildir / yanlıştır" ifadelerine dikkat', sure: 'süre tutarak test çözmeli, zor soruyu atlayıp sona bırakmayı denemeli' }[en[0]];
+    if (oran >= 0.4) out.push(['info', 'Yanlışların %' + Math.round(oran * 100) + '\'i "' + en[1] + '" kaynaklı: ' + tav + '.']);
+  }
+  var kr = kronikKonular(6).filter(function (r) { return r.egilim === 'kotu'; });
+  if (kr.length) out.push(['bad', kr.slice(0, 3).map(function (r) { return konuAd(r.konuId); }).join(', ') + ': son denemelerde yanlış sayısı artıyor.']);
+  var iy = kronikKonular(6).filter(function (r) { return r.egilim === 'iyi'; });
+  if (iy.length) out.push(['good', iy.slice(0, 3).map(function (r) { return konuAd(r.konuId); }).join(', ') + ': yanlış sayısı azalıyor, çalışma işe yarıyor.']);
+  return out;
+}
+function otomatikYorumHtml(d) {
+  var l = otomatikYorum(d); if (!l.length) return '';
+  return '<section class="panel" style="margin-bottom:16px"><h2>Otomatik değerlendirme</h2><ul class="list">' + l.map(function (x) {
+    return '<li><span class="pill ' + x[0] + '" style="flex:none">' + ({ good: 'İyi', warn: 'Dikkat', bad: 'Öncelik', grey: 'Eksik', info: 'Bilgi' }[x[0]]) + '</span><span class="grow">' + esc(x[1]) + '</span></li>';
+  }).join('') + '</ul><p class="hint">Uygulama bu yorumları deneme, konu ve soru bankası kayıtlarından kendisi çıkarır.</p></section>';
+}
+
+/* ---------- deneme analizi ekranı ---------- */
+VIEWS.analiz = function () {
+  var l = denemelerSirali(S);
+  if (UI.analizId === 'tum' && l.length) return surecHtml();
+  if (!l.length) return head('Deneme analizi', '') + '<div class="panel empty"><strong>Henüz deneme yok</strong>Deneme eklendiğinde analizi burada görünür.</div>';
+  var d = l.find(function (x) { return x.id === UI.analizId; }) || l[l.length - 1], p = oncekiDeneme(d), n = denemeNetleri(d), pn = p ? denemeNetleri(p) : null;
+  var hn = S.settings.hedefNet || {}, ogr = rol() === 'ogretmen';
+  var sec = '<select class="input" data-pf="analiz-sec" style="max-width:340px"><option value="tum">Tüm denemeler · süreç analizi</option>' + l.slice().reverse().map(function (x) { return '<option value="' + x.id + '"' + (x.id === d.id ? ' selected' : '') + '>' + esc(fDateS(dn(x.tarih)) + ' · ' + x.ad) + '</option>'; }).join('') + '</select>';
+  var h = head('Deneme analizi', esc(d.tur) + (denemeYer(d) ? ' · ' + esc(denemeYer(d)) : '') + ' · ' + fDate(dn(d.tarih)), sec);
+  var fark = pn ? n.toplam - pn.toplam : null, hedefT = denemeDersleri(d).every(function (k) { return hn[k] != null; }) ? denemeDersleri(d).reduce(function (s, k) { return s + num(hn[k]); }, 0) : null;
+  h += '<div class="kv" style="margin-bottom:16px">' + stat('Toplam net', fNet(n.toplam), p ? 'önceki ' + fNet(pn.toplam) : 'ilk deneme', fark) +
+    stat('Değişim', fark == null ? '—' : signed(fark, 2), p ? esc(p.ad) : '', fark) + stat('Doğru / yanlış / boş', n.d + ' / ' + n.y + ' / ' + n.b, n.soru ? 'başarı ' + fPct(n.d / n.soru) : '') +
+    stat('Hedef', hedefT != null ? fNet(hedefT) : '—', hedefT != null ? (n.toplam >= hedefT ? 'hedef tuttu' : 'hedefe ' + fNet(hedefT - n.toplam) + ' net') : 'net hedefi girilmedi', hedefT != null ? n.toplam - hedefT : 0) + '</div>';
+
+  h += otomatikYorumHtml(d);
+  // ders tablosu
+  h += '<section class="panel"><h2>Derslere göre</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ders</th><th class="r">D</th><th class="r">Y</th><th class="r">B</th><th class="r">Net</th><th class="r">Önceki</th><th class="r">Fark</th><th class="r">Başarı</th><th class="r">Hedef</th></tr></thead><tbody>' +
+    denemeDersleri(d).map(function (k) {
+      var s = d.sonuc[k], nt = n.dersler[k], pv = pn && pn.dersler[k] != null ? pn.dersler[k] : null, f = pv != null ? nt - pv : null, so = denemeSoruSay(d, k);
+      return '<tr><td>' + dersDot(k) + ' ' + esc(DERS[k].kisa) + '</td><td class="r">' + num(s.d) + '</td><td class="r">' + num(s.y) + '</td><td class="r">' + num(s.b) + '</td><td class="r"><b>' + fNet(nt) + '</b></td><td class="r">' + fNet(pv) + '</td>' +
+        '<td class="r ' + (f > 0.25 ? 'up' : (f < -0.25 ? 'down' : '')) + '">' + (f == null ? '—' : (f > 0.25 ? '▲ ' : (f < -0.25 ? '▼ ' : '')) + signed(f, 2)) + '</td><td class="r">' + (so ? fPct(num(s.d) / so) : '—') + '</td>' +
+        '<td class="r ' + (hn[k] != null ? (nt >= hn[k] ? 'up' : 'down') : '') + '">' + (hn[k] != null ? fNet(hn[k]) : '—') + '</td></tr>';
+    }).join('') + '</tbody></table></div></section>';
+
+  // net gelişimi
+  var son = l.filter(function (x) { return x.tur === d.tur; }).slice(-12);
+  if (son.length >= 2) {
+    h += '<div class="grid2" style="margin-top:16px"><section class="panel"><h2>Toplam net gelişimi <span class="muted small">' + esc(d.tur) + '</span></h2>' + chartSlot('an-top', { type: 'line', h: 220, dec: 2,
+      labels: son.map(function (x) { return fDateS(x.tarih); }), tipTitles: son.map(function (x) { return x.ad; }),
+      series: [{ name: 'Toplam net', color: 'var(--c-TUR)', values: son.map(function (x) { return denemeNetleri(x).toplam; }) }].concat(hedefT != null ? [{ name: 'Hedef', color: 'var(--ink-3)', values: son.map(function () { return hedefT; }) }] : []),
+      aria: 'Toplam net gelişimi' }, 220) + '</section>';
+    h += '<section class="panel"><h2>Ders netleri</h2>' + chartSlot('an-ders', { type: 'line', h: 220, dec: 2, labels: son.map(function (x) { return fDateS(x.tarih); }), tipTitles: son.map(function (x) { return x.ad; }),
+      series: denemeDersleri(d).map(function (k) { return { name: DERS[k].kisa, color: 'var(--c-' + k + ')', values: son.map(function (x) { var v = denemeNetleri(x).dersler[k]; return v == null ? null : v; }) }; }),
+      aria: 'Ders netleri gelişimi' }, 240) + '</section></div>';
+  }
+
+  // konular
+  var ks = denemeKonuSatirlari(d), eks = denemeKonuEksik(d), ne = Object.keys(eks).reduce(function (a, k) { return a + eks[k]; }, 0);
+  h += '<div class="grid2" style="margin-top:16px"><section class="panel"><h2>Bu denemedeki yanlış konuları</h2>';
+  if (!ks.length) h += '<div class="empty">' + (ne ? 'Yanlışların konusu işaretlenmemiş. Denemeye dokunup konuları seçince burada kategorilere ayrılır.' : 'Bu denemede konusu işaretli yanlış yok.') + '</div>';
+  else {
+    Object.keys(KAT).forEach(function (kt) {
+      var g = ks.filter(function (r) { return r.tip === kt; }); if (!g.length) return;
+      h += '<h3 style="font-size:15px;margin:12px 0 2px"><span class="pill ' + KAT[kt][1] + '">' + KAT[kt][0] + '</span> <span class="muted small">' + g.length + ' konu</span></h3><p class="small muted" style="margin:2px 0 6px">' + KAT[kt][2] + '</p><ul class="list">' +
+        g.map(function (r) {
+          return '<li><span class="grow">' + dersDot(r.ders) + ' ' + esc(konuAd(r.konuId)) + '<span class="sub" style="display:block">' + (r.y ? r.y + ' yanlış' : '') + (r.b ? (r.y ? ', ' : '') + r.b + ' boş' : '') + ' · soru bankası ' + (r.bankaSoru ? fPct(r.bankaBasari) + ' (' + r.bankaSoru + ' soru)' : 'çözülmemiş') + '</span></span>' +
+            (ogr || rol() === 'yonetici' ? btn('analiz-odev', ogr ? 'Ödev ver' : 'Görev ver', 'xs', { ders: r.ders, konu: r.konuId }, 'plus') : '') + '</li>';
+        }).join('') + '</ul>';
+    });
+    if (ne) h += '<p class="hint">' + ne + ' yanlışın konusu seçilmedi.</p>';
+  }
+  h += '</section><div class="stack">';
+
+  // yanlış nedenleri
+  var nd = d.nedenler || {}, nt = {}, ntop = 0;
+  Object.keys(nd).forEach(function (k) { NEDENLER.forEach(function (x) { var v = num(nd[k][x[0]]); if (v) { nt[x[0]] = (nt[x[0]] || 0) + v; ntop += v; } }); });
+  h += '<section class="panel"><h2>Yanlış nedenleri</h2>' + (ntop ? '<ul class="list">' + NEDENLER.filter(function (x) { return nt[x[0]]; }).map(function (x) {
+    return '<li><span class="grow">' + x[1] + '<span class="sub" style="display:block">' + Object.keys(nd).filter(function (k) { return num(nd[k][x[0]]); }).map(function (k) { return esc(DERS[k].kisa) + ' ' + num(nd[k][x[0]]); }).join(', ') + '</span></span><b class="num">' + nt[x[0]] + '</b><span class="muted small" style="width:44px;text-align:right">' + fPct(nt[x[0]] / ntop) + '</span></li>';
+  }).join('') + '</ul>' : '<div class="empty">Neden işaretlenmemiş. Deneme girerken yanlışların nedenini de seçebilirsin (isteğe bağlı).</div>') + '</section>';
+
+  // başarı oranları
+  h += '<section class="panel"><h2>Deneme ve soru bankası başarısı</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ders</th><th class="r">Deneme <span class="muted small">son 5</span></th><th class="r">Soru bankası <span class="muted small">30 gün</span></th><th>Yorum</th></tr></thead><tbody>' +
+    denemeDersleri(d).map(function (k) {
+      var b = dersBasari(k), yorum = b.deneme == null || b.banka == null ? (b.bankaSoru ? '' : 'Bankada çalışma yok') : (b.banka - b.deneme > 0.12 ? 'Biliyor, denemede kaçırıyor' : (b.banka < 0.6 ? 'Konu eksiği' : 'Dengeli'));
+      return '<tr><td>' + dersDot(k) + ' ' + esc(DERS[k].kisa) + '</td><td class="r">' + fPct(b.deneme) + '</td><td class="r">' + fPct(b.banka) + '</td><td class="small">' + esc(yorum) + '</td></tr>';
+    }).join('') + '</tbody></table></div></section></div></div>';
+
+  // kronik konular
+  var kr = kronikKonular(6);
+  h += '<section class="panel" style="margin-top:16px"><h2>Tekrar eden yanlış konuları <span class="muted small">son 6 deneme</span></h2>' + (kr.length ? '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Konu</th><th class="r">Yanlış çıkan deneme</th><th class="r">Toplam yanlış</th><th>Gidişat</th></tr></thead><tbody>' +
+    kr.slice(0, 10).map(function (r) {
+      var e = { iyi: ['good', 'İyileşiyor'], kotu: ['bad', 'Kötüleşiyor'], ayni: ['grey', 'Aynı'] }[r.egilim];
+      return '<tr><td>' + dersDot(r.ders) + ' ' + esc(konuAd(r.konuId)) + '</td><td class="r">' + r.adet + ' / ' + r.denemeSayisi + '</td><td class="r">' + r.toplam + '</td><td><span class="pill ' + e[0] + '">' + e[1] + '</span></td></tr>';
+    }).join('') + '</tbody></table></div><p class="hint">Gidişat: son iki denemedeki yanlış sayısı, ondan önceki iki denemeyle karşılaştırılır.</p>' : '<div class="empty">En az iki denemede konusu işaretli yanlış olunca burada görünür.</div>') + '</section>';
+
+  if (d.konular && !ogr) h += '<div class="actions" style="margin-top:16px">' + btn('dy-ac', 'Yanlışları tekrar listesine ekle', 'sm', { id: d.id }, 'plus') + btn('deneme-ac', 'Denemeyi düzenle', 'sm ghost', { id: d.id }) + '</div>';
+  return h;
+};
+ACT['analiz-ac'] = function (t) { closeSheet(); UI.analizId = t.dataset.id || null; go('analiz'); };
+document.addEventListener('change', function (e) { if (e.target && e.target.dataset && e.target.dataset.pf === 'analiz-sec') { UI.analizId = e.target.value; render(); } });
+ACT['analiz-odev'] = function (t) { // konu hazır seçili ödev/görev: bu konuda testi olan ilk kitap seçilir
+  var ders = t.dataset.ders, konu = t.dataset.konu, k = kaynaklarOf(S, ders).find(function (x) { return IX().planByKey[x.id + '|' + konu]; });
+  openGorev(null);
+  if (M && M.F) { M.F.dersId = ders; M.F.konuId = konu; M.F.kaynakId = k ? k.id : ''; M.F.testIds = []; paintSheet(); }
+};
+
+/* ---------- deneme formu: yanlış nedenleri (isteğe bağlı) ---------- */
+function denemeNedenAlan(F, ders) {
+  var lim = denemeLimit(F, ders, 'y'); if (!lim) return '';
+  var mm = (F.nedenler && F.nedenler[ders]) || {}, top = 0;
+  NEDENLER.forEach(function (x) { top += num(mm[x[0]]); });
+  return '<div class="small muted" style="margin:8px 0 4px">Nedenleri <span class="muted">(isteğe bağlı) ' + top + ' / ' + lim + '</span></div><div class="chips">' + NEDENLER.map(function (x) {
+    var n = num(mm[x[0]]);
+    return '<span class="dk-c' + (n ? ' on' : '') + '"><button type="button" class="chip dk" data-act="dn-art" data-ders="' + ders + '" data-neden="' + x[0] + '" aria-pressed="' + (n > 0) + '">' + x[1] + (n ? ' <b class="dk-n">' + n + '</b>' : '') + '</button>' +
+      (n ? '<button type="button" class="chip dk-eksi" data-act="dn-azalt" data-ders="' + ders + '" data-neden="' + x[0] + '" aria-label="' + x[1] + ' bir azalt">−</button>' : '') + '</span>';
+  }).join('') + '</div>';
+}
+ACT['dn-art'] = function (t) {
+  var F = M && M.F; if (!F) return;
+  var ders = t.dataset.ders, k = t.dataset.neden, lim = denemeLimit(F, ders, 'y');
+  var mm = (F.nedenler = F.nedenler || {})[ders] = F.nedenler[ders] || {}, top = 0;
+  NEDENLER.forEach(function (x) { top += num(mm[x[0]]); });
+  if (top >= lim) return showToast(DERS[ders].kisa + ': ' + lim + ' yanlışın hepsine neden seçildi.');
+  mm[k] = num(mm[k]) + 1; denemeKonuBoya();
+};
+ACT['dn-azalt'] = function (t) {
+  var F = M && M.F; if (!F || !F.nedenler || !F.nedenler[t.dataset.ders]) return;
+  var mm = F.nedenler[t.dataset.ders], k = t.dataset.neden; mm[k] = num(mm[k]) - 1; if (mm[k] <= 0) delete mm[k];
+  denemeKonuBoya();
+};
+
+/* ===================== SÜREÇ ANALİZİ: bütün denemeler birlikte =====================
+   Gidişatı yorumlamak için: net eğilimi (deneme başına artış), ders ders ilk/son karşılaştırması, tutarlılık,
+   dönem karşılaştırması (ilk yarı / son yarı), kapanan, kalıcı ve yeni çıkan konular, yanlış nedenleri, hedefe tahmini uzaklık. */
+function egim(ys) { // en küçük kareler: deneme başına değişim
+  var p = ys.map(function (y, i) { return [i, y]; }).filter(function (x) { return x[1] != null && isFinite(x[1]); });
+  if (p.length < 2) return null;
+  var n = p.length, sx = 0, sy = 0, sxy = 0, sxx = 0;
+  p.forEach(function (x) { sx += x[0]; sy += x[1]; sxy += x[0] * x[1]; sxx += x[0] * x[0]; });
+  var d = n * sxx - sx * sx; if (!d) return null;
+  var b = (n * sxy - sx * sy) / d, a = (sy - b * sx) / n;
+  return { b: b, a: a, deger: function (i) { return a + b * i; } };
+}
+function ortalama(l) { l = l.filter(function (x) { return x != null && isFinite(x); }); return l.length ? l.reduce(function (a, b) { return a + b; }, 0) / l.length : null; }
+function sapma(l) { var m = ortalama(l); l = l.filter(function (x) { return x != null && isFinite(x); }); if (l.length < 2) return null; return Math.sqrt(l.reduce(function (a, x) { return a + (x - m) * (x - m); }, 0) / (l.length - 1)); }
+function surecTurDenemeleri() {
+  var all = denemelerSirali(S), gen = all.filter(denemeGenelMi);
+  if (!UI.surecTur) UI.surecTur = gen.length >= 2 ? 'genel' : 'tum';
+  return UI.surecTur === 'genel' ? gen : all;
+}
+function surecDenemeleri() { // tür ve yer filtresi
+  var l = surecTurDenemeleri(), y = UI.surecYer || 'hepsi';
+  return y === 'hepsi' ? l : l.filter(function (d) { return denemeYer(d) === y; });
+}
+function yerKarsilastirma() { // ev ve kulüp: aynı türdeki denemeler
+  var l = surecTurDenemeleri(), out = {};
+  DENEME_YERLERI.forEach(function (y) {
+    var g = l.filter(function (d) { return denemeYer(d) === y; }), r = { n: g.length, ders: {} };
+    if (!g.length) { out[y] = r; return; }
+    var ns = g.map(denemeNetleri);
+    r.net = ortalama(ns.map(function (x) { return x.toplam; }));
+    r.bos = ortalama(ns.map(function (x) { return x.b; }));
+    r.yanlisOran = (function () { var d = 0, yy = 0; ns.forEach(function (x) { d += x.d; yy += x.y; }); return d + yy ? yy / (d + yy) : null; })();
+    DERSLER.forEach(function (D) { var v = ns.map(function (x) { return x.dersler[D.id]; }).filter(function (x) { return x != null; }); if (v.length) r.ders[D.id] = ortalama(v); });
+    var nd = {}, t = 0; g.forEach(function (d) { Object.keys(d.nedenler || {}).forEach(function (k) { NEDENLER.forEach(function (x) { var v = num(d.nedenler[k][x[0]]); nd[x[0]] = (nd[x[0]] || 0) + v; t += v; }); }); });
+    r.neden = nd; r.nedenT = t;
+    out[y] = r;
+  });
+  out.belirsiz = l.filter(function (d) { return !denemeYer(d); }).length;
+  return out;
+}
+function yerYorum() {
+  var Y = yerKarsilastirma(), E = Y['Evde'], K = Y['Deneme kulübünde'], out = [];
+  if (!(E.n >= 2 && K.n >= 2)) return out;
+  var f = K.net - E.net;
+  out.push([Math.abs(f) < 1.5 ? 'info' : (f < 0 ? 'warn' : 'good'), 'Deneme kulübünde ortalama ' + fNet(K.net) + ', evde ' + fNet(E.net) + ' net (' + (Math.abs(f) < 1.5 ? 'fark küçük' : (f < 0 ? 'kulüpte ' + fNet(-f) + ' net daha düşük: sınav ortamı, süre baskısı ya da heyecan etkisi olabilir; kulüp denemeleri gerçek LGS koşullarına daha yakındır' : 'kulüpte ' + fNet(f) + ' net daha yüksek: evde dikkat dağılıyor ya da süre tutulmuyor olabilir')) + ').']);
+  var dz = Object.keys(E.ders).filter(function (k) { return K.ders[k] != null; }).map(function (k) { return { k: k, f: K.ders[k] - E.ders[k] }; }).sort(function (a, b) { return a.f - b.f; });
+  if (dz.length && dz[0].f < -0.8) out.push(['warn', 'Kulüpte en çok düşen ders: ' + DERS[dz[0].k].kisa + ' (evde ' + fNet(E.ders[dz[0].k]) + ', kulüpte ' + fNet(K.ders[dz[0].k]) + ').']);
+  if (K.bos - E.bos > 1.5) out.push(['warn', 'Kulüpte boş sayısı daha fazla (deneme başına ' + fN(E.bos, 1) + ' → ' + fN(K.bos, 1) + '): süre yetmiyor olabilir; evde de süre tutarak deneme çözülmeli.']);
+  if (K.nedenT >= 3 && E.nedenT >= 3) NEDENLER.forEach(function (x) {
+    var a = (E.neden[x[0]] || 0) / E.nedenT, b = (K.neden[x[0]] || 0) / K.nedenT;
+    if (b - a > 0.15) out.push(['warn', '"' + x[1] + '" kaynaklı yanlışlar kulüpte daha sık (%' + Math.round(a * 100) + ' evde, %' + Math.round(b * 100) + ' kulüpte).']);
+  });
+  return out;
+}
+function surecVerisi() {
+  var l = surecDenemeleri(), hn = S.settings.hedefNet || {}, R = { l: l, ders: {} };
+  R.netler = l.map(function (d) { return denemeNetleri(d).toplam; });
+  R.genel = UI.surecTur === 'genel';
+  R.hedefT = R.genel && DERSLER.every(function (D) { return hn[D.id] != null; }) ? DERSLER.reduce(function (a, D) { return a + num(hn[D.id]); }, 0) : null;
+  R.egim = R.genel ? egim(R.netler) : null;
+  var k3 = Math.min(3, Math.floor(l.length / 2)) || 1;
+  R.ilk = ortalama(R.netler.slice(0, k3)); R.son = ortalama(R.netler.slice(-k3)); R.k3 = k3;
+  R.sapma = sapma(R.netler.slice(-8));
+  DERSLER.forEach(function (D) {
+    var v = l.map(function (d) { return d.sonuc && d.sonuc[D.id] ? denemeNetleri(d).dersler[D.id] : null; }), dolu = v.filter(function (x) { return x != null; });
+    if (!dolu.length) return;
+    var kk = Math.min(3, Math.floor(dolu.length / 2)) || 1;
+    R.ders[D.id] = { v: v, n: dolu.length, ilk: ortalama(dolu.slice(0, kk)), son: ortalama(dolu.slice(-kk)), egim: egim(dolu), sapma: sapma(dolu.slice(-8)), enIyi: Math.max.apply(null, dolu), hedef: hn[D.id] != null ? num(hn[D.id]) : null, soru: D.soru };
+  });
+  // dönemler: ilk yarı / son yarı
+  var yari = Math.floor(l.length / 2), A = l.slice(0, yari), B = l.slice(yari);
+  var donem = function (g) { var d = 0, y = 0, b = 0; g.forEach(function (x) { var n = denemeNetleri(x); d += n.d; y += n.y; b += n.b; }); return { n: g.length, d: d, y: y, b: b, bosOrt: g.length ? b / g.length : null, yanlisOran: d + y ? y / (d + y) : null }; };
+  R.A = donem(A); R.B = donem(B);
+  // konular
+  var kl = l.filter(function (d) { return d.konular; }), ky = Math.floor(kl.length / 2), km = {};
+  kl.forEach(function (d, i) {
+    Object.keys(d.konular).forEach(function (ders) {
+      var y = d.konular[ders].y || {};
+      Object.keys(y).forEach(function (kid) { if (kid === KONU_BILINMIYOR) return; var r = km[kid] || (km[kid] = { konuId: kid, ders: ders, y1: 0, y2: 0, n2: 0 }); if (i < ky) r.y1 += num(y[kid]); else { r.y2 += num(y[kid]); r.n2++; } });
+    });
+  });
+  var kr = Object.keys(km).map(function (k) { return km[k]; });
+  R.konuDenemeSayisi = kl.length;
+  R.kapanan = kr.filter(function (r) { return r.y1 >= 2 && r.y2 === 0; }).sort(function (a, b) { return b.y1 - a.y1; });
+  R.kalici = kr.filter(function (r) { return r.y1 > 0 && r.y2 > 0; }).sort(function (a, b) { return b.y2 - a.y2 || b.y1 - a.y1; });
+  R.yeni = kr.filter(function (r) { return r.y1 === 0 && r.y2 >= 2; }).sort(function (a, b) { return b.y2 - a.y2; });
+  // nedenler
+  var nA = {}, nB = {}, tA = 0, tB = 0;
+  l.forEach(function (d, i) { Object.keys(d.nedenler || {}).forEach(function (k) { NEDENLER.forEach(function (x) { var v = num(d.nedenler[k][x[0]]); if (i < yari) { nA[x[0]] = (nA[x[0]] || 0) + v; tA += v; } else { nB[x[0]] = (nB[x[0]] || 0) + v; tB += v; } }); }); });
+  R.neden = { A: nA, B: nB, tA: tA, tB: tB };
+  // aralık ve hedef tahmini
+  R.aralikGun = l.length >= 2 ? (dn(l[l.length - 1].tarih) - dn(l[0].tarih)) / (l.length - 1) : null;
+  if (R.egim && R.hedefT != null && R.son != null && R.son < R.hedefT && R.egim.b > 0.05 && R.aralikGun) {
+    var kalanDeneme = (R.hedefT - R.son) / R.egim.b; R.tahminHafta = Math.ceil(kalanDeneme * R.aralikGun / 7);
+  }
+  var g = lgsGeriSayim(S, today()); R.lgsHafta = g && g.durum === 'once' ? Math.floor(g.gun / 7) : null;
+  return R;
+}
+function surecYorum(R) {
+  var out = [], l = R.l;
+  if (l.length < 2) return out;
+  if (R.egim) {
+    var b = R.egim.b;
+    out.push([b > 0.3 ? 'good' : (b < -0.3 ? 'bad' : 'info'), l.length + ' genel denemede toplam net ' + (Math.abs(b) < 0.3 ? 'yatay seyrediyor (deneme başına ' + signed(b, 2) + ')' : (b > 0 ? 'deneme başına ortalama ' + signed(b, 2) + ' artıyor' : 'deneme başına ortalama ' + signed(b, 2) + ' düşüyor')) + '. İlk ' + R.k3 + ' deneme ortalaması ' + fNet(R.ilk) + ', son ' + R.k3 + ' deneme ortalaması ' + fNet(R.son) + '.']);
+  }
+  if (R.hedefT != null && R.son != null) {
+    if (R.son >= R.hedefT) out.push(['good', 'Son denemelerin ortalaması (' + fNet(R.son) + ') toplam net hedefini (' + fNet(R.hedefT) + ') karşılıyor.']);
+    else if (R.tahminHafta != null) out.push([R.lgsHafta != null && R.tahminHafta > R.lgsHafta ? 'warn' : 'info', 'Hedefe ' + fNet(R.hedefT - R.son) + ' net var. Bu hızla giderse yaklaşık ' + R.tahminHafta + ' hafta sonra ulaşılır (tahmin)' + (R.lgsHafta != null ? '; LGS’ye ' + R.lgsHafta + ' hafta kaldı' + (R.tahminHafta > R.lgsHafta ? ', hız artırılmalı.' : '.') : '.')]);
+    else if (R.egim && R.egim.b <= 0.05) out.push(['warn', 'Hedefe ' + fNet(R.hedefT - R.son) + ' net var ve netler şu an artmıyor; mevcut gidişle hedefe ulaşılamaz.']);
+  }
+  var dz = Object.keys(R.ders).map(function (k) { var x = R.ders[k]; return { k: k, f: x.son - x.ilk, x: x }; }).filter(function (z) { return z.x.n >= 3; }).sort(function (a, b) { return b.f - a.f; });
+  if (dz.length) {
+    var iyi = dz.filter(function (z) { return z.f > 0.6; }).slice(0, 2), kotu = dz.filter(function (z) { return z.f < -0.4; }).slice(-2).reverse(), duz = dz.filter(function (z) { return Math.abs(z.f) <= 0.4; });
+    if (iyi.length) out.push(['good', 'En çok gelişen: ' + iyi.map(function (z) { return DERS[z.k].kisa + ' (' + fNet(z.x.ilk) + ' → ' + fNet(z.x.son) + ')'; }).join(', ') + '.']);
+    if (kotu.length) out.push(['bad', 'Geriye giden: ' + kotu.map(function (z) { return DERS[z.k].kisa + ' (' + fNet(z.x.ilk) + ' → ' + fNet(z.x.son) + ')'; }).join(', ') + '. Bu derslerin son haftalardaki çalışma süresine ve soru bankası başarısına bakılmalı.']);
+    if (duz.length) out.push(['info', 'Yerinde sayan: ' + duz.map(function (z) { return DERS[z.k].kisa; }).join(', ') + '. Netler değişmiyor; çalışma yöntemi (soru türü, zorluk, süre) değiştirilebilir.']);
+    var hd = dz.filter(function (z) { return z.x.hedef != null && z.x.son < z.x.hedef; }).sort(function (a, b) { return (b.x.hedef - b.x.son) - (a.x.hedef - a.x.son); });
+    if (hd.length) out.push(['warn', 'Hedefe en uzak dersler: ' + hd.slice(0, 3).map(function (z) { return DERS[z.k].kisa + ' (' + fNet(z.x.hedef - z.x.son) + ' net)'; }).join(', ') + '. Net artışı en çok buradan gelir.']);
+    var dal = dz.filter(function (z) { return z.x.sapma != null && z.x.sapma / z.x.soru > 0.1; });
+    if (dal.length) out.push(['warn', 'Dalgalı sonuçlar: ' + dal.map(function (z) { return DERS[z.k].kisa; }).join(', ') + '. Bir denemede iyi, diğerinde kötü; konu bilgisi oturmamış ya da deneme koşullarına (süre, yorgunluk) bağlı.']);
+  }
+  if (R.A.n && R.B.n && R.A.bosOrt != null) {
+    var db = R.B.bosOrt - R.A.bosOrt, dy = R.B.yanlisOran - R.A.yanlisOran;
+    if (db < -1) out.push(['good', 'Boş sayısı azalıyor (deneme başına ' + fN(R.A.bosOrt, 1) + ' → ' + fN(R.B.bosOrt, 1) + '): daha çok soruya cevap veriyor.' + (dy > 0.03 ? ' Ancak yanlış oranı da arttı (' + fPct(R.A.yanlisOran) + ' → ' + fPct(R.B.yanlisOran) + '); tahminle işaretleme olabilir.' : '')]);
+    else if (db > 1) out.push(['warn', 'Boş sayısı artıyor (deneme başına ' + fN(R.A.bosOrt, 1) + ' → ' + fN(R.B.bosOrt, 1) + '): süre yetmiyor ya da emin olmadığı soruları bırakıyor.']);
+    if (dy < -0.03) out.push(['good', 'Cevaplanan sorularda yanlış oranı düşüyor (' + fPct(R.A.yanlisOran) + ' → ' + fPct(R.B.yanlisOran) + ').']);
+  }
+  if ((UI.surecYer || 'hepsi') === 'hepsi') out = out.concat(yerYorum());
+  if (R.kapanan.length) out.push(['good', 'Kapanan konular: ' + R.kapanan.slice(0, 4).map(function (r) { return konuAd(r.konuId); }).join(', ') + '. Önceki denemelerde yanlış çıkıyordu, son denemelerde çıkmadı.']);
+  if (R.kalici.length) out.push(['bad', 'Kalıcı sorunlar: ' + R.kalici.slice(0, 4).map(function (r) { return konuAd(r.konuId); }).join(', ') + '. Sürecin başından beri yanlış çıkıyor; konu yeniden ele alınmalı.']);
+  if (R.yeni.length) out.push(['warn', 'Yeni çıkan sorunlar: ' + R.yeni.slice(0, 4).map(function (r) { return konuAd(r.konuId); }).join(', ') + '. İlk denemelerde yoktu, son denemelerde yanlış çıkmaya başladı (konu unutuluyor olabilir).']);
+  if (R.neden.tA >= 3 && R.neden.tB >= 3) {
+    NEDENLER.forEach(function (x) {
+      var a = (R.neden.A[x[0]] || 0) / R.neden.tA, b = (R.neden.B[x[0]] || 0) / R.neden.tB;
+      if (b - a > 0.15) out.push(['warn', '"' + x[1] + '" kaynaklı yanlışların payı arttı (%' + Math.round(a * 100) + ' → %' + Math.round(b * 100) + ').']);
+      else if (a - b > 0.15) out.push(['good', '"' + x[1] + '" kaynaklı yanlışların payı azaldı (%' + Math.round(a * 100) + ' → %' + Math.round(b * 100) + ').']);
+    });
+  }
+  return out;
+}
+function surecHtml() {
+  var R = surecVerisi(), l = R.l, all = denemelerSirali(S), gen = all.filter(denemeGenelMi), ogr = rol() === 'ogretmen';
+  var sec = '<select class="input" data-pf="analiz-sec" style="max-width:340px"><option value="tum" selected>Tüm denemeler · süreç analizi</option>' + all.slice().reverse().map(function (x) { return '<option value="' + x.id + '">' + esc(fDateS(dn(x.tarih)) + ' · ' + x.ad) + '</option>'; }).join('') + '</select>';
+  var h = head('Süreç analizi', 'Sisteme girilen bütün denemelerin birlikte değerlendirmesi', sec);
+  h += '<div class="chips" style="margin:-4px 0 14px">' + [['genel', 'Genel denemeler (' + gen.length + ')'], ['tum', 'Tüm denemeler (' + all.length + ')']].map(function (x) { return '<button class="chip" data-act="surec-tur" data-v="' + x[0] + '" aria-pressed="' + (UI.surecTur === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  var tl = surecTurDenemeleri(), yerSay = function (y) { return y === 'hepsi' ? tl.length : tl.filter(function (d) { return denemeYer(d) === y; }).length; };
+  h += '<div class="chips" style="margin:-6px 0 14px">' + [['hepsi', 'Her yerde'], ['Evde', 'Evde'], ['Deneme kulübünde', 'Deneme kulübünde']].map(function (x) { return '<button class="chip" data-act="surec-yer" data-v="' + x[0] + '" aria-pressed="' + ((UI.surecYer || 'hepsi') === x[0]) + '">' + x[1] + ' (' + yerSay(x[0]) + ')</button>'; }).join('') + '</div>';
+  if (l.length < 2) return h + '<div class="panel empty"><strong>Süreç analizi için en az iki deneme gerekir</strong>' + (UI.surecTur === 'genel' && all.length >= 2 ? 'Tüm denemeler’i seçerek branş denemelerini de katabilirsiniz.' : 'Denemeler eklendikçe burada gidişat görünür.') + '</div>';
+  var en = Math.max.apply(null, R.netler), enD = l[R.netler.indexOf(en)];
+  h += '<div class="kv" style="margin-bottom:16px">' +
+    stat('Deneme sayısı', String(l.length), fDateS(dn(l[0].tarih)) + ' – ' + fDateS(dn(l[l.length - 1].tarih))) +
+    (R.genel ? stat('İlk ' + R.k3 + ' → son ' + R.k3, fNet(R.ilk) + ' → ' + fNet(R.son), signed(R.son - R.ilk, 2) + ' net', R.son - R.ilk) +
+      stat('Eğilim', R.egim ? signed(R.egim.b, 2) : '—', 'deneme başına net', R.egim ? R.egim.b : 0) +
+      stat('En iyi', fNet(en), esc(enD.ad)) +
+      stat('Tutarlılık', R.sapma == null ? '—' : (R.sapma < 3.2 ? 'Tutarlı' : (R.sapma < 6.3 ? 'Orta' : 'Dalgalı')), R.sapma == null ? '' : 'son denemelerde ±' + fN(R.sapma, 1) + ' net') +
+      (R.hedefT != null ? stat('Hedef', fNet(R.hedefT), R.son >= R.hedefT ? 'karşılanıyor' : (R.tahminHafta != null ? '~' + R.tahminHafta + ' hafta (tahmin)' : fNet(R.hedefT - R.son) + ' net uzakta'), R.son - R.hedefT) : '') :
+      stat('Not', 'Karışık türler', 'toplam net yalnızca genel denemelerde karşılaştırılır')) + '</div>';
+  var yor = surecYorum(R);
+  if (yor.length) h += '<section class="panel" style="margin-bottom:16px"><h2>Süreç değerlendirmesi</h2><ul class="list">' + yor.map(function (x) {
+    return '<li><span class="pill ' + x[0] + '" style="flex:none">' + ({ good: 'İyi', warn: 'Dikkat', bad: 'Öncelik', grey: 'Eksik', info: 'Bilgi' }[x[0]]) + '</span><span class="grow">' + esc(x[1]) + '</span></li>'; }).join('') +
+    '</ul><p class="hint">Uygulama bu yorumları bütün deneme, konu ve neden kayıtlarından kendisi çıkarır. Tahminler mevcut gidişatın sürdüğü varsayımına dayanır.</p></section>';
+  // ev ve kulüp karşılaştırması
+  if ((UI.surecYer || 'hepsi') === 'hepsi') {
+    var Y = yerKarsilastirma(), E = Y['Evde'], K = Y['Deneme kulübünde'];
+    h += '<section class="panel" style="margin-bottom:16px"><h2>Evde ve deneme kulübünde</h2>' + (E.n && K.n ? '<div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th class="r">Evde (' + E.n + ')</th><th class="r">Kulüpte (' + K.n + ')</th><th class="r">Fark</th></tr></thead><tbody>' +
+      (R.genel ? '<tr><td><b>Toplam net</b></td><td class="r"><b>' + fNet(E.net) + '</b></td><td class="r"><b>' + fNet(K.net) + '</b></td><td class="r ' + (K.net - E.net < -0.5 ? 'down' : (K.net - E.net > 0.5 ? 'up' : '')) + '">' + signed(K.net - E.net, 2) + '</td></tr>' : '') +
+      DERSLER.filter(function (D) { return E.ders[D.id] != null && K.ders[D.id] != null; }).map(function (D) { var f = K.ders[D.id] - E.ders[D.id]; return '<tr><td>' + dersDot(D.id) + ' ' + esc(D.kisa) + '</td><td class="r">' + fNet(E.ders[D.id]) + '</td><td class="r">' + fNet(K.ders[D.id]) + '</td><td class="r ' + (f < -0.3 ? 'down' : (f > 0.3 ? 'up' : '')) + '">' + signed(f, 2) + '</td></tr>'; }).join('') +
+      '<tr><td>Deneme başına boş</td><td class="r">' + fN(E.bos, 1) + '</td><td class="r">' + fN(K.bos, 1) + '</td><td class="r">' + signed(K.bos - E.bos, 1) + '</td></tr>' +
+      '<tr><td>Cevaplananda yanlış oranı</td><td class="r">' + fPct(E.yanlisOran) + '</td><td class="r">' + fPct(K.yanlisOran) + '</td><td></td></tr></tbody></table></div><p class="hint">Ortalamalar; fark = kulüp − ev.' + (Y.belirsiz ? ' Yeri belirtilmemiş ' + Y.belirsiz + ' deneme karşılaştırmaya katılmadı.' : '') + '</p>' :
+      '<div class="empty">Karşılaştırma için hem evde hem deneme kulübünde çözülmüş deneme gerekir (evde ' + E.n + ', kulüpte ' + K.n + (Y.belirsiz ? ', yeri belirtilmemiş ' + Y.belirsiz : '') + '). Deneme girerken “Nerede çözüldü?” seçilir; eski denemelere dokunup sonradan da seçebilirsiniz.</div>') + '</section>';
+  }
+  // grafikler
+  if (R.genel) h += '<div class="grid2"><section class="panel"><h2>Toplam net ve eğilim</h2>' + chartSlot('sr-top', { type: 'line', h: 230, dec: 2,
+    labels: l.map(function (x) { return fDateS(x.tarih); }), tipTitles: l.map(function (x) { return x.ad; }),
+    series: [{ name: 'Toplam net', color: 'var(--c-TUR)', values: R.netler }].concat(R.egim ? [{ name: 'Eğilim', color: 'var(--c-MAT)', values: l.map(function (x, i) { return Math.round(R.egim.deger(i) * 100) / 100; }) }] : []).concat(R.hedefT != null ? [{ name: 'Hedef', color: 'var(--ink-3)', values: l.map(function () { return R.hedefT; }) }] : []),
+    aria: 'Toplam net ve eğilim çizgisi' }, 230) + '</section>';
+  else h += '<div class="grid2">';
+  h += '<section class="panel"><h2>Ders netleri</h2>' + chartSlot('sr-ders', { type: 'line', h: 230, dec: 2, labels: l.map(function (x) { return fDateS(x.tarih); }), tipTitles: l.map(function (x) { return x.ad; }),
+    series: Object.keys(R.ders).map(function (k) { return { name: DERS[k].kisa, color: 'var(--c-' + k + ')', values: R.ders[k].v }; }), aria: 'Ders netleri' }, 250) + '</section></div>';
+  // ders tablosu
+  h += '<section class="panel" style="margin-top:16px"><h2>Derslerin gidişatı</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ders</th><th class="r">Deneme</th><th class="r">İlk</th><th class="r">Son</th><th class="r">Değişim</th><th class="r">Eğilim</th><th class="r">En iyi</th><th class="r">Hedef</th><th>Tutarlılık</th></tr></thead><tbody>' +
+    Object.keys(R.ders).map(function (k) {
+      var x = R.ders[k], f = x.son - x.ilk, t = x.sapma == null ? '—' : (x.sapma / x.soru < 0.05 ? 'Tutarlı' : (x.sapma / x.soru < 0.1 ? 'Orta' : 'Dalgalı'));
+      return '<tr><td>' + dersDot(k) + ' ' + esc(DERS[k].kisa) + '</td><td class="r">' + x.n + '</td><td class="r">' + fNet(x.ilk) + '</td><td class="r"><b>' + fNet(x.son) + '</b></td><td class="r ' + (f > 0.25 ? 'up' : (f < -0.25 ? 'down' : '')) + '">' + (f > 0.25 ? '▲ ' : (f < -0.25 ? '▼ ' : '')) + signed(f, 2) + '</td>' +
+        '<td class="r">' + (x.egim ? signed(x.egim.b, 2) : '—') + '</td><td class="r">' + fNet(x.enIyi) + '</td><td class="r ' + (x.hedef != null ? (x.son >= x.hedef ? 'up' : 'down') : '') + '">' + (x.hedef != null ? fNet(x.hedef) : '—') + '</td><td>' + t + '</td></tr>';
+    }).join('') + '</tbody></table></div><p class="hint">İlk ve son: o dersin ilk ve son en fazla 3 denemesinin ortalaması. Eğilim: deneme başına ortalama net değişimi.</p></section>';
+  // dönem karşılaştırması ve nedenler
+  h += '<div class="grid2" style="margin-top:16px"><section class="panel"><h2>İlk yarı ve son yarı</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th class="r">İlk ' + R.A.n + ' deneme</th><th class="r">Son ' + R.B.n + ' deneme</th></tr></thead><tbody>' +
+    '<tr><td>Deneme başına doğru</td><td class="r">' + fN(R.A.d / Math.max(1, R.A.n), 1) + '</td><td class="r">' + fN(R.B.d / Math.max(1, R.B.n), 1) + '</td></tr>' +
+    '<tr><td>Deneme başına yanlış</td><td class="r">' + fN(R.A.y / Math.max(1, R.A.n), 1) + '</td><td class="r">' + fN(R.B.y / Math.max(1, R.B.n), 1) + '</td></tr>' +
+    '<tr><td>Deneme başına boş</td><td class="r">' + fN(R.A.bosOrt, 1) + '</td><td class="r">' + fN(R.B.bosOrt, 1) + '</td></tr>' +
+    '<tr><td>Cevaplananda yanlış oranı</td><td class="r">' + fPct(R.A.yanlisOran) + '</td><td class="r">' + fPct(R.B.yanlisOran) + '</td></tr></tbody></table></div></section>';
+  h += '<section class="panel"><h2>Yanlış nedenleri</h2>' + (R.neden.tA + R.neden.tB ? '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Neden</th><th class="r">İlk yarı</th><th class="r">Son yarı</th></tr></thead><tbody>' +
+    NEDENLER.map(function (x) { return '<tr><td>' + x[1] + '</td><td class="r">' + (R.neden.A[x[0]] || 0) + (R.neden.tA ? ' <span class="muted small">' + fPct((R.neden.A[x[0]] || 0) / R.neden.tA) + '</span>' : '') + '</td><td class="r">' + (R.neden.B[x[0]] || 0) + (R.neden.tB ? ' <span class="muted small">' + fPct((R.neden.B[x[0]] || 0) / R.neden.tB) + '</span>' : '') + '</td></tr>'; }).join('') +
+    '</tbody></table></div>' : '<div class="empty">Denemelerde yanlış nedeni işaretlendikçe burada dağılımı ve değişimi görünür.</div>') + '</section></div>';
+  // konular
+  var kl = function (bas, cls, list, bos, aciklama) {
+    return '<section class="panel"><h2>' + bas + ' <span class="muted small">' + list.length + '</span></h2><p class="small muted" style="margin:0 0 6px">' + aciklama + '</p>' + (list.length ? '<ul class="list">' + list.slice(0, 8).map(function (r) {
+      return '<li><span class="grow">' + dersDot(r.ders) + ' ' + esc(konuAd(r.konuId)) + '<span class="sub" style="display:block">ilk yarı ' + r.y1 + ' yanlış · son yarı ' + r.y2 + ' yanlış</span></span>' + (cls !== 'good' && (ogr || rol() === 'yonetici') ? btn('analiz-odev', ogr ? 'Ödev ver' : 'Görev ver', 'xs', { ders: r.ders, konu: r.konuId }, 'plus') : '') + '</li>'; }).join('') + '</ul>' : '<div class="empty">' + bos + '</div>') + '</section>';
+  };
+  if (R.konuDenemeSayisi >= 4) h += '<div class="grid2" style="margin-top:16px"><div class="stack">' + kl('Kalıcı sorunlar', 'bad', R.kalici, 'Sürecin başından beri yanlış çıkan konu yok.', 'Hem ilk hem son denemelerde yanlış çıkan konular.') +
+    kl('Yeni çıkan sorunlar', 'warn', R.yeni, 'Yeni bir sorun görünmüyor.', 'İlk denemelerde yoktu, son denemelerde yanlış çıkıyor.') + '</div><div class="stack">' +
+    kl('Kapanan konular', 'good', R.kapanan, 'Henüz kapanan konu yok.', 'Önceki denemelerde yanlış çıkıyordu, son denemelerde çıkmadı.') + '</div></div>';
+  else h += '<section class="panel" style="margin-top:16px"><h2>Konuların gidişatı</h2><div class="empty">Konusu işaretli en az 4 deneme olunca kapanan, kalıcı ve yeni çıkan konular burada görünür (şu an ' + R.konuDenemeSayisi + ').</div></section>';
+  // deneme listesi
+  h += '<section class="panel" style="margin-top:16px"><h2>Denemeler</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Tarih</th><th>Deneme</th><th class="r">Net</th><th class="r">Fark</th><th></th></tr></thead><tbody>' +
+    l.slice().reverse().map(function (x, i, arr) {
+      var n = denemeNetleri(x).toplam, pv = arr[i + 1] ? denemeNetleri(arr[i + 1]).toplam : null, f = pv != null && (R.genel || x.tur === arr[i + 1].tur) ? n - pv : null;
+      return '<tr><td>' + fDateS(dn(x.tarih)) + '</td><td>' + esc(x.ad) + '<div class="tiny muted">' + esc(x.tur) + (denemeYer(x) ? ' · ' + esc(denemeYer(x)) : '') + '</div></td><td class="r"><b>' + fNet(n) + '</b></td><td class="r ' + (f > 0.25 ? 'up' : (f < -0.25 ? 'down' : '')) + '">' + (f == null ? '—' : signed(f, 2)) + '</td><td class="r">' + btn('analiz-ac', 'Analiz', 'xs', { id: x.id }) + '</td></tr>';
+    }).join('') + '</tbody></table></div></section>';
+  return h;
+}
+ACT['surec-tur'] = function (t) { UI.surecTur = t.dataset.v; render(); };
+ACT['surec-yer'] = function (t) { UI.surecYer = t.dataset.v; render(); };
 
 /* ---- foto.js ---- */
 /* ===================== YANLIŞ SORU FOTOĞRAFLARI =====================
