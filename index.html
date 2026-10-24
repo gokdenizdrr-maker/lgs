@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LGS Takip</title>
-<meta name="description" content="LGS çalışma, tur, deneme ve tekrar takibi. Veriler yalnızca bu cihazda saklanır.">
+<meta name="description" content="LGS çalışma, deneme, ödev ve tekrar takibi; öğrenci, veli ve öğretmen için.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -469,8 +469,8 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.8.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.8.0';
+/* LGS Takip, sürüm 1.8.3. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.8.3';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -3366,12 +3366,12 @@ VIEWS.bugun = function () {
   var ws = weekStart(t), w = periodStats(S, ws, ws + 6, t);
   var hedef = num(st.gunSoru), done = ps.hedefeSayilan;
   var g = lgsGeriSayim(S, t);
-  var cd = !g ? '<div class="countdown"><div class="l">LGS tarihi girilmedi</div>' + (rol() === 'yonetici' ? '<button class="btn xs ghost" data-act="go" data-v="kurulum" data-tab="hedef" style="padding:0">Tarihi gir</button>' : '') + '</div>' :
+  var cd = !g ? '<div class="countdown"><div class="l">LGS tarihi girilmedi</div>' + (rol() === 'yonetici' && !UI.davetEkrani ? '<button class="btn xs ghost" data-act="go" data-v="kurulum" data-tab="hedef" style="padding:0">Tarihi gir</button>' : '') + '</div>' :
     (g.durum === 'once' ? '<div class="countdown' + (g.gun <= 100 ? ' son100' : '') + '"><div class="n num">' + g.gun + ' gün</div><div class="l">LGS’ye kaldı, ' + lgsKalanTxt(g) + '</div>' +
       '<div class="l">' + fDate(g.tarih) + (g.tahmini ? ' <span class="tag">tahmini</span>' : '') + '</div></div>' :
       (g.durum === 'bugun' ? '<div class="countdown son100"><div class="n">Bugün LGS</div><div class="l">Başarılar!</div></div>' :
         '<div class="countdown"><div class="l">LGS ' + (-g.gun) + ' gün önceydi</div></div>'));
-  var h = '<div class="page-head"><div><h1 data-act="gizli-giris">' + fDay(t) + ', ' + fDateS(t) + '</h1><div class="sub">' + (S.kayitlar.length ? 'İyi çalışmalar.' : (rol() === 'yonetici' ? 'Hoş geldin. Önce kurulumu tamamlayalım.' : 'Hoş geldin.')) +
+  var h = '<div class="page-head"><div><h1 data-act="gizli-giris">' + fDay(t) + ', ' + fDateS(t) + '</h1><div class="sub">' + (S.kayitlar.length ? 'İyi çalışmalar.' : (rol() === 'yonetici' && !UI.davetEkrani ? 'Hoş geldin. Önce kurulumu tamamlayalım.' : 'Hoş geldin.')) +
     ' <button class="linkbtn" data-act="go" data-v="rehber">Nasıl kullanılır?</button></div></div><div class="head-sag">' + sozHtml() + cd + '</div></div>';
   h += backupBanner();
   h += onboarding();
@@ -3429,7 +3429,7 @@ function onboardingList() {
   }).join('') + '</ul>';
 }
 function onboarding() {
-  if (rol() !== 'yonetici') return '';
+  if (rol() !== 'yonetici' || UI.davetEkrani) return '';
   if (onboardingSteps().every(function (s) { return s.ok; }) || S.meta.onboardingHidden) return '';
   return '<section class="panel" style="margin-bottom:16px"><h2>Başlarken <span>' + btn('go', 'Rehber', 'xs ghost', { v: 'rehber' }) + btn('onb-gizle', 'Gizle', 'xs ghost') + '</span></h2>' + onboardingList() + '</section>';
 }
@@ -5001,8 +5001,9 @@ function parseInvite(txt) {
   if (!m) return null;
   try { var o = unb64u(m[1]); return o && o.c && o.c.apiKey && o.o && o.t ? o : null; } catch (e) { return null; }
 }
-function davetLink(t, ad) {
-  return location.origin + location.pathname + '#davet=' + b64u({ c: SYNC.cfg.config, o: SYNC.uid, t: t, a: ad });
+function davetCfg(c) { return { apiKey: c.apiKey, authDomain: c.authDomain, projectId: c.projectId }; } // kısa link: bağlanmak için bu üçü yeter
+function davetLink(t, ad) { // "?" ile: WhatsApp linkin tamamını tıklanabilir yapar ("#" sonrasını kesiyordu)
+  return location.origin + location.pathname + '?davet=' + b64u({ c: davetCfg(SYNC.cfg.config), o: SYNC.uid, t: t, a: ad });
 }
 function davetToken() { var a = new Uint8Array(18); crypto.getRandomValues(a); return Array.prototype.map.call(a, function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); }
 function davetErrText(e) {
@@ -5015,8 +5016,8 @@ function isStandalone() { return window.navigator.standalone === true || (window
 
 /* Açılışta: linkle gelinmişse daveti al; iPhone/iPad ana ekran uygulamasında ilk açılışta yapıştırma seçeneği sun */
 function davetBaslangic() {
-  var inv = parseInvite(location.hash);
-  if (inv) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } }
+  var inv = parseInvite(location.search) || parseInvite(location.hash);
+  if (inv) { try { history.replaceState(null, '', location.pathname); } catch (e) { } }
   if (inv) return davetSor(inv);
   if (isIOS() && isStandalone() && !(SYNC.cfg && SYNC.cfg.config) && !hasUserData(S)) {
     var sor = false; try { sor = !localStorage.getItem(DAVET_SORULDU); localStorage.setItem(DAVET_SORULDU, '1'); } catch (e) { }
@@ -5029,7 +5030,7 @@ function davetSor(inv) {
       foot: function () { return '<span class="spacer"></span><button class="btn primary" data-act="sheet-kapat">Tamam</button>'; } });
     return;
   }
-  UI.davetBekleyen = inv;
+  UI.davetBekleyen = inv; UI.davetEkrani = true; render(); // davetle gelen öğretmene kurulum adımları gösterilmez
   var iosTarayici = isIOS() && !isStandalone();
   openSheet({
     title: 'Öğrenci takibine katılın',
@@ -5045,6 +5046,7 @@ function davetSor(inv) {
   });
 }
 function davetYapistirSor() {
+  UI.davetEkrani = true; render();
   openSheet({
     title: 'Davet linkiniz var mı?',
     body: function () {
@@ -5066,7 +5068,7 @@ ACT['sheet-kapat'] = function () { closeSheet(); };
 ACT['davet-onayla'] = function () { var inv = UI.davetBekleyen; closeSheet(); if (inv) davetKatil(inv); };
 ACT['davet-kopyala'] = function () {
   var inv = UI.davetBekleyen; if (!inv) return;
-  var link = location.origin + location.pathname + '#davet=' + b64u(inv);
+  var link = location.origin + location.pathname + '?davet=' + b64u(inv);
   var ok = function () { closeSheet(); showToast('Davet kopyalandı. Şimdi Paylaş › Ana Ekrana Ekle.', true); };
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(ok, function () { showToast('Kopyalanamadı; mesajdaki linki kopyalayın.'); });
   else showToast('Kopyalanamadı; mesajdaki linki kopyalayın.');
@@ -5132,6 +5134,9 @@ ACT['davet-kaldir'] = async function (t) {
   if (!(await askConfirm('“' + (t.dataset.ad || 'Bu davet') + '” kaldırılsın mı? Bu davetle bağlanan cihazlar öğrencinin verilerini artık göremez. Öğrencinin verileri etkilenmez.', 'Daveti kaldır', true))) return;
   SYNC.backend.revokeInvite(t.dataset.t).then(function () { showToast('Davet kaldırıldı'); var b = document.getElementById('davet-yeni'); if (b) b.innerHTML = ''; davetListeYukle(); }, function (e) { showToast('Kaldırılamadı: ' + syncErrText(e), true); });
 };
+
+/* Uygulama zaten açıkken adres çubuğuna davet linki yapıştırılırsa (sayfa yeniden yüklenmez) */
+window.addEventListener('hashchange', function () { if (parseInvite(location.hash)) davetBaslangic(); });
 
 /* ---- ogretmen.js ---- */
 /* ===================== ÖĞRETMEN EKRANI, NOTLAR, HEDEFLER =====================
