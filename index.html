@@ -469,8 +469,8 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.5.3. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.5.3';
+/* LGS Takip, sürüm 1.6.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.6.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -4333,7 +4333,7 @@ VIEWS.rehber = function () {
 var SYNC_CFG_KEY = 'lgs-takip-sync', OUTBOX_KEY = 'lgs-takip-outbox';
 var SYNC_COLS = ['konular', 'kaynaklar', 'planlar', 'testler', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar', 'okumalar'];
 var FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/10.12.2/';
-var FIRESTORE_RULES = "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{uid}/{document=**} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n  }\n}";
+var FIRESTORE_RULES = "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{uid}/{document=**} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    // Öğretmenler: davetle katılan, yalnızca okuyabilen kullanıcılar\n    match /users/{uid}/{col}/{doc} {\n      allow read: if request.auth != null && col != 'davet' && col != 'okuyucu'\n        && exists(/databases/$(database)/documents/users/$(uid)/okuyucu/$(request.auth.uid));\n    }\n    match /users/{uid}/okuyucu/{rid} {\n      allow get: if request.auth != null && request.auth.uid == rid;\n      allow create: if request.auth != null && request.auth.uid == rid\n        && request.resource.data.keys().hasOnly(['t', 'ad', 'at'])\n        && exists(/databases/$(database)/documents/users/$(uid)/davet/$(request.resource.data.t));\n    }\n  }\n}";
 var SYNC = { cfg: null, shadow: {}, outbox: {}, seq: 0, backend: null, uid: null, email: null, phase: 'kapali', err: null, lastAck: null, lastRemote: null,
   flushing: false, ready: false, firstSnap: {}, unsub: [], renderT: null, retryT: null, authUnsub: null, waitSettings: false, sinceNext: {}, touched: false, listenRetryT: null };
 
@@ -4352,6 +4352,7 @@ function buildShadow(st) {
   m['ayar/genel'] = canon(st.settings);
   return m;
 }
+function syncReader() { return !!(SYNC.cfg && SYNC.cfg.okur); } // öğretmen cihazı: yalnızca okur, hiçbir şey göndermez
 function syncLinked() { return !!(SYNC.cfg && SYNC.cfg.linkedUid); }
 function hasUserData(st) {
   return ['kaynaklar', 'kayitlar', 'denemeler', 'yanlislar', 'tekrarlar', 'gorevler', 'kitaplar', 'okumalar'].some(function (k) { return (st[k] || []).length > 0; });
@@ -4363,6 +4364,12 @@ function syncTrack() {
   var now = buildShadow(S);
   if (SYNC.waitSettings) { delete now['ayar/genel']; } // buluttaki ayarlar gelmeden yerel varsayılanlar gönderilmesin
   if (!syncLinked()) { SYNC.shadow = now; return; }
+  if (syncReader()) { // öğretmen cihazında yapılan değişiklik buluta gitmez
+    var ch = Object.keys(now).some(function (k) { return k !== 'ayar/genel' && SYNC.shadow[k] !== now[k]; }) || Object.keys(SYNC.shadow).some(function (k) { return !(k in now); });
+    SYNC.shadow = now;
+    if (ch && !SYNC.readerWarned) { SYNC.readerWarned = true; showToast('Öğretmen modu: bu cihazdaki değişiklikler öğrenciye gitmez.', true); }
+    return;
+  }
   var n = 0;
   Object.keys(now).forEach(function (k) { if (SYNC.shadow[k] !== now[k]) { SYNC.outbox[k] = { op: 'set', n: ++SYNC.seq }; n++; } });
   Object.keys(SYNC.shadow).forEach(function (k) { if (!(k in now)) { SYNC.outbox[k] = { op: 'del', n: ++SYNC.seq }; n++; } });
@@ -4376,6 +4383,7 @@ function syncFindRec(col, id) {
   return null;
 }
 function syncFlush() {
+  if (syncReader()) { if (Object.keys(SYNC.outbox).length) { SYNC.outbox = {}; saveOutbox(); } return; }
   if (!SYNC.ready || SYNC.flushing) return;
   var keys = Object.keys(SYNC.outbox);
   if (!keys.length) { syncPaint(); return; }
@@ -4409,7 +4417,7 @@ function syncApply(col, changes) {
     if (col === 'ayar') {
       if (ch.id !== 'genel' || ch.type === 'del' || !ch.data || !ch.data.settings) return;
       // İlk bağlanışta bulutta yönetici şifresi yoksa bu cihazdakini koru (öğrencinin tableti şifresiz kalmasın)
-      var keepPin = SYNC.waitSettings && !ch.data.settings.pin && S.settings.pin ? S.settings.pin : '';
+      var keepPin = !syncReader() && SYNC.waitSettings && !ch.data.settings.pin && S.settings.pin ? S.settings.pin : '';
       SYNC.waitSettings = false;
       var js = canon(ch.data.settings);
       if (SYNC.shadow[k] === js) return;
@@ -4452,6 +4460,7 @@ function syncStart() {
   SYNC.outbox = syncLoad(OUTBOX_KEY, {});
   Object.keys(SYNC.outbox).forEach(function (k) { if (typeof SYNC.outbox[k] !== 'object') SYNC.outbox[k] = { op: SYNC.outbox[k], n: 0 }; });
   SYNC.shadow = buildShadow(S);
+  setTimeout(davetBaslangic, 300);
   if (!SYNC.cfg || !SYNC.cfg.config) { SYNC.phase = 'kapali'; return; }
   syncConnect();
 }
@@ -4459,10 +4468,19 @@ function syncConnect() {
   SYNC.phase = 'yukleniyor'; SYNC.err = null; syncPaint();
   SYNC.backend = syncBackend();
   SYNC.backend.init(SYNC.cfg.config).then(function () {
+    if (syncReader()) SYNC.backend.setDataUid(SYNC.cfg.okur.o);
     SYNC.phase = 'giris'; syncPaint();
+    var anonTried = false;
     if (SYNC.authUnsub) { try { SYNC.authUnsub(); } catch (e) { } }
     SYNC.authUnsub = SYNC.backend.onAuth(function (uid, email) {
-      if (!uid) { syncStop(); SYNC.uid = null; SYNC.phase = 'giris'; syncPaint(); return; }
+      if (!uid) {
+        syncStop(); SYNC.uid = null; SYNC.phase = 'giris'; syncPaint();
+        if (syncReader() && !anonTried) { // öğretmen: şifresiz, cihaza özel giriş
+          anonTried = true;
+          SYNC.backend.signInAnon().catch(function (e) { SYNC.phase = 'hata'; SYNC.err = davetErrText(e); syncPaint(); });
+        }
+        return;
+      }
       SYNC.uid = uid; SYNC.email = email || SYNC.cfg.email;
       syncAfterLogin();
     });
@@ -4473,6 +4491,14 @@ function syncConnect() {
   });
 }
 function syncAfterLogin() {
+  if (syncReader()) {
+    SYNC.phase = 'baglaniyor'; syncPaint();
+    return SYNC.backend.joinReader(SYNC.cfg.okur.t, SYNC.cfg.okur.a || '').then(function () {
+      if (SYNC.cfg.linkedUid === SYNC.uid) return syncListen();
+      if (hasUserData(S)) savePrelinkCopy();
+      syncLink('al');
+    }).catch(function (e) { SYNC.phase = 'hata'; SYNC.err = davetErrText(e); syncPaint(); });
+  }
   if (SYNC.cfg.linkedUid === SYNC.uid) return syncListen();
   SYNC.phase = 'baglaniyor'; syncPaint();
   SYNC.backend.getMarker().then(function (marker) {
@@ -4557,10 +4583,11 @@ function syncListen() {
   SYNC_COLS.concat(['ayar']).forEach(function (col) {
     SYNC.unsub.push(SYNC.backend.listen(col, since[col] || 0, function (changes, meta) {
       syncApply(col, changes);
-      if (col === 'ayar' && (!meta || !meta.fromCache) && SYNC.waitSettings) { // bulutta ayar belgesi yoksa yereldekini gönder
+      if (col === 'ayar' && (!meta || !meta.fromCache) && SYNC.waitSettings) {
+        if (syncReader()) { SYNC.waitSettings = false; } else { // bulutta ayar belgesi yoksa yereldekini gönder
         SYNC.waitSettings = false;
         if (!SYNC.shadow['ayar/genel']) { SYNC.shadow['ayar/genel'] = canon(S.settings); SYNC.outbox['ayar/genel'] = { op: 'set', n: ++SYNC.seq }; saveOutbox(); syncFlush(); }
-      }
+      } }
       if (!meta || !meta.fromCache) SYNC.firstSnap[col] = true;
       if (Object.keys(SYNC.firstSnap).length === SYNC_COLS.length + 1 && SYNC.phase === 'baglaniyor') SYNC.phase = 'acik';
       syncPaint();
@@ -4651,8 +4678,9 @@ function pairCode() {
 
 /* Firebase arka ucu (gstatic'ten modüller; ilk açılıştan sonra service worker önbelleğinden de yüklenir) */
 function firebaseBackend() {
-  var F = {}, app, auth, db, uid = null;
-  function ref(col, id) { return F.fs.doc(db, 'users', uid, col, id); }
+  var F = {}, app, auth, db, uid = null, dataUid = null; // dataUid: öğretmen cihazında öğrencinin hesabı
+  function owner() { return dataUid || uid; }
+  function ref(col, id) { return F.fs.doc(db, 'users', owner(), col, id); }
   return {
     init: function (cfg) {
       return Promise.all([import(FIREBASE_SDK + 'firebase-app.js'), import(FIREBASE_SDK + 'firebase-auth.js'), import(FIREBASE_SDK + 'firebase-firestore.js')]).then(function (m) {
@@ -4667,16 +4695,39 @@ function firebaseBackend() {
     onAuth: function (cb) { return F.auth.onAuthStateChanged(auth, function (u) { uid = u ? u.uid : null; cb(uid, u ? u.email : null); }); },
     signIn: function (email, pw) { return F.auth.signInWithEmailAndPassword(auth, email, pw); },
     signOut: function () { return F.auth.signOut(auth); },
+    setDataUid: function (o) { dataUid = o || null; },
+    signInAnon: function () { return F.auth.signInAnonymously(auth); },
+    joinReader: function (t, ad) {
+      var r = F.fs.doc(db, 'users', dataUid, 'okuyucu', uid);
+      return F.fs.getDoc(r).then(function (s) { if (!s.exists()) return F.fs.setDoc(r, { t: t, ad: ad, at: Date.now() }); },
+        function () { return F.fs.setDoc(r, { t: t, ad: ad, at: Date.now() }); });
+    },
+    // Sahip cihazı: davet oluştur, listele, kaldır
+    createInvite: function (t, ad) { return F.fs.setDoc(F.fs.doc(db, 'users', uid, 'davet', t), { ad: ad, at: Date.now() }); },
+    listInvites: function () {
+      return Promise.all([F.fs.getDocsFromServer(F.fs.collection(db, 'users', uid, 'davet')), F.fs.getDocsFromServer(F.fs.collection(db, 'users', uid, 'okuyucu'))]).then(function (r) {
+        var cnt = {}; r[1].docs.forEach(function (d) { var t = (d.data() || {}).t; cnt[t] = (cnt[t] || 0) + 1; });
+        return r[0].docs.map(function (d) { var x = d.data() || {}; return { t: d.id, ad: x.ad || '', at: x.at || 0, n: cnt[d.id] || 0 }; }).sort(function (a, b) { return b.at - a.at; });
+      });
+    },
+    revokeInvite: function (t) {
+      return F.fs.getDocsFromServer(F.fs.collection(db, 'users', uid, 'okuyucu')).then(function (s) {
+        var b = F.fs.writeBatch(db);
+        s.docs.forEach(function (d) { if ((d.data() || {}).t === t) b.delete(d.ref); });
+        b.delete(F.fs.doc(db, 'users', uid, 'davet', t));
+        return b.commit();
+      });
+    },
     getMarker: function () { return F.fs.getDoc(ref('ayar', 'durum')).then(function (s) { return s.exists() ? s.data() : null; }); },
     setMarker: function (o) { return F.fs.setDoc(ref('ayar', 'durum'), o); },
     getAll: function (col) {
-      return F.fs.getDocsFromServer(F.fs.collection(db, 'users', uid, col)).then(function (s) {
+      return F.fs.getDocsFromServer(F.fs.collection(db, 'users', owner(), col)).then(function (s) {
         return s.docs.map(function (d) { return d.data(); }).filter(function (d) { return d && !d.x && d.r; }).map(function (d) { return d.r; });
       });
     },
     // Yalnızca "since" zamanından sonra değişen belgeler okunur
     listen: function (col, since, cb, err) {
-      var q = F.fs.query(F.fs.collection(db, 'users', uid, col), F.fs.where('u', '>', F.fs.Timestamp.fromMillis(since || 0)));
+      var q = F.fs.query(F.fs.collection(db, 'users', owner(), col), F.fs.where('u', '>', F.fs.Timestamp.fromMillis(since || 0)));
       return F.fs.onSnapshot(q, { includeMetadataChanges: true }, function (snap) {
         var out = [];
         snap.docChanges().forEach(function (c) {
@@ -4688,6 +4739,7 @@ function firebaseBackend() {
       }, err);
     },
     write: function (ops) {
+      if (dataUid) return Promise.reject({ code: 'okur', message: 'Öğretmen modunda gönderim yok.' });
       var b = F.fs.writeBatch(db), now = F.fs.serverTimestamp();
       ops.forEach(function (o) { b.set(ref(o.col, o.id), o.type === 'del' ? { r: null, u: now, x: true } : { r: o.data, u: now, x: false }); });
       return b.commit();
@@ -4708,13 +4760,17 @@ function kurEsitle() {
   h += '<section class="panel"><h2>Canlı eşitleme</h2><p style="margin-top:0">Açıkken öğrencinin iPad’de girdiği her kayıt birkaç saniye içinde bilgisayarda görünür; bilgisayarda yapılan kurulum da iPad’e gider. ' +
     'Veriler sizin Google hesabınızdaki ücretsiz Firebase projesinde tutulur ve yalnızca oluşturduğunuz kullanıcıyla okunabilir. İnternet yokken uygulama çalışmaya devam eder; değişiklikler bağlantı gelince gönderilir.</p>' +
     '<div id="sync-status">' + syncStatusHtml() + '</div>';
-  if (c && c.config && SYNC.uid && syncLinked()) {
+  if (c && c.config && syncReader() && SYNC.uid && syncLinked()) {
+    h += '<div class="banner info" style="margin-top:12px"><span class="grow"><b>Öğretmen modu</b>: öğrencinin kayıtlarını görüntülüyorsunuz' + (c.okur.a ? ' (' + esc(c.okur.a) + ')' : '') + '. Bu cihazda yapılan değişiklikler öğrenciye gitmez.</span></div>' +
+      '<div class="actions" style="margin-top:10px">' + btn('sync-kes', 'Takibi bırak', 'sm danger') + '</div>' +
+      '<p class="hint">Takibi bırakmak öğrencinin verilerini etkilemez.</p>';
+  } else if (c && c.config && SYNC.uid && syncLinked()) {
     h += '<div class="kv" style="margin:12px 0">' + stat('Hesap', '<span style="font-size:16px;line-height:1.3;word-break:break-all;display:block">' + esc(SYNC.email || c.email || '') + '</span>', 'Firebase projesi: ' + esc(c.config.projectId)) +
       stat('Bekleyen değişiklik', syncPend(), 'gönderilecek') + stat('Bağlandığı gün', c.linkedAt ? fDateS(c.linkedAt) : '—', syncDeviceName()) + '</div>' +
       '<h3 style="font-size:16px;margin:18px 0 6px">Diğer cihazı bağlamak için</h3><p style="margin-top:0">Aşağıdaki eşleştirme kodunu diğer cihaza gönderin (WhatsApp, e-posta). Orada Kurulum › Canlı eşitleme bölümüne yapıştırıp aynı şifreyle bağlanın. Kod şifreyi içermez.</p>' +
       '<textarea class="input" readonly rows="3" style="font-size:13px;word-break:break-all" onclick="this.select()">' + esc(pairCode()) + '</textarea>' +
       '<div class="actions" style="margin-top:10px">' + btn('sync-kod-paylas', isIOS() ? 'Kodu gönder' : 'Kodu kopyala', 'sm', null, 'share') + btn('sync-kes', 'Bağlantıyı kes', 'sm danger') + '</div>' +
-      '<p class="hint">Bağlantıyı kesmek bu cihazdaki verileri silmez; yalnızca eşitlemeyi durdurur.</p>';
+      '<p class="hint">Bağlantıyı kesmek bu cihazdaki verileri silmez; yalnızca eşitlemeyi durdurur.</p>' + davetPanel();
   } else if (c && c.config && SYNC.phase !== 'kapali' && SYNC.phase !== 'giris' && !SYNC.uid) {
     h += '<p class="hint">Bağlanıyor…</p>';
   } else {
@@ -4763,6 +4819,8 @@ ACT['sync-kod-paylas'] = function () {
 ACT['sync-baglan'] = function () {
   var f = UI.syncForm, say = function (m) { var b = document.getElementById('sync-err'); if (b) b.textContent = m; }; // ekran yeniden çizilmiş olabilir: kutu her seferinde yeniden bulunur
   if (SYNC.cfg && SYNC.cfg.config && SYNC.uid && SYNC.backend && SYNC.phase === 'hata') { ACT['sync-yeniden'](); return; } // giriş zaten yapılmış
+  var inv = parseInvite(f.kod);
+  if (inv && !(SYNC.cfg && SYNC.cfg.config)) { f.kod = ''; davetKatil(inv); return; }
   if (!(SYNC.cfg && SYNC.cfg.config)) {
     var p = parseSyncConfig(f.kod);
     if (!p) return say('Bağlantı bilgisi okunamadı. firebaseConfig metninin tamamını (apiKey ve projectId içeren) ya da LGS1: ile başlayan kodu yapıştırın.');
@@ -4781,6 +4839,149 @@ ACT['sync-baglan'] = function () {
     SYNC.backend = null; syncConnect();
     var w = setInterval(function () { if (SYNC.phase === 'giris') { clearInterval(w); go2(); } else if (SYNC.phase === 'hata') { clearInterval(w); say(SYNC.err || 'Bağlanılamadı.'); } }, 200);
   }
+};
+
+/* ===================== ÖĞRETMEN DAVETİ =====================
+   Sahip cihazı bir davet linki üretir: içinde Firebase bağlantı bilgisi, öğrencinin hesap kimliği ve rastgele davet anahtarı vardır.
+   Öğretmen linki açınca cihaza özel (anonim) giriş yapılır; Firestore kuralı davet anahtarı geçerliyse yalnızca okuma izni verir.
+   Şifre linkte yoktur. Davet kaldırılınca o davetle katılan cihazların erişimi biter. */
+var DAVET_BEKLEYEN = 'lgs-takip-davet-bekleyen', DAVET_SORULDU = 'lgs-takip-davet-soruldu';
+function b64u(o) { return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+function unb64u(t) { t = t.replace(/-/g, '+').replace(/_/g, '/'); while (t.length % 4) t += '='; return JSON.parse(decodeURIComponent(escape(atob(t)))); }
+function parseInvite(txt) {
+  var m = /davet=([A-Za-z0-9_-]{20,})/.exec(String(txt || '').replace(/\s+/g, ''));
+  if (!m) return null;
+  try { var o = unb64u(m[1]); return o && o.c && o.c.apiKey && o.o && o.t ? o : null; } catch (e) { return null; }
+}
+function davetLink(t, ad) {
+  return location.origin + location.pathname + '#davet=' + b64u({ c: SYNC.cfg.config, o: SYNC.uid, t: t, a: ad });
+}
+function davetToken() { var a = new Uint8Array(18); crypto.getRandomValues(a); return Array.prototype.map.call(a, function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); }
+function davetErrText(e) {
+  var c = e && e.code || '';
+  if (c === 'permission-denied') return 'Davet geçersiz ya da kaldırılmış. Yeni bir davet linki isteyin. (Kurulumu yapan kişi: Firestore kuralının güncel olduğunu kontrol edin.)';
+  if (c === 'auth/operation-not-allowed' || c === 'auth/admin-restricted-operation') return 'Davetle giriş Firebase’de açılmamış. Kurulumu yapan kişi: Authentication › Sign-in method › Anonymous › Enable.';
+  return syncErrText(e);
+}
+function isStandalone() { return window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches); }
+
+/* Açılışta: linkle gelinmişse daveti al; iPhone/iPad ana ekran uygulamasında ilk açılışta yapıştırma seçeneği sun */
+function davetBaslangic() {
+  var inv = parseInvite(location.hash);
+  if (inv) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } }
+  if (inv) return davetSor(inv);
+  if (isIOS() && isStandalone() && !(SYNC.cfg && SYNC.cfg.config) && !hasUserData(S)) {
+    var sor = false; try { sor = !localStorage.getItem(DAVET_SORULDU); localStorage.setItem(DAVET_SORULDU, '1'); } catch (e) { }
+    if (sor) davetYapistirSor();
+  }
+}
+function davetSor(inv) {
+  if (SYNC.cfg && SYNC.cfg.config) { // bu cihaz zaten bağlı: davet hiçbir şeyi değiştirmez
+    openSheet({ title: 'Bu cihaz zaten bağlı', body: function () { return '<p style="margin-top:0">Bu cihazda canlı eşitleme zaten açık, bu yüzden davet kullanılmadı. Veriler olduğu gibi duruyor.</p><p class="hint">Daveti başka bir cihazda açın.</p>'; },
+      foot: function () { return '<span class="spacer"></span><button class="btn primary" data-act="sheet-kapat">Tamam</button>'; } });
+    return;
+  }
+  UI.davetBekleyen = inv;
+  var iosTarayici = isIOS() && !isStandalone();
+  openSheet({
+    title: 'Öğrenci takibine katılın',
+    body: function () {
+      return '<p style="margin-top:0">' + (inv.a ? '<b>' + esc(inv.a) + '</b> için ' : '') + 'öğrencinin çalışma, deneme ve yanlış kayıtlarını bu cihazdan görüntüleyebilirsiniz. Şifre gerekmez; öğrencinin verileri değiştirilemez.</p>' +
+        (iosTarayici ? '<div class="banner info"><span class="grow"><b>iPhone / iPad:</b> önce <b>Daveti kopyala</b>’ya dokunun. Sonra Paylaş › <b>Ana Ekrana Ekle</b> ile uygulamayı ekleyin, ana ekrandaki simgeden açın ve <b>Yapıştır ve bağlan</b>’a dokunun.</span></div>' : '') +
+        (hasUserData(S) ? '<p class="hint">Bu cihazdaki mevcut kayıtların yerini öğrencinin kayıtları alacak; eski kayıtların bir kopyası saklanır.</p>' : '');
+    },
+    foot: function () {
+      return '<button class="btn" data-act="sheet-kapat">Vazgeç</button><span class="spacer"></span>' +
+        (iosTarayici ? '<button class="btn" data-act="davet-onayla">Burada bağlan</button><button class="btn primary" data-act="davet-kopyala">Daveti kopyala</button>' : '<button class="btn primary" data-act="davet-onayla">Bağlan</button>');
+    }
+  });
+}
+function davetYapistirSor() {
+  openSheet({
+    title: 'Davet linkiniz var mı?',
+    body: function () {
+      return '<p style="margin-top:0">Öğretmen olarak bir öğrenciyi takip edecekseniz size gönderilen davet linkini yapıştırın.</p>' +
+        '<textarea class="input" data-sf="kod" rows="3" placeholder="Davet linkini buraya yapıştırın"></textarea><div class="errors" id="davet-err" role="alert"></div>';
+    },
+    foot: function () { return '<button class="btn" data-act="sheet-kapat">Davetim yok</button><span class="spacer"></span><button class="btn primary" data-act="davet-yapistir">Yapıştır ve bağlan</button>'; }
+  });
+}
+function davetKatil(inv) {
+  if (SYNC.cfg && SYNC.cfg.config) return davetSor(inv);
+  SYNC.cfg = { config: inv.c, email: '', okur: { o: inv.o, t: inv.t, a: inv.a || '' } };
+  saveSyncCfg(); SYNC.readerWarned = false;
+  showToast('Bağlanılıyor…');
+  SYNC.backend = null; syncConnect();
+}
+ACT['sheet-kapat'] = function () { closeSheet(); };
+ACT['davet-onayla'] = function () { var inv = UI.davetBekleyen; closeSheet(); if (inv) davetKatil(inv); };
+ACT['davet-kopyala'] = function () {
+  var inv = UI.davetBekleyen; if (!inv) return;
+  var link = location.origin + location.pathname + '#davet=' + b64u(inv);
+  var ok = function () { closeSheet(); showToast('Davet kopyalandı. Şimdi Paylaş › Ana Ekrana Ekle.', true); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(ok, function () { showToast('Kopyalanamadı; mesajdaki linki kopyalayın.'); });
+  else showToast('Kopyalanamadı; mesajdaki linki kopyalayın.');
+};
+ACT['davet-yapistir'] = function () {
+  var say = function (m) { var b = document.getElementById('davet-err'); if (b) b.textContent = m; };
+  var dene = function (txt) { var inv = parseInvite(txt); if (!inv) return say('Bu bir davet linki değil. Mesajdaki linkin tamamını kopyalayın.'); closeSheet(); davetKatil(inv); };
+  var el = document.querySelector('textarea[data-sf="kod"]');
+  if (el && el.value.trim()) return dene(el.value);
+  if (navigator.clipboard && navigator.clipboard.readText) navigator.clipboard.readText().then(dene, function () { say('Linki kutuya yapıştırın.'); });
+  else say('Linki kutuya yapıştırın.');
+};
+
+/* Sahip cihazı: Kurulum › Canlı eşitleme › Öğretmen davetleri */
+function davetPanel() {
+  setTimeout(davetListeYukle, 0);
+  return '<h3 style="font-size:16px;margin:22px 0 6px">Öğretmen davetleri</h3>' +
+    '<p style="margin-top:0">Her öğretmen için ayrı bir davet linki oluşturun. Öğretmen linke dokunarak bağlanır; şifre gerekmez ve öğrencinin verilerini yalnızca görüntüler. Davet kaldırılınca erişim biter.</p>' +
+    '<div class="fields2">' + field('Davet adı', '<input class="input" data-sf="davetAd" placeholder="ör. Matematik – Ayşe Hoca" value="' + esc(UI.syncForm.davetAd || '') + '">') + '</div>' +
+    '<div class="actions" style="margin-top:10px">' + btn('davet-olustur', 'Davet linki oluştur', 'sm primary') + '</div>' +
+    '<div id="davet-yeni"></div><div id="davet-liste"><p class="hint">Davetler yükleniyor…</p></div>' +
+    '<details style="margin-top:10px"><summary class="hint" style="cursor:pointer">İlk kez kullanırken Firebase’de yapılacak iki ayar</summary><ol class="hint" style="padding-left:20px">' +
+    '<li>Authentication › Sign-in method › <b>Anonymous</b> › Enable › Save.</li>' +
+    '<li>Firestore › Rules: kutudaki metnin tamamını aşağıdaki kuralla değiştirip Publish deyin. Sizin ve öğrencinin erişimi aynen kalır.</li></ol>' +
+    '<pre id="fs-kural" class="input" style="white-space:pre-wrap;font-size:12px;max-height:220px;overflow:auto">' + esc(FIRESTORE_RULES) + '</pre>' + btn('kural-kopyala', 'Kuralı kopyala', 'sm') + '</details>';
+}
+function davetListeYukle() {
+  var box = document.getElementById('davet-liste'); if (!box || !SYNC.backend || !SYNC.backend.listInvites) return;
+  SYNC.backend.listInvites().then(function (l) {
+    box = document.getElementById('davet-liste'); if (!box) return;
+    box.innerHTML = l.length ? '<ul class="list" style="margin-top:12px">' + l.map(function (d) {
+      return '<li><span class="grow"><b>' + esc(d.ad || 'Adsız davet') + '</b><span class="sub" style="display:block">' + (d.n ? d.n + ' cihaz bağlı' : 'henüz bağlanan yok') + (d.at ? ' · ' + fDateS(todayStrOf(d.at)) : '') + '</span></span>' +
+        btn('davet-paylas', 'Linki paylaş', 'xs', { t: d.t, ad: d.ad }) + btn('davet-kaldir', 'Kaldır', 'xs danger', { t: d.t, ad: d.ad }) + '</li>';
+    }).join('') + '</ul>' : '<p class="hint">Henüz davet yok.</p>';
+  }, function (e) {
+    box = document.getElementById('davet-liste'); if (!box) return;
+    box.innerHTML = '<p class="hint">' + (e && e.code === 'permission-denied' ? 'Davetler okunamadı: Firestore kuralını aşağıdaki kuralla güncelleyin.' : 'Davetler okunamadı: ' + esc(syncErrText(e))) + '</p>';
+  });
+}
+function todayStrOf(ms) { var d = new Date(ms); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+function davetPaylas(link, ad) {
+  var text = 'LGS Takip öğretmen daveti' + (ad ? ' (' + ad + ')' : '') + ':\n' + link;
+  if (navigator.share) { navigator.share({ title: 'LGS Takip daveti', text: text }).catch(function () { }); return; }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(function () { showToast('Davet linki kopyalandı. WhatsApp ya da e-postayla gönderin.', true); });
+}
+ACT['davet-olustur'] = function () {
+  var ad = (UI.syncForm.davetAd || '').trim();
+  if (!ad) { showToast('Önce davete bir ad verin (ör. öğretmenin adı).'); return; }
+  if (!SYNC.backend || !SYNC.uid) return;
+  var t = davetToken();
+  SYNC.backend.createInvite(t, ad).then(function () {
+    UI.syncForm.davetAd = '';
+    var link = davetLink(t, ad), box = document.getElementById('davet-yeni');
+    if (box) box.innerHTML = '<div class="banner info" style="margin-top:12px;display:block"><b>' + esc(ad) + '</b> için davet hazır. Bu linki yalnızca o öğretmene gönderin.' +
+      '<textarea class="input" readonly rows="3" style="font-size:12px;word-break:break-all;margin-top:8px" onclick="this.select()">' + esc(link) + '</textarea>' +
+      '<div class="actions" style="margin-top:8px">' + btn('davet-paylas', 'Linki paylaş', 'sm primary', { t: t, ad: ad }) + '</div></div>';
+    var inp = document.querySelector('input[data-sf="davetAd"]'); if (inp) inp.value = '';
+    davetListeYukle();
+  }, function (e) { showToast(e && e.code === 'permission-denied' ? 'Davet oluşturulamadı: Firestore kuralını güncelleyin (aşağıda).' : 'Davet oluşturulamadı: ' + syncErrText(e), true); });
+};
+ACT['davet-paylas'] = function (t) { davetPaylas(davetLink(t.dataset.t, t.dataset.ad || ''), t.dataset.ad || ''); };
+ACT['davet-kaldir'] = async function (t) {
+  if (!(await askConfirm('“' + (t.dataset.ad || 'Bu davet') + '” kaldırılsın mı? Bu davetle bağlanan cihazlar öğrencinin verilerini artık göremez. Öğrencinin verileri etkilenmez.', 'Daveti kaldır', true))) return;
+  SYNC.backend.revokeInvite(t.dataset.t).then(function () { showToast('Davet kaldırıldı'); var b = document.getElementById('davet-yeni'); if (b) b.innerHTML = ''; davetListeYukle(); }, function (e) { showToast('Kaldırılamadı: ' + syncErrText(e), true); });
 };
 
 /* ---- foto.js ---- */
@@ -4975,7 +5176,7 @@ function fotoSaveOut() { try { localStorage.setItem(FOTO_OUT_KEY, JSON.stringify
 function fotoQueue(id, op) { FOTO.out[id] = op; fotoSaveOut(); fotoFlush(); }
 function fotoPending() { return Object.keys(FOTO.out).length; }
 function fotoFlush() {
-  if (typeof SYNC === 'undefined' || !SYNC.ready || !SYNC.backend || FOTO.flushing) return;
+  if (typeof SYNC === 'undefined' || !SYNC.ready || !SYNC.backend || FOTO.flushing || (SYNC.cfg && SYNC.cfg.okur)) return;
   var ids = Object.keys(FOTO.out); if (!ids.length) return;
   var id = ids[0], op = FOTO.out[id];
   FOTO.flushing = true;
