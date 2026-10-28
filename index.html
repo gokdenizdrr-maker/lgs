@@ -503,8 +503,8 @@ body.okur [data-act="prog-oner"], body.okur [data-act="prog-kopyala"], body.okur
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.17.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.17.1';
+/* LGS Takip, sürüm 1.18.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.18.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -544,6 +544,7 @@ var DEFAULT_SETTINGS = {
   lgsTarih: '', lgsTahmini: false, baslangic: '', gunSoru: 100, hafSoru: 700, gunSure: 180, hafSure: 1260, gunOkuma: 30,
   denemeHedefe: false, hedefTur: 1, sonDeneme: 5, dususGun: 14, dususEsik: 10, minSoru: 20,
   tekrarAralik: [1, 3, 7, 14],
+  yanlisAralik: [1, 4, 14],
   dersSoru: { TUR: 20, INK: 10, DIN: 10, ING: 10, MAT: 20, FEN: 20 },
   hedefNet: { TUR: null, INK: null, DIN: null, ING: null, MAT: null, FEN: null },
   pin: ''
@@ -599,6 +600,7 @@ function normalize(S) {
   S.settings.dersSoru = Object.assign(clone(DEFAULT_SETTINGS.dersSoru), S.settings.dersSoru || {});
   S.settings.hedefNet = Object.assign(clone(DEFAULT_SETTINGS.hedefNet), S.settings.hedefNet || {});
   if (!Array.isArray(S.settings.tekrarAralik)) S.settings.tekrarAralik = [1, 3, 7, 14];
+  if (!Array.isArray(S.settings.yanlisAralik) || !S.settings.yanlisAralik.length) S.settings.yanlisAralik = [1, 4, 14];
   S.meta = Object.assign({ lastBackup: null, lastSetupImport: null }, S.meta || {});
   S.yanlislar.forEach(function (y) { if (!Array.isArray(y.tekrarlar)) y.tekrarlar = []; });
   S.tekrarlar.forEach(function (t) { if (!Array.isArray(t.yapilan)) t.yapilan = []; });
@@ -709,8 +711,13 @@ function stages(S) {
   }
   return out;
 }
+/* Yanlış soruların tekrar günleri (yanlışın tarihinden itibaren): ertesi gün, 4. gün, 14. gün. Öğrenci son tekrarda "tekrar görmeliyim" derse y.ek listesine yeni bir gün eklenir; böylece her soru kendiliğinden sonsuza kadar sorulmaz. */
+function yanlisStages(S, y) {
+  var base = (S.settings.yanlisAralik || [1, 4, 14]).map(Number).filter(function (v) { return isFinite(v) && v > 0; });
+  return base.concat(((y && y.ek) || []).map(Number).filter(function (v) { return isFinite(v) && v > 0; }));
+}
 function yanlisTekrar(S, y, today) {
-  var st = stages(S), n = st.length, done = (y.tekrarlar || []).length;
+  var st = yanlisStages(S, y), n = st.length, done = (y.tekrarlar || []).length;
   if (y.tekrarGerekli === false) return { durum: 'Gerek yok', n: n, done: done, next: null };
   if (done >= n) return { durum: 'Tamamlandı', n: n, done: done, next: null };
   if (y.sonDurum === 'Öğrenildi') return { durum: 'Kapatıldı', n: n, done: done, next: null };
@@ -2229,7 +2236,7 @@ function showToast(msg, big) {
 
 /* ---------- olay yönetimi ---------- */
 var ACT = {};
-var OKUR_YASAK = {'kayit-yeni': 1, 'kayit-kaydet': 1, 'kayit-sil': 1, 'deneme-yeni': 1, 'deneme-kaydet': 1, 'deneme-sil': 1, 'dy-ekle': 1, 'dk-art': 1, 'dk-azalt': 1, 'yanlis-yeni': 1, 'yanlis-kaydet': 1, 'yanlis-sil': 1, 'ktekrar-yeni': 1, 'ktekrar-kaydet': 1, 'ktekrar-sil': 1, 'tekrar-yaptim': 1, 'soru-yaptim': 1, 'soru-not': 1, 'okuma-yeni': 1, 'okuma-kaydet': 1, 'okuma-sil': 1, 'kitap-yeni': 1, 'kitap-kaydet': 1, 'kitap-sil': 1, 'foto-ekle': 1, 'foto-bos': 1, 'soru-bos': 1, 'foto-ciz': 1, 'foto-kaldir': 1, 'sayac-ac': 1, 'sayac-basla': 1, 'sayac-bitir': 1, 'sayac-kaydet': 1, 'sayac-mola': 1, 'sayac-devam': 1, 'sayac-at': 1, 'kaynak-yeni': 1, 'kaynak-kaydet': 1, 'kaynak-sil': 1, 'plan-kaydet': 1, 'plan-sil': 1, 'plan-test-ekle': 1, 'toplu-plan': 1, 'toplu-kaydet': 1, 'konu-yeni': 1, 'konu-kaydet': 1, 'hepsini-sil': 1, 'calisma-sifirla': 1, 'yedek-yukle': 1, 'onb-gizle': 1, 'not-okudum': 1, 'lgs-tahmini': 1, 'pin-ayarla': 1, 'pin-kaldir': 1, 'pin-kaydet': 1, 'gorev-durum': 1, 'dn-art': 1, 'dn-azalt': 1}; // öğretmen cihazında kayıt ekleme/düzenleme yok: yalnızca görüntüleme
+var OKUR_YASAK = {'kayit-yeni': 1, 'kayit-kaydet': 1, 'kayit-sil': 1, 'deneme-yeni': 1, 'deneme-kaydet': 1, 'deneme-sil': 1, 'dy-ekle': 1, 'dk-art': 1, 'dk-azalt': 1, 'yanlis-yeni': 1, 'yanlis-kaydet': 1, 'yanlis-sil': 1, 'ktekrar-yeni': 1, 'ktekrar-kaydet': 1, 'ktekrar-sil': 1, 'tekrar-yaptim': 1, 'soru-yaptim': 1, 'soru-not': 1, 'okuma-yeni': 1, 'okuma-kaydet': 1, 'okuma-sil': 1, 'kitap-yeni': 1, 'kitap-kaydet': 1, 'kitap-sil': 1, 'foto-ekle': 1, 'foto-bos': 1, 'soru-bos': 1, 'foto-ciz': 1, 'foto-kaldir': 1, 'sayac-ac': 1, 'sayac-basla': 1, 'sayac-bitir': 1, 'sayac-kaydet': 1, 'sayac-mola': 1, 'sayac-devam': 1, 'sayac-at': 1, 'kaynak-yeni': 1, 'kaynak-kaydet': 1, 'kaynak-sil': 1, 'plan-kaydet': 1, 'plan-sil': 1, 'plan-test-ekle': 1, 'toplu-plan': 1, 'toplu-kaydet': 1, 'konu-yeni': 1, 'konu-kaydet': 1, 'hepsini-sil': 1, 'yanlis-ogrendim': 1, 'yanlis-tekrar-gor': 1, 'calisma-sifirla': 1, 'yedek-yukle': 1, 'onb-gizle': 1, 'not-okudum': 1, 'lgs-tahmini': 1, 'pin-ayarla': 1, 'pin-kaldir': 1, 'pin-kaydet': 1, 'gorev-durum': 1, 'dn-art': 1, 'dn-azalt': 1}; // öğretmen cihazında kayıt ekleme/düzenleme yok: yalnızca görüntüleme
 document.addEventListener('click', function (e) {
   var t = e.target.closest('[data-act]');
   if (!t || t.disabled) return;
@@ -2798,8 +2805,8 @@ ACT['deneme-ac'] = function (t) { var r = S.denemeler.find(function (x) { return
 ACT['deneme-yeni'] = function () { openDeneme(null); };
 
 /* ---------- tekrar tarihleri düzenleyici (yanlış ve konu tekrarı ortak) ---------- */
-function tekrarTarihEditor(F, key, baseDate) {
-  var st = stages(S), n = Math.max(st.length, F[key].length), base = dn(baseDate);
+function tekrarTarihEditor(F, key, baseDate, stOverride) {
+  var st = stOverride || stages(S), n = Math.max(st.length, F[key].length), base = dn(baseDate);
   var h = '<div class="field"><span class="lbl">Yapılan tekrarlar</span><div class="tkgrid">';
   for (var i = 0; i < n; i++) {
     var plan = st[i] != null && isFinite(base) ? fDateS(base + st[i]) : '—';
@@ -2828,7 +2835,7 @@ function openYanlis(rec, preset) {
       if (rec) {
         var r = yanlisTekrar(S, Object.assign({}, rec, { tekrarlar: F.tk.filter(Boolean), sonDurum: F.sonDurum === 'Açık' ? null : F.sonDurum, tekrarGerekli: F.tekrarGerekli }), today());
         h += '<div class="kv" style="margin-bottom:14px">' + stat('Tekrar durumu', pill(r.durum), r.done + ' / ' + r.n + ' tekrar yapıldı') +
-          stat('İlk tekrar', F.tekrarGerekli !== false && stages(S).length ? fDateS(dn(F.tarih) + stages(S)[0]) : '—', '') +
+          stat('İlk tekrar', F.tekrarGerekli !== false && yanlisStages(S, rec).length ? fDateS(dn(F.tarih) + yanlisStages(S, rec)[0]) : '—', '') +
           stat('Sıradaki tekrar', r.next != null ? fDateS(r.next) : '—', r.next != null ? relDay(r.next) : '') + '</div>';
       }
       h += '<div class="fields2">' + field('Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '" max="' + todayStr() + '">') +
@@ -2861,10 +2868,10 @@ function openYanlis(rec, preset) {
       h += field('Neden yanlış yaptım?', '<textarea class="input" data-f="neden" maxlength="400">' + esc(F.neden) + '</textarea>');
       h += field('Doğru çözüm notu', '<textarea class="input" data-f="cozum" maxlength="600">' + esc(F.cozum) + '</textarea>');
       h += fieldDiv('Sorunun son durumu', chipsHtml('sonDurum', YANLIS_DURUM.map(function (t) { return { v: t, t: t }; }), F.sonDurum), '"Öğrenildi" seçilirse kalan tekrarlar kapanır.');
-      var st = stages(S);
+      var st = yanlisStages(S, rec || {});
       h += '<label class="switch"><input type="checkbox" data-f="tekrarGerekli"' + (F.tekrarGerekli !== false ? ' checked' : '') + '> <span><b>Tekrar gerekli</b><br><span class="small muted">Tekrar günleri: yanlıştan ' +
         st.join(', ') + ' gün sonra</span></span></label>';
-      if (rec && F.tekrarGerekli !== false) h += tekrarTarihEditor(F, 'tk', F.tarih);
+      if (rec && F.tekrarGerekli !== false) h += tekrarTarihEditor(F, 'tk', F.tarih, yanlisStages(S, rec));
       return h + '<div class="errors" role="alert"></div>';
     },
     foot: function () {
@@ -2908,7 +2915,7 @@ ACT['yanlis-kaydet'] = function () {
   UI.last = { dersId: rec.dersId };
   var donus = F.donus;
   M.saved = true; closeSheet(); save();
-  if (donus) setTimeout(donus, 80); showToast(F.id ? 'Yanlış güncellendi' : 'Yanlış kaydedildi' + (rec.tekrarGerekli && stages(S).length ? '; ilk tekrar ' + relDay(dn(rec.tarih) + stages(S)[0]).toLocaleLowerCase('tr') : ''));
+  if (donus) setTimeout(donus, 80); showToast(F.id ? 'Yanlış güncellendi' : 'Yanlış kaydedildi' + (rec.tekrarGerekli && yanlisStages(S, rec).length ? '; ilk tekrar ' + relDay(dn(rec.tarih) + yanlisStages(S, rec)[0]).toLocaleLowerCase('tr') : ''));
 };
 ACT['yanlis-sil'] = async function () {
   var id = M.F.id;
@@ -2986,6 +2993,21 @@ ACT['tekrar-yaptim'] = function (t) {
   save();
   var res = t.dataset.kind === 'yanlis' ? yanlisTekrar(S, r, today()) : konuTekrar(S, r, today());
   showToast(res.next != null ? 'Tekrar işaretlendi. Sıradaki: ' + fDate(res.next) : 'Tekrarlar tamamlandı');
+  if (t.dataset.kind === 'yanlis' && res.next == null && res.durum === 'Tamamlandı' && r.sonDurum !== 'Öğrenildi') setTimeout(function () { yanlisSonSor(r); }, 150);
+};
+/* Son tekrar yapıldığında: öğrenci soruyu öğrendi mi, yoksa 14 gün sonra bir kez daha mı görmeli? Seçmezse soru kapanır; böylece günlük tekrar yığılmaz. */
+function yanlisSonSor(y) {
+  openSheet({
+    title: 'Bu soruyu öğrendin mi?', F: {},
+    body: function () { return '<p style="margin-top:0">Son tekrar tamam. Bu soruyu şimdi yine yanlış yapacağını düşünüyorsan "Tekrar görmeliyim" de; 14 gün sonra bir kez daha karşına çıkar. Emin değilsen değil, yanlış yapacağını düşünüyorsan seç, tekrarlar birikmesin.</p>'; },
+    foot: function () { return '<button class="btn" data-act="yanlis-ogrendim" data-id="' + y.id + '">Öğrendim, kapat</button><span class="spacer"></span><button class="btn primary" data-act="yanlis-tekrar-gor" data-id="' + y.id + '">Tekrar görmeliyim (14 gün sonra)</button>'; }
+  });
+}
+ACT['yanlis-ogrendim'] = function (t) { var y = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (!y) return; y.sonDurum = 'Öğrenildi'; closeSheet(); save(); showToast('Soru öğrenildi olarak kapandı'); };
+ACT['yanlis-tekrar-gor'] = function (t) {
+  var y = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (!y) return;
+  y.ek = (y.ek || []).concat([today() - dn(y.tarih) + 14]); y.sonDurum = 'Hâlâ zorlanıyorum';
+  closeSheet(); save(); showToast('Tekrar: ' + fDate(today() + 14));
 };
 /* ---------- görev / ödev ----------
    Kitaptan test seçilirse görev "ödev" olur: ilerleme, verildiği günden sonra bitirilen bu testlerden kendiliğinden hesaplanır.
@@ -3899,13 +3921,13 @@ function stageBubbles(n, dates, next, durum, planned) {
   return h + '</span>';
 }
 function yanlisPlanli(y) {
-  var st = stages(S), base = dn(y.tarih);
+  var st = yanlisStages(S, y), base = dn(y.tarih);
   return st.map(function (g) { return base + g; });
 }
 
 VIEWS.yanlis = function () {
   var t = today(), f = UI.yF;
-  var h = head('Yanlış sorular', 'Her önemli yanlış bir kayıt. Tekrar günleri yanlışın tarihinden ' + stages(S).join(', ') + ' gün sonradır.',
+  var h = head('Yanlış sorular', 'Her önemli yanlış bir kayıt. Tekrar günleri yanlışın tarihinden ' + yanlisStages(S, {}).join(', ') + ' gün sonradır; son tekrarda öğrenci "öğrendim" ya da "tekrar görmeliyim" der.',
     btn('yanlis-yeni', 'Yanlış ekle', 'primary', null, 'plus'));
   h += '<div class="tabs" role="tablist">' + [['liste', 'Yanlış listesi'], ['analiz', 'Analiz']].map(function (x) {
     return '<button role="tab" aria-selected="' + (UI.yView === x[0]) + '" data-act="yview" data-v="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
@@ -4023,7 +4045,7 @@ ACT['yf-konu'] = function (t) { UI.yF = { ders: t.dataset.ders, durum: 'tum', ha
 /* ---------- TEKRARLAR ---------- */
 VIEWS.tekrar = function () {
   var t = today();
-  var h = head('Tekrarlar', 'Yanlış soruların ve konu tekrarlarının günleri. Tekrar aralıkları: ' + stages(S).join(', ') + ' gün (Kurulum’dan değiştirilebilir).',
+  var h = head('Tekrarlar', 'Yanlış soruların (' + yanlisStages(S, {}).join(', ') + '. gün) ve konu tekrarlarının günleri. Konu tekrar aralıkları: ' + stages(S).join(', ') + ' gün (Kurulum’dan değiştirilebilir).',
     btn('ktekrar-yeni', 'Konu tekrarı ekle', 'primary', null, 'plus') + btn('go', 'Yanlışlar', '', { v: 'yanlis' }));
   h += '<div class="tabs" role="tablist">' + [['takvim', 'Tekrar takvimi'], ['konu', 'Konu tekrarları']].map(function (x) {
     return '<button role="tab" aria-selected="' + (UI.tTab === x[0]) + '" data-act="ttab" data-v="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
@@ -6460,7 +6482,7 @@ ACT['foto-ekle'] = function () {
 ACT['soru-bos'] = function (t) {
   var y = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (!y) return;
   if ((y.fotoIds || []).length >= FOTO_MAX) return showToast('En fazla ' + FOTO_MAX + ' sayfa eklenebilir.');
-  var st = stages(S), r0 = yanlisTekrar(S, y, today()), gun = r0.next != null && st[r0.done] != null ? st[r0.done] : Math.max(1, today() - dn(y.tarih));
+  var st = yanlisStages(S, y), r0 = yanlisTekrar(S, y, today()), gun = r0.next != null && st[r0.done] != null ? st[r0.done] : Math.max(1, today() - dn(y.tarih));
   var rec = fotoBosKayit(y.id, gun + '. gün çözümü  ·  ' + fDate(todayStr()));
   fotoPut(rec).then(function () {
     y.fotoIds = (y.fotoIds || []).concat([rec.id]); fotoQueue(rec.id, 'set'); save();
@@ -7258,7 +7280,7 @@ ACT['csv'] = function (t) {
   } else {
     rows.push(['Tarih', 'Ders', 'Ünite', 'Konu', 'Kitap', 'Test', 'Soru no', 'Hata türü', 'Neden', 'Doğru çözüm notu', 'Tekrar gerekli', '1. tekrar', '2. tekrar', '3. tekrar', '4. tekrar', 'İlk tekrar tarihi', 'Sonraki tekrar', 'Tekrar edildi', 'Tekrar durumu', 'Son durum']);
     S.yanlislar.slice().sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); }).forEach(function (y) {
-      var r = yanlisTekrar(S, y, today()), tk = y.tekrarlar || [], ko = IX().konu[y.konuId], st0 = stages(S)[0];
+      var r = yanlisTekrar(S, y, today()), tk = y.tekrarlar || [], ko = IX().konu[y.konuId], st0 = yanlisStages(S, y)[0];
       rows.push([y.tarih, DERS[y.dersId].ad, ko ? ko.unite || '' : '', konuAd(y.konuId), kaynakAd(y.kaynakId), testAd(y.testId), y.soruNo, y.hata, y.neden, y.cozum, y.tekrarGerekli === false ? 'Hayır' : 'Evet',
         tk[0] || '', tk[1] || '', tk[2] || '', tk[3] || '', y.tekrarGerekli === false || st0 == null ? '' : ds(dn(y.tarih) + st0), r.next != null ? ds(r.next) : '', r.done + '/' + r.n, r.durum, y.sonDurum || 'Açık']);
     });
