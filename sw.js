@@ -1,7 +1,7 @@
-/* LGS Takip, çevrimdışı çalışma için service worker. Sürüm 1.21.0.
+/* LGS Takip, çevrimdışı çalışma için service worker. Sürüm 1.22.0.
    Sayfa: önce ağ (en güncel sürüm), ağ yoksa ya da geç kalırsa önbellek.
    Yazı tipleri: önce önbellek. Veriler burada değil, tarayıcının localStorage alanındadır. */
-var CACHE = 'lgs-takip-1.21.0';
+var CACHE = 'lgs-takip-1.22.0';
 var CORE = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {

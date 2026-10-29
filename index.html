@@ -494,7 +494,7 @@ body.okur [data-act="prog-oner"], body.okur [data-act="prog-kopyala"], body.okur
 
 .prog-vakit{font-size:12px;font-weight:600;color:var(--ink-2);margin:10px 0 4px}
 .prog-blokw{display:flex;flex-direction:column;gap:4px}
-.prog-no{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;margin-right:4px}
+.prog-no{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;margin-right:4px}
 .prog-sira{display:flex;gap:6px}
 .prog-sira .btn{flex:1;min-height:36px}
 
@@ -625,8 +625,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.21.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.21.0';
+/* LGS Takip, sürüm 1.22.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.22.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -838,12 +838,26 @@ function yanlisStages(S, y) {
   var base = (S.settings.yanlisAralik || [1, 4, 14]).map(Number).filter(function (v) { return isFinite(v) && v > 0; });
   return base.concat(((y && y.ek) || []).map(Number).filter(function (v) { return isFinite(v) && v > 0; }));
 }
+/* Tekrar günleri: plan yanlışın tarihinden sayılır; bir tekrar geç yapıldıysa sonrakiler o günden itibaren aynı aralıkla kayar.
+   Böylece geciken tekrarlar aynı güne yığılmaz (ör. 1. tekrar 10 gün geç yapılırsa 2. tekrar ertesi güne değil 3 gün sonraya düşer). */
+function yanlisPlan(S, y) {
+  var st = yanlisStages(S, y), base = dn(y.tarih), tk = y.tekrarlar || [], out = [], asil = yanlisStages(S, null).length;
+  for (var i = 0; i < st.length; i++) {
+    var plan = base + st[i];
+    if (i > 0) {
+      var onceki = i - 1 < tk.length ? dn(tk[i - 1]) : out[i - 1], ara = i < asil ? st[i] - st[i - 1] : 14; // "tekrar görmeliyim" tekrarı: son tekrardan 14 gün sonra
+      if (isFinite(onceki)) plan = Math.max(plan, onceki + ara);
+    }
+    out.push(plan);
+  }
+  return out;
+}
 function yanlisTekrar(S, y, today) {
   var st = yanlisStages(S, y), n = st.length, done = (y.tekrarlar || []).length;
   if (y.tekrarGerekli === false) return { durum: 'Gerek yok', n: n, done: done, next: null };
   if (done >= n) return { durum: 'Tamamlandı', n: n, done: done, next: null };
   if (y.sonDurum === 'Öğrenildi') return { durum: 'Kapatıldı', n: n, done: done, next: null };
-  var next = dn(y.tarih) + st[done];
+  var next = yanlisPlan(S, y)[done];
   return { durum: next < today ? 'Gecikmiş' : (next === today ? 'Bugün' : 'Planlı'), n: n, done: done, next: next };
 }
 function konuTekrar(S, t, today) {
@@ -1236,17 +1250,47 @@ function konuKarnesi(S, o) {
   return { rows: rows, denemeSayisi: dl.length, bilinmeyen: bil, isaretli: isaretli, toplamY: toplamY };
 }
 
+/* Aynı gün aynı derse birden çok görev verildiyse çözülen sorular görevlere paylaştırılır; tek bir çalışma iki görevi birden tamamlamaz.
+   Sıra: konusu belirli görev, sonra yalnız dersi belirli görev, sonra genel görev; her grupta önce sabah, sonra akşam sırası. */
+function gorevEslesir(g, k) { return (!g.dersId || k.dersId === g.dersId) && (!g.konuId || k.konuId === g.konuId); }
+function gorevPaylari(S, tarih) {
+  var ks = S.kayitlar.filter(function (k) { return k.tarih === tarih; }).map(function (k) { return { k: k, soru: num(k.soru), sure: num(k.sure) }; });
+  var gs = S.gorevler.filter(function (g) { return g.tarih === tarih && !(g.testIds && g.testIds.length) && g.durum !== 'İptal'; });
+  var ozg = function (g) { return g.konuId ? 0 : (g.dersId ? 1 : 2); };
+  var vak = function (g) { return (g.vakit || (g.ogretmen ? 'sabah' : 'aksam')) === 'sabah' ? 0 : 1; };
+  gs.sort(function (a, b) { return ozg(a) - ozg(b) || vak(a) - vak(b) || (a.sira != null ? a.sira : 1e6) - (b.sira != null ? b.sira : 1e6) || (a.ts || 0) - (b.ts || 0); });
+  var out = {};
+  gs.forEach(function (g) {
+    var hs = num(g.hedefSoru), hd = num(g.hedefSure), soru = 0, sure = 0;
+    ks.forEach(function (x) {
+      if (!gorevEslesir(g, x.k)) return;
+      if (hs > 0) { var al = Math.min(x.soru, hs - soru); if (al > 0) { soru += al; x.soru -= al; } } else soru += x.soru;
+      if (hd > 0) { var al2 = Math.min(x.sure, hd - sure); if (al2 > 0) { sure += al2; x.sure -= al2; } } else sure += x.sure;
+    });
+    out[g.id] = { soru: soru, sure: sure };
+  });
+  return out;
+}
 function gorevGerceklesen(S, g) {
   if (g.testIds && g.testIds.length) return odevGerceklesen(S, g);
-  var soru = 0, sure = 0;
-  S.kayitlar.forEach(function (k) {
-    if (k.tarih !== g.tarih) return;
-    if (g.dersId && k.dersId !== g.dersId) return;
-    if (g.konuId && k.konuId !== g.konuId) return;
+  var soru = 0, sure = 0, pay = g.id && g.durum !== 'İptal' ? gorevPaylari(S, g.tarih)[g.id] : null;
+  if (pay) { soru = pay.soru; sure = pay.sure; }
+  else S.kayitlar.forEach(function (k) {
+    if (k.tarih !== g.tarih || !gorevEslesir(g, k)) return;
     soru += num(k.soru); sure += num(k.sure);
   });
-  return { soru: soru, sure: sure,
-    oran: num(g.hedefSoru) > 0 ? soru / num(g.hedefSoru) : (num(g.hedefSure) > 0 ? sure / num(g.hedefSure) : null) };
+  var oran = num(g.hedefSoru) > 0 ? soru / num(g.hedefSoru) : (num(g.hedefSure) > 0 ? sure / num(g.hedefSure) : null);
+  if (oran == null) {
+    // Hedefi sayı olmayan görev: o gün ilgili bir kayıt girilince yapılmış sayılır (deneme görevi için deneme, tekrar görevi için yapılan tekrar).
+    var yapildi = soru > 0 || sure > 0;
+    if (g.tur === 'Deneme') yapildi = S.denemeler.some(function (d) { return d.tarih === g.tarih; });
+    else if (g.tur === 'Kitap okuma') yapildi = S.okumalar.some(function (o) { return o.tarih === g.tarih && num(o.sayfa) > 0; });
+    else if (g.tur === 'Yanlış analizi') yapildi = yapildi || S.yanlislar.some(function (y) { return y.tarih === g.tarih || (y.tekrarlar || []).indexOf(g.tarih) >= 0; });
+    else if (g.tur === 'Tekrar') yapildi = yapildi || S.yanlislar.some(function (y) { return (y.tekrarlar || []).indexOf(g.tarih) >= 0 && (!g.dersId || y.dersId === g.dersId); }) ||
+      S.tekrarlar.some(function (t) { return (t.yapilan || []).indexOf(g.tarih) >= 0 && (!g.dersId || t.dersId === g.dersId); });
+    oran = yapildi ? 1 : 0;
+  }
+  return { soru: soru, sure: sure, oran: oran };
 }
 
 /* Test seçilerek verilen ödev: verildiği günden sonra "bitti" işaretiyle kaydedilen testler sayılır (öğrenci tarihinden bağımsız). */
@@ -2347,13 +2391,18 @@ function openSheet(o) {
 function paintSheet() {
   if (!M) return;
   var body = M.el.querySelector('.sheet-body'), foot = M.el.querySelector('.sheet-foot');
-  var st = body.scrollTop;
-  body.innerHTML = M.body();
+  var st = body.scrollTop, bh = M.body();
+  var ayni = body.__h === bh; // içerik değişmediyse yeniden çizilmez (odak ve dokunuş kaybolmaz)
+  if (!ayni) { body.innerHTML = bh; body.__h = bh; }
   var f = M.foot ? M.foot() : '';
-  foot.innerHTML = f; foot.style.display = f ? '' : 'none';
-  body.scrollTop = st;
-  drawCharts(body);
-  if (typeof fotoHydrate === 'function') fotoHydrate(body);
+  // Alt çubuk aynıysa yeniden çizilmez: bir alandan çıkarken (change) yeniden çizim, basılmakta olan Kaydet düğmesini değiştirip tıklamayı yutmasın.
+  if (foot.__h !== f) { foot.innerHTML = f; foot.__h = f; }
+  foot.style.display = f ? '' : 'none';
+  if (!ayni) {
+    body.scrollTop = st;
+    drawCharts(body);
+    if (typeof fotoHydrate === 'function') fotoHydrate(body);
+  }
 }
 function closeSheet() { if (M) { var m = M; M = null; m.el.remove(); if (m.onClose && !m.saved) m.onClose(); } }
 function sheetErrors(list) {
@@ -2696,7 +2745,7 @@ ACT['kayit-kaydet'] = async function () {
   var done = P().filter(function (p) { return p.durum === 'Tamamlandı' && before[p.id] !== 'Tamamlandı'; });
   if (done.length) {
     var p = done[0];
-    showToast('Tur tamamlandı: ' + kaynakAd(p.kaynakId) + ', ' + konuAd(p.konuId) + (p.turNo ? ' (' + p.turNo + '. tur)' : ''), true);
+    showToast(rol() === 'ogrenci' ? 'Tebrikler, bu kitapta konunun bütün testleri bitti: ' + kaynakAd(p.kaynakId) + ', ' + konuAd(p.konuId) : 'Tur tamamlandı: ' + kaynakAd(p.kaynakId) + ', ' + konuAd(p.konuId) + (p.turNo ? ' (' + p.turNo + '. tur)' : ''), true);
   } else showToast(F.id ? 'Çalışma güncellendi' : 'Çalışma kaydedildi');
 };
 async function kayitKaydetCoklu() {
@@ -2735,7 +2784,7 @@ async function kayitKaydetCoklu() {
   if (F.sayac && typeof sayacKayitKaydedildi === 'function') sayacKayitKaydedildi();
   closeSheet(); save();
   var done = P().filter(function (p) { return p.durum === 'Tamamlandı' && before[p.id] !== 'Tamamlandı'; });
-  if (done.length) showToast('Tur tamamlandı: ' + kaynakAd(done[0].kaynakId) + ', ' + konuAd(done[0].konuId) + (done[0].turNo ? ' (' + done[0].turNo + '. tur)' : ''), true);
+  if (done.length) showToast(rol() === 'ogrenci' ? 'Tebrikler, bu kitapta konunun bütün testleri bitti: ' + kaynakAd(done[0].kaynakId) + ', ' + konuAd(done[0].konuId) : 'Tur tamamlandı: ' + kaynakAd(done[0].kaynakId) + ', ' + konuAd(done[0].konuId) + (done[0].turNo ? ' (' + done[0].turNo + '. tur)' : ''), true);
   else showToast(recs.length + ' test kaydedildi');
 }
 ACT['kayit-sil'] = async function () {
@@ -3015,15 +3064,20 @@ function openYanlis(rec, preset) {
       h += fieldDiv('Hata türü', chipsHtml('hata', HATA_TURLERI.map(function (t) { return { v: t, t: t }; }), F.hata));
       h += field('Neden yanlış yaptım?', '<textarea class="input" data-f="neden" maxlength="400">' + esc(F.neden) + '</textarea>');
       h += field('Doğru çözüm notu', '<textarea class="input" data-f="cozum" maxlength="600">' + esc(F.cozum) + '</textarea>');
-      h += fieldDiv('Sorunun son durumu', chipsHtml('sonDurum', YANLIS_DURUM.map(function (t) { return { v: t, t: t }; }), F.sonDurum), '"Öğrenildi" seçilirse kalan tekrarlar kapanır.');
       var st = yanlisStages(S, rec || {});
+      if (rol() === 'ogrenci') {
+        h += '<p class="hint">Tekrar günleri: yanlıştan ' + st.join(', ') + ' gün sonra. Her tekrarda "Çöz ve bitir" ile çözümünü boş sayfaya yazarsın; son tekrarda soruyu öğrenip öğrenmediğini seçersin.</p>';
+        return h + '<div class="errors" role="alert"></div>';
+      }
+      h += fieldDiv('Sorunun son durumu', chipsHtml('sonDurum', YANLIS_DURUM.map(function (t) { return { v: t, t: t }; }), F.sonDurum), '"Öğrenildi" seçilirse kalan tekrarlar kapanır.');
       h += '<label class="switch"><input type="checkbox" data-f="tekrarGerekli"' + (F.tekrarGerekli !== false ? ' checked' : '') + '> <span><b>Tekrar gerekli</b><br><span class="small muted">Tekrar günleri: yanlıştan ' +
         st.join(', ') + ' gün sonra</span></span></label>';
       if (rec && F.tekrarGerekli !== false) h += tekrarTarihEditor(F, 'tk', F.tarih, yanlisStages(S, rec));
       return h + '<div class="errors" role="alert"></div>';
     },
     foot: function () {
-      return (rec ? '<button class="btn danger" data-act="yanlis-sil">Sil</button><span class="spacer"></span>' : '<span class="spacer"></span>') +
+      var silebilir = rec && (rol() !== 'ogrenci' || (dn(rec.tarih) >= today() - 1 && !(rec.tekrarlar || []).length)); // öğrenci yalnızca yeni ve tekrarı başlamamış kaydı silebilir
+      return (silebilir ? '<button class="btn danger" data-act="yanlis-sil">Sil</button><span class="spacer"></span>' : '<span class="spacer"></span>') +
         '<button class="btn" data-act="close-sheet">Vazgeç</button><button class="btn primary" data-act="yanlis-kaydet">Kaydet</button>';
     },
     onClose: function () { fotoVazgec(F); if (F.donus) setTimeout(F.donus, 60); },
@@ -3047,7 +3101,9 @@ ACT['yanlis-kaydet'] = function () {
   if (!DERS[F.dersId]) errs.push('Ders seçin.');
   if (!F.konuId && !F.denemeKonuYok) errs.push('Konu seçin.');
   if (!F.hata) errs.push('Hata türünü seçin.');
-  var tk = !errs.length ? tekrarTarihleri(F, 'tk', F.tarih, errs) : [];
+  var ogrenciKayit = rol() === 'ogrenci', eskiY = F.id ? S.yanlislar.find(function (x) { return x.id === F.id; }) : null;
+  if (ogrenciKayit) { F.tk = eskiY ? (eskiY.tekrarlar || []).slice() : []; F.sonDurum = eskiY && eskiY.sonDurum ? eskiY.sonDurum : 'Açık'; F.tekrarGerekli = eskiY ? eskiY.tekrarGerekli !== false : true; }
+  var tk = !errs.length ? (ogrenciKayit ? F.tk.slice() : tekrarTarihleri(F, 'tk', F.tarih, errs)) : [];
   var rec = { id: F.id || F.newId, tarih: F.tarih, dersId: F.dersId, konuId: F.konuId, kaynakId: F.kaynakId || null, testId: F.testId || null,
     soruNo: String(F.soruNo || '').trim(), hata: F.hata, neden: (F.neden || '').trim(), cozum: (F.cozum || '').trim(),
     tekrarGerekli: F.tekrarGerekli !== false, tekrarlar: tk, sonDurum: F.sonDurum && F.sonDurum !== 'Açık' ? F.sonDurum : null, ts: F.ts || Date.now() };
@@ -3057,6 +3113,7 @@ ACT['yanlis-kaydet'] = function () {
   if (F.fotoIds && F.fotoIds.length) rec.fotoIds = F.fotoIds.slice();
   if (F.denemeId) rec.denemeId = F.denemeId;
   if (F.denemeKonuYok) rec.denemeKonuYok = true;
+  if (eskiY && eskiY.ek && eskiY.ek.length) rec.ek = eskiY.ek.slice(); // "tekrar görmeliyim" ile eklenen günler düzenlemede kaybolmasın
   fotoKaydet(F, F.eskiFoto);
   var i = S.yanlislar.findIndex(function (x) { return x.id === rec.id; });
   if (i >= 0) S.yanlislar[i] = rec; else S.yanlislar.push(rec);
@@ -3066,7 +3123,8 @@ ACT['yanlis-kaydet'] = function () {
   if (donus) setTimeout(donus, 80); showToast(F.id ? 'Yanlış güncellendi' : 'Yanlış kaydedildi' + (rec.tekrarGerekli && yanlisStages(S, rec).length ? '; ilk tekrar ' + relDay(dn(rec.tarih) + yanlisStages(S, rec)[0]).toLocaleLowerCase('tr') : ''));
 };
 ACT['yanlis-sil'] = async function () {
-  var id = M.F.id;
+  var id = M.F.id, eskiK = S.yanlislar.find(function (x) { return x.id === id; });
+  if (rol() === 'ogrenci' && eskiK && (dn(eskiK.tarih) < today() - 1 || (eskiK.tekrarlar || []).length)) return showToast('Tekrarı başlamış yanlışı yalnızca yönetici silebilir.');
   if (!(await askConfirm('Bu yanlış kaydı, fotoğrafları ve tekrar geçmişi silinsin mi?', 'Sil', true))) return;
   var old = S.yanlislar.find(function (x) { return x.id === id; }); if (old) fotoYanlisSilindi(old);
   S.yanlislar = S.yanlislar.filter(function (x) { return x.id !== id; }); closeSheet(); save(); showToast('Yanlış silindi');
@@ -3166,7 +3224,7 @@ ACT['yanlis-tekrar-gor'] = function (t) {
    Öğretmen cihazında görev kaydedilince öğretmenin adı eklenir; öğretmen yalnızca kendi verdiği ödevi düzenleyebilir. */
 function gorevSahibiBen(g) {
   if (syncReader()) return !!(g.ogretmen && g.ogretmen.uid === SYNC.uid);
-  if (g.vakit && rol() === 'ogrenci') return false; // program görevlerini yalnızca yönetici/öğretmen değiştirir
+  if (rol() === 'ogrenci') return false; // görev ve programı yalnızca yönetici/öğretmen değiştirir; öğrenci çalışma girer, ilerleme kendiliğinden işlenir
   return !(g.ogretmen && rol() === 'ogrenci'); // öğretmen ödevini öğrenci değiştiremez; yönetici değiştirebilir
 }
 function odevAciklama(F) {
@@ -3188,9 +3246,9 @@ function gorevOzetHtml(g) {
 }
 function openGorev(rec) {
   if (rec && !gorevSahibiBen(rec)) { // başkasının verdiği ödev: yalnızca görüntüle
-    openSheet({ title: 'Ödev', body: function () {
-      return '<p style="margin-top:0"><b>' + esc(rec.aciklama) + '</b></p><p class="muted" style="margin-top:0">Teslim: ' + fDate(dn(rec.tarih)) + (rec.ogretmen ? ' · Veren: ' + esc(rec.ogretmen.ad || 'Öğretmen') : (rec.vakit ? ' · ' + (rec.vakit === 'sabah' ? 'Sabah' : 'Akşam') + ' programı' : ' · Öğrencinin kendi görevi')) + '</p>' +
-        (rec.not ? '<p>' + esc(rec.not) + '</p>' : '') + gorevOzetHtml(rec) + '<p class="hint">Bu görevi yalnızca ' + (rec.ogretmen ? 'veren öğretmen' : (rec.vakit ? 'yönetici' : 'öğrenci')) + ' düzenleyebilir.</p>'; },
+    openSheet({ title: rec.ogretmen || (rec.testIds && rec.testIds.length) ? 'Ödev' : 'Görev', body: function () {
+      return '<p style="margin-top:0"><b>' + esc(rec.aciklama) + '</b></p><p class="muted" style="margin-top:0">Teslim: ' + fDate(dn(rec.tarih)) + (rec.ogretmen ? ' · Veren: ' + esc(rec.ogretmen.ad || 'Öğretmen') : (rec.vakit ? ' · ' + (rec.vakit === 'sabah' ? 'Sabah' : 'Akşam') + ' programı' : '')) + '</p>' +
+        (rec.not ? '<p>' + esc(rec.not) + '</p>' : '') + gorevOzetHtml(rec) + (rol() === 'ogrenci' ? '<p class="hint">Görevleri yönetici' + (rec.ogretmen ? ' ve öğretmen' : '') + ' düzenler. Çalışma ekle bölümünde girdiğin soru ve süre bu göreve kendiliğinden işlenir.</p>' : '<p class="hint">Bu görevi yalnızca ' + (rec.ogretmen ? 'veren öğretmen' : 'yönetici') + ' düzenleyebilir.</p>'); },
       foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Kapat</button>'; } });
     return;
   }
@@ -3241,6 +3299,7 @@ function openGorev(rec) {
   });
 }
 ACT['gorev-kaydet'] = function () {
+  if (rol() === 'ogrenci') return;
   var F = M.F, errs = [], odev = F.testIds && F.testIds.length > 0, ogr = syncReader();
   if (!F.tarih || isNaN(dn(F.tarih))) errs.push('Tarih seçin.');
   var ac = (F.aciklama || '').trim() || (odev ? odevAciklama(F) : '');
@@ -3252,9 +3311,12 @@ ACT['gorev-kaydet'] = function () {
     oncelik: F.oncelik, hedefSoru: hs, hedefSure: hd, durum: odev ? ((eski && eski.durum === 'İptal') ? 'İptal' : 'Bekliyor') : F.durum, not: (F.not || '').trim(), ts: F.ts || Date.now() };
   if (F.kaynakId) rec.kaynakId = F.kaynakId;
   if (ogr) rec.vakit = 'sabah'; else if (rol() !== 'ogrenci') rec.vakit = F.vakit || 'aksam';
-  if (eski && eski.sira != null) rec.sira = eski.sira; else if (rec.vakit === 'aksam' && typeof progSiraSon === 'function') rec.sira = progSiraSon(rec.tarih);
+  if (rec.vakit === 'aksam') { // gün ya da vakit değişmediyse sıra korunur; değiştiyse o akşamın sonuna eklenir
+    if (eski && eski.sira != null && eski.tarih === rec.tarih && (typeof progVakit !== 'function' || progVakit(eski) === 'aksam')) rec.sira = eski.sira;
+    else if (typeof progSiraSon === 'function') rec.sira = progSiraSon(rec.tarih);
+  }
   if (odev) { rec.testIds = F.testIds.slice(); rec.verildi = (eski && eski.verildi) || todayStr(); }
-  var sahip = (eski && eski.ogretmen) || (ogr ? { uid: SYNC.uid, ad: (SYNC.cfg.okur && SYNC.cfg.okur.a) || 'Öğretmen' } : null);
+  var sahip = (eski && eski.ogretmen) || (ogr ? { uid: SYNC.uid, ad: (typeof ogrAd === 'function' ? ogrAd() : 'Öğretmen') } : null);
   if (sahip) rec.ogretmen = sahip;
   var i = S.gorevler.findIndex(function (x) { return x.id === rec.id; });
   if (i >= 0) S.gorevler[i] = rec; else S.gorevler.push(rec);
@@ -3266,7 +3328,7 @@ ACT['gorev-sil'] = async function () {
   S.gorevler = S.gorevler.filter(function (x) { return x.id !== id; }); closeSheet(); save();
 };
 ACT['gorev-ac'] = function (t) { var r = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (r) openGorev(r); };
-ACT['gorev-yeni'] = function () { openGorev(null); };
+ACT['gorev-yeni'] = function () { if (rol() === 'ogrenci') return; openGorev(null); };
 ACT['gorev-durum'] = function (t) {
   var g = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (!g || !gorevSahibiBen(g) || syncReader()) return;
   var order = ['Bekliyor', 'Devam ediyor', 'Tamamlandı'];
@@ -3711,11 +3773,12 @@ function gorevRow(g) {
     (num(g.hedefSoru) ? gr.soru + '/' + g.hedefSoru + ' soru' : (num(g.hedefSure) ? fSure(gr.sure) + ' / ' + fSure(g.hedefSure) : ''));
   var late = dn(g.tarih) < today() && ['Tamamlandı', 'İptal'].indexOf(du) < 0;
   if (odev && du !== 'Tamamlandı' && du !== 'İptal' && gr.biten > 0) du = 'Devam ediyor';
+  var etiketDu = late ? 'Yapılmadı' : du;
   var kim = g.ogretmen ? '<span class="pill info" style="margin-left:6px;font-size:12px">' + esc(g.ogretmen.ad || 'Öğretmen') + '</span>' : '';
   return '<li><button class="row-btn grow" data-act="gorev-ac" data-id="' + g.id + '">' + (g.dersId ? dersDot(g.dersId) : '<i class="ders-dot" style="background:var(--line-2)"></i>') +
     '<span class="grow"><span class="title" style="display:block">' + esc(g.aciklama) + kim + '</span><span class="sub">' + (late ? '<span style="color:var(--bad)">Gecikti, ' + relDay(g.tarih) + '</span>' : (odev ? 'Teslim ' : '') + relDay(g.tarih)) +
     (g.konuId && !odev ? ', ' + esc(konuAd(g.konuId)) : '') + (hedef ? ', ' + hedef : '') + '</span></span></button>' +
-    (oto || syncReader() ? '<span title="' + (odev ? 'Testler bitirildikçe kendiliğinden ilerler' : 'Hedef tuttu; kendiliğinden tamamlandı') + '">' + pill(du) + '</span>' : '<button class="btn xs" data-act="gorev-durum" data-id="' + g.id + '" aria-label="Durumu değiştir: ' + esc(du) + '">' + pill(du) + '</button>') + '</li>';
+    (oto || syncReader() || !gorevSahibiBen(g) ? '<span title="' + (odev ? 'Testler bitirildikçe kendiliğinden ilerler' : 'Hedef tuttu; kendiliğinden tamamlandı') + '">' + pill(etiketDu) + '</span>' : '<button class="btn xs" data-act="gorev-durum" data-id="' + g.id + '" aria-label="Durumu değiştir: ' + esc(du) + '">' + pill(etiketDu) + '</button>') + '</li>';
 }
 
 /* ---------- ÇALIŞMA ---------- */
@@ -3745,7 +3808,7 @@ VIEWS.calisma = function () {
         if (g.length > 1) return kayitGrupSatir(g);
         var k = g[0];
         var pl = k.kaynakId && k.konuId ? memo('pmap', function () { var m = {}; P().forEach(function (p) { m[p.kaynakId + '|' + p.konuId] = p; }); return m; })[k.kaynakId + '|' + k.konuId] : null;
-        var parts = [k.kaynakId ? kaynakAd(k.kaynakId) : '', k.testId ? testAd(k.testId) : '', pl && pl.turNo ? pl.turNo + '. tur' : '', k.tur].filter(Boolean).join(', ');
+        var parts = [k.kaynakId ? kaynakAd(k.kaynakId) : '', k.testId ? testAd(k.testId) : '', pl && pl.turNo && rol() !== 'ogrenci' ? pl.turNo + '. tur' : '', k.tur].filter(Boolean).join(', ');
         return '<li><button class="row-btn" data-act="kayit-ac" data-id="' + k.id + '">' + dersDot(k.dersId) + '<span class="grow"><span class="title" style="display:block">' +
           esc(k.konuId ? konuAd(k.konuId) : dersAd(k.dersId)) + (k.bitti ? ' <span class="pill good"><span class="g">✓</span>Test bitti</span>' : '') + '</span><span class="sub">' + esc(parts) + (k.not ? ', ' + esc(k.not) : '') + '</span></span>' +
           '<span class="num small" style="text-align:right;white-space:nowrap">' + (k.soru ? k.soru + ' soru<br><span class="muted">' + k.d + 'D ' + k.y + 'Y ' + k.b + 'B, net ' + fNet(net(k.d, k.y)) + '</span>' : '<span class="muted">soru yok</span>') +
@@ -3935,8 +3998,9 @@ function stat(l, v, d, sign) {
 /* ---------- GÖREVLER ---------- */
 VIEWS.gorev = function () {
   var t = today();
-  var h = head('Görevler', 'Görev bir plandır. Gerçekleşen soru ve süre çalışma kayıtlarından gelir. Durumu değiştirmek için durum etiketine dokun.', btn('gorev-yeni', 'Görev ekle', 'primary', null, 'plus'));
-  if (!S.gorevler.length) return h + '<div class="panel empty"><strong>Görev yok</strong>Günlük ya da haftalık hedeflerini görev olarak ekleyebilirsin.</div>';
+  var ogr = rol() === 'ogrenci';
+  var h = head('Görevler', ogr ? 'Görevleri yönetici verir. Çalışma ekle bölümünde soru sayılarını girdiğinde görevler kendiliğinden ilerler ve tamamlanır.' : 'Görev bir plandır. Gerçekleşen soru ve süre çalışma kayıtlarından gelir. Durumu elle değiştirmek için durum etiketine dokun.', ogr ? '' : btn('gorev-yeni', 'Görev ekle', 'primary', null, 'plus'));
+  if (!S.gorevler.length) return h + '<div class="panel empty"><strong>Görev yok</strong>' + (ogr ? 'Yönetici görev verdiğinde burada görünür.' : 'Günlük ya da haftalık hedefleri görev olarak ekleyebilirsin.') + '</div>';
   var open = function (g) { return ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, g)) < 0; };
   var groups = [
     ['Gecikenler', S.gorevler.filter(function (g) { return dn(g.tarih) < t && open(g); })],
@@ -4074,8 +4138,7 @@ function stageBubbles(n, dates, next, durum, planned) {
   return h + '</span>';
 }
 function yanlisPlanli(y) {
-  var st = yanlisStages(S, y), base = dn(y.tarih);
-  return st.map(function (g) { return base + g; });
+  return yanlisPlan(S, y);
 }
 
 VIEWS.yanlis = function () {
@@ -4578,7 +4641,7 @@ VIEWS.rehber = function () {
       'Süreyi yaz ya da 15/30/45/60/90 dk düğmelerinden seç. Zamanlayıcıyla çalıştıysan süreler kendiliğinden gelir ve değiştirilemez.',
       'Testi bitirdiysen <b>Bu testi bitirdim</b> kutusunu işaretle. Tur takibi bu işarete göre çalışır.',
       'Kaydet. Bir konunun o kitaptaki son testi bitince "Tur tamamlandı" bildirimi çıkar.',
-      'Bugün ekranında tekrarı gelen yanlışları ve konuları çöz, <b>Yaptım</b>’a dokun.'
+      'Bugün ekranında tekrarı gelen yanlışlar için <b>Çöz ve bitir</b>’e dokun ve açılan boş sayfaya çözümü yaz; konu tekrarlarında <b>Yaptım</b>’a dokun.'
     ])) +
     sec('kitap', 'Kitap nasıl eklenir, test planı nasıl kurulur?', ul([
       'Kurulum › Kitaplar ve testler › <b>Kitap ekle</b>. Aynı ada iki kitap verilemez.',
@@ -4604,12 +4667,12 @@ VIEWS.rehber = function () {
       '<p><b>Konu karnesi</b> (Deneme ekranının altında, Panelde ve PDF raporunda) denemelerde en çok yanlış yapılan konuları soru bankasındaki başarıyla yan yana koyar. <b>Önce bunlara dön</b> kutusu ilk bakılacak üç konuyu söyler: soru bankasında da zayıfsa konu eksiği, soru bankasında iyi ama denemede kaçıyorsa dikkat/süre sorunu, az çalışılmışsa daha çok test çözülmeli.</p>') +
     sec('yanlis', 'Yanlışlar nasıl analiz edilir?', ul([
       '<b>Yanlışlar</b> › Yanlış ekle: ders, kitap, konu, test, soru numarası, <b>hata türü</b>, nedeni ve doğru çözüm notu. Aynı soru iki kez eklenemez.',
-      '<b>Fotoğraf çek ya da seç</b> ile sorunun fotoğrafını ekle (en fazla 3). Fotoğraf cihazda küçültülür; canlı eşitleme açıksa bilgisayara da gider. Tekrar günü geldiğinde <b>Soruyu gör</b> fotoğrafı açar; çözüm notun ve eski çizimin ilk anda gizlidir, önce soruyu yeniden çöz. Fotoğrafa dokununca tam ekran açılır.',
+      '<b>Fotoğraf çek ya da seç</b> ile sorunun fotoğrafını ekle (en fazla 5). Fotoğraf cihazda küçültülür; canlı eşitleme açıksa bilgisayara da gider. Tekrar günü geldiğinde <b>Soruyu gör</b> fotoğrafı açar; çözüm notun ve eski çizimin ilk anda gizlidir, önce soruyu yeniden çöz. Fotoğrafa dokununca tam ekran açılır.',
       'Fotoğraftaki <b>kalem</b> simgesi çizim ekranını açar: tabletin kalemiyle ya da parmakla fotoğrafın üstünde çöz. Renk, kalın kalem, silgi, geri al ve temizle var. Kalem algılanınca avuç içi çizmez. Çizim fotoğrafın üstünde ayrı bir katmandır; fotoğraf bozulmaz, canlı eşitlemeyle bilgisayara da gider.',
       'Kitap ve test seçince <b>Hangi soru?</b> bölümünde soru numaralarına dokunarak seç; ✓ işaretli sorular zaten kayıtlı.',
-      'Tekrar günleri yanlışın tarihinden 1, 3, 7 ve 14 gün sonradır (Kurulum’dan değiştirilebilir). Her yanlışın yanındaki 4 daire tekrarları gösterir: dolu daire yapıldı, renkli halka sıradaki.',
-      'Tekrarı yapınca <b>Yaptım</b>. Yanlışlıkla basıldıysa kayda dokunup "Yapılan tekrarlar" bölümünden tarihi düzeltin ya da silin.',
-      'Son durum: Açık, Hâlâ zorlanıyorum ya da Öğrenildi. "Öğrenildi" kalan tekrarları kapatır.',
+      'Tekrar günleri yanlışın tarihinden 1, 4 ve 14 gün sonradır. Her yanlışın yanındaki daireler tekrarları gösterir: dolu daire yapıldı, renkli halka sıradaki.',
+      'Tekrar günü <b>Çöz ve bitir</b>’e dokun: o güne ait boş sayfa açılır (üstünde "1. gün çözümü" gibi yazar). Çözümü yazıp kaydedince tekrar yapılmış sayılır; boş sayfa kaydedilmez. Son tekrarda öğrenci "Öğrendim" ya da "Tekrar görmeliyim (14 gün sonra)" seçer. Yanlışlıkla işaretlenen tekrarı yönetici kayda dokunup "Yapılan tekrarlar" bölümünden düzeltir.',
+      'Son durum: Açık, Hâlâ zorlanıyorum ya da Öğrenildi. "Öğrenildi" kalan tekrarları kapatır. Son durumu ve tekrar geçmişini yalnızca yönetici değiştirir.',
       'Üstteki kutular ve süzgeçlerle derse, duruma, hata türüne, konuya ve kitaba göre süzün. <b>Analiz</b> sekmesi en çok yanlış yapılan konuları, hata türlerini, kitapları ve haftalık gidişi gösterir.'
     ])) +
     sec('tekrar', 'Tekrar planı', ul([
@@ -5323,7 +5386,7 @@ function davetPanel() {
   setTimeout(davetListeYukle, 0);
   return '<h3 style="font-size:16px;margin:22px 0 6px">Öğretmen davetleri</h3>' +
     '<p style="margin-top:0">Her öğretmen için ayrı bir davet linki oluşturun. Öğretmen linke dokunarak bağlanır; şifre gerekmez ve öğrencinin verilerini yalnızca görüntüler. Davet kaldırılınca erişim biter.</p>' +
-    '<div class="fields2">' + field('Davet adı', '<input class="input" data-sf="davetAd" placeholder="ör. Matematik – Ayşe Hoca" value="' + esc(UI.syncForm.davetAd || '') + '">') + '</div>' +
+    '<div class="fields2">' + field('Davet adı', '<input class="input" data-sf="davetAd" placeholder="ör. Mehmet Hoca" value="' + esc(UI.syncForm.davetAd || '') + '">') + '</div>' +
     '<div class="actions" style="margin-top:10px">' + btn('davet-olustur', 'Davet linki oluştur', 'sm primary') + '</div>' +
     '<div id="davet-yeni"></div><div id="davet-liste"><p class="hint">Davetler yükleniyor…</p></div>' +
     '<details style="margin-top:10px"><summary class="hint" style="cursor:pointer">İlk kez kullanırken Firebase’de yapılacak iki ayar</summary><ol class="hint" style="padding-left:20px">' +
@@ -5445,7 +5508,7 @@ VIEWS.ogretmen = function () {
   right += '<section class="panel"><h2>Öğrenciye notlar ' + btn('not-yeni', 'Not yaz', 'xs', null, 'plus') + '</h2>' + (notlar.length ? '<ul class="list">' + notlar.map(notRow).join('') + '</ul>' :
     '<div class="empty">Henüz not yok. Yazdığınız not öğrencinin Bugün ekranında görünür.</div>') + '</section>';
 
-  right += '<section class="panel"><h2>Bağlantı</h2><div id="sync-status">' + syncStatusHtml() + '</div><p class="hint">Bu cihaz öğrenciyi davetle takip ediyor' + (SYNC.cfg.okur.a ? ' (' + esc(SYNC.cfg.okur.a) + ')' : '') + '. Takibi bırakmak öğrencinin verilerini etkilemez.</p>' + btn('sync-kes', 'Takibi bırak', 'sm danger') + '</section>';
+  right += '<section class="panel"><h2>Bağlantı</h2><div id="sync-status">' + syncStatusHtml() + '</div><p class="hint">Bu cihaz öğrenciyi davetle takip ediyor' + (SYNC.cfg && SYNC.cfg.okur && SYNC.cfg.okur.a ? ' (' + esc(SYNC.cfg.okur.a) + ')' : '') + '. Takibi bırakmak öğrencinin verilerini etkilemez.</p>' + btn('sync-kes', 'Takibi bırak', 'sm danger') + '</section>';
   h += '<div class="grid2"><div class="stack">' + left + '</div><div class="stack">' + right + '</div></div>';
   return h;
 };
@@ -6059,7 +6122,7 @@ VIEWS.program = function () {
     btn('prog-pdf', 'PDF al', '', null, 'download') + (rol() === 'ogrenci' ? '' : btn('prog-ekle', ogr ? 'Ödev ver' : 'Görev ekle', 'primary', { t: ds(Math.max(t, ws)) }, 'plus'));
   var h = head('Haftalık program', sub, acts);
   if (ogr) h += '<div class="banner info"><span class="grow">Kendi verdiğin ödevleri ekleyip düzenleyebilirsin. Çözülen soru ve biten testler öğrencinin kayıtlarından kendiliğinden gelir.</span></div>';
-  h += '<div class="kv prog-ozet" style="margin-bottom:14px">' + stat('Planlanan soru', plan) + stat('Çözülen soru', yap, plan ? fPct(Math.min(1, yap / plan)) + ' tamamlandı' : '') + stat('Biten görev', biten + '/' + aktif) + stat('Geciken', gec, gec ? 'yarına ertelenebilir' : 'yok', gec ? -1 : 0) + '</div>';
+  h += '<div class="kv prog-ozet" style="margin-bottom:14px">' + stat('Planlanan soru', plan) + stat('Çözülen soru', yap, plan ? fPct(Math.min(1, yap / plan)) + ' tamamlandı' : '') + stat('Biten görev', biten + '/' + aktif) + stat(rol() === 'ogrenci' ? 'Yapılmayan' : 'Geciken', gec, gec ? (rol() === 'yonetici' ? 'yarına ertelenebilir' : 'geçmiş günlerde') : 'yok', gec ? -1 : 0) + '</div>';
   if (rol() === 'ogrenci') h += '<div class="banner info"><span class="grow">Programı yönetici hazırlar. Çalışma ekle bölümünde doğru-yanlış sayılarını girince görev yapıldı görünür; girilmezse yapılmamış sayılır.</span></div>';
   if (rol() === 'yonetici') {
     h += '<div class="actions prog-arac">' + btn('prog-oner', 'Otomatik öner', '', null, 'check') + btn('prog-kopyala', 'Geçen haftayı kopyala') +
@@ -6601,10 +6664,10 @@ function fotoBosKayit(yanlisId, etiket) {
 }
 function fotoThumbs(ids, removable, cizimGizli) {
   return (ids || []).map(function (id) {
-    return '<div class="foto yok' + (cizimGizli && !fotoBosMu(id) ? ' ciz-gizli' : '') + '"><img data-foto="' + esc(id) + '" alt="Soru fotoğrafı"><img class="foto-ciz" alt=""><span class="foto-yok">' + (syncLinked() ? 'Fotoğraf bu cihaza henüz gelmedi' : 'Fotoğraf bu cihazda yok (yedek dosyaları fotoğraf taşımaz)') + '</span>' +
+    return '<div class="foto yok' + (cizimGizli ? ' ciz-gizli' : '') + '"><img data-foto="' + esc(id) + '" alt="Soru fotoğrafı"><img class="foto-ciz" alt=""><span class="foto-yok">' + (syncLinked() ? 'Fotoğraf bu cihaza henüz gelmedi' : 'Fotoğraf bu cihazda yok (yedek dosyaları fotoğraf taşımaz)') + '</span>' +
       '<button type="button" class="foto-ac" data-act="foto-buyut" data-id="' + esc(id) + '" aria-label="Fotoğrafı büyüt"></button>' +
       '<button type="button" class="foto-kalem" data-act="foto-ciz" data-id="' + esc(id) + '" aria-label="Kalemle çöz">' + icon('pencil') + '</button>' +
-      (removable ? '<button type="button" class="foto-x" data-act="foto-kaldir" data-id="' + esc(id) + '" aria-label="Fotoğrafı kaldır">' + icon('x') + '</button>' : '') + '</div>';
+      (removable && !(fotoBosMu(id) && rol() === 'ogrenci') ? '<button type="button" class="foto-x" data-act="foto-kaldir" data-id="' + esc(id) + '" aria-label="Fotoğrafı kaldır">' + icon('x') + '</button>' : '') + '</div>';
   }).join('');
 }
 
@@ -6612,7 +6675,7 @@ function fotoThumbs(ids, removable, cizimGizli) {
 function fotoFormField(F) {
   var ids = F.fotoIds || [];
   return fieldDiv('Sorunun fotoğrafı <span class="muted">(isteğe bağlı)</span>', '<div class="fotos">' + fotoThumbs(ids, true) +
-    (ids.length < FOTO_MAX ? '<button type="button" class="foto-ekle" data-act="foto-ekle">' + icon('camera') + '<span>Fotoğraf çek<br>ya da seç</span></button>' : '') + '</div>',
+    (ids.filter(function (x) { return !fotoBosMu(x); }).length < FOTO_MAX ? '<button type="button" class="foto-ekle" data-act="foto-ekle">' + icon('camera') + '<span>Fotoğraf çek<br>ya da seç</span></button>' : '') + '</div>',
     'En fazla ' + FOTO_MAX + ' fotoğraf. Tekrar günü geldiğinde "Soruyu gör" ile açılır; çözüm notu ilk anda gizli kalır.');
 }
 ACT['foto-ekle'] = function () {
@@ -6634,14 +6697,16 @@ ACT['foto-ekle'] = function () {
 /* "Soruyu gör" ekranından, kayıtlı yanlışa boş sayfa ekler */
 ACT['soru-bos'] = function (t) {
   var y = S.yanlislar.find(function (x) { return x.id === t.dataset.id; }); if (!y) return;
-  if ((y.fotoIds || []).length >= FOTO_MAX) return showToast('En fazla ' + FOTO_MAX + ' sayfa eklenebilir.');
-  var st = yanlisStages(S, y), r0 = yanlisTekrar(S, y, today()), gun = r0.next != null && st[r0.done] != null ? st[r0.done] : Math.max(1, today() - dn(y.tarih));
-  var rec = fotoBosKayit(y.id, gun + '. gün çözümü  ·  ' + fDate(todayStr()));
+  var r0 = yanlisTekrar(S, y, today());
+  if (r0.next != null && r0.next <= today()) { closeSheet(); return yanlisCoz(y.id); } // tekrar günüyse sayfa o tekrarın çözüm sayfasıdır
+  var not = (y.fotoIds || []).filter(fotoBosMu).length;
+  if (not >= 12) return showToast('Bu soruda çok sayfa var; eski bir not sayfasını yönetici kaldırabilir.');
+  var rec = fotoBosKayit(y.id, 'Not  ·  ' + fDate(todayStr()));
   fotoPut(rec).then(function () {
     y.fotoIds = (y.fotoIds || []).concat([rec.id]); fotoQueue(rec.id, 'set'); save();
     if (M) paintSheet();
     ACT['foto-ciz']({ dataset: { id: rec.id }, closest: function () { return null; } });
-  }).catch(function (e) { showToast((e && e.message) || 'Boş sayfa eklenemedi.'); });
+  }).catch(function (e) { showToast((e && e.message) || 'Sayfa eklenemedi.'); });
 };
 ACT['foto-kaldir'] = function (t) {
   if (!M || !M.F) return;
@@ -6669,8 +6734,9 @@ function openSoru(y) {
       var k = IX().konu[y.konuId], where = [kaynakAd(y.kaynakId), y.testId ? testAd(y.testId) : '', y.soruNo ? 'Soru ' + y.soruNo : ''].filter(function (x) { return x && x !== '—'; }).join(', ');
       var h = '<p style="margin-top:0">' + dersDot(y.dersId) + ' <b>' + esc(y.konuId ? konuAd(y.konuId) : 'Konusu belli değil') + '</b>' + (where ? '<br><span class="muted">' + esc(where) + '</span>' : '') + '</p>';
       h += (y.fotoIds && y.fotoIds.length) ? '<div class="fotos buyuk">' + fotoThumbs(y.fotoIds, false, !acik) + '</div>' : '<p class="hint">Bu yanlışta fotoğraf yok.</p>';
-      h += '<p><button class="btn sm" data-act="soru-bos" data-id="' + y.id + '">' + icon('pencil') + 'Boş sayfa ekle</button></p>';
-      h += '<p class="hint">Önce soruyu yeniden çöz: fotoğraftaki kalem simgesine dokunup tabletin kalemiyle ekranda çözebilirsin. Sonra eski çözümüne ve notlarına bak.</p>';
+      var rr = yanlisTekrar(S, y, today()), vakti = rr.next != null && rr.next <= today();
+      if (vakti) h += '<p class="hint">Önce soruyu yeniden çöz: "Çöz ve bitir"e dokun, açılan boş sayfaya çözümünü yaz ve kaydet. Sayfayı kaydedince bu tekrar yapılmış sayılır. Sonra eski çözümüne ve notlarına bakabilirsin.</p>';
+      else h += '<p><button class="btn sm" data-act="soru-bos" data-id="' + y.id + '">' + icon('pencil') + 'Not sayfası ekle</button></p><p class="hint">Bu sorunun bugün tekrarı yok. İstersen boş bir sayfaya not alabilirsin.</p>';
       h += acik ? (y.neden ? '<p><b>Neden yanlış yapmıştım:</b> ' + esc(y.neden) + '</p>' : '') + (y.cozum ? '<p><b>Doğru çözüm:</b> ' + esc(y.cozum) + '</p>' : '')
         : '<button class="btn sm" data-act="soru-not">Eski çözümümü ve notlarımı göster</button>';
       return h;
@@ -6694,7 +6760,6 @@ function yanlisCoz(id) {
     var r = recs.filter(function (x) { return x && x.etap === etap; })[0];
     if (r && r.cizim) { showToast('Bu tekrarın çözümü zaten yazılmış; tekrar işaretlendi'); return tekrarIsaretle({ dataset: { kind: 'yanlis', id: y.id } }); }
     if (!r) {
-      if ((y.fotoIds || []).length >= FOTO_MAX) return showToast('Bu soruda en fazla ' + FOTO_MAX + ' sayfa olabilir; eski bir sayfayı kaldırıp tekrar dene.');
       var st = yanlisStages(S, y), gun = st[etap - 1] != null ? st[etap - 1] : Math.max(1, today() - dn(y.tarih));
       r = fotoBosKayit(y.id, gun + '. gün çözümü  ·  ' + fDate(todayStr())); r.etap = etap;
     }
@@ -7301,7 +7366,7 @@ function kurHedef() {
   }).join('') + '</div><p class="hint">LGS soru sayıları: Türkçe 20, İnkılap 10, Din 10, İngilizce 10, Matematik 20, Fen 20. Bir yıl değişirse aşağıdan düzeltilebilir.</p>' +
     '<details style="margin-top:8px"><summary class="muted" style="cursor:pointer;min-height:40px">Derslerin denemedeki soru sayıları</summary><div class="fields3">' + DERSLER.map(function (D) {
       return field(esc(D.kisa), '<input class="input" data-pf="dersSoru" data-k="' + D.id + '" inputmode="numeric" value="' + esc(st.dersSoru[D.id]) + '">'); }).join('') + '</div></details></section>';
-  h += '<section class="panel"><h2>Tekrar ve analiz</h2><div class="fields4">' + [0, 1, 2, 3].map(function (i) {
+  h += '<section class="panel"><h2>Konu tekrarı ve analiz</h2><p style="margin-top:0" class="muted">Yanlış soruların tekrarı sabittir: yanlıştan 1, 4 ve 14 gün sonra. Aşağıdaki aralıklar yalnızca konu tekrarları içindir.</p><div class="fields4">' + [0, 1, 2, 3].map(function (i) {
     return field((i + 1) + '. tekrar <span class="muted">(gün sonra)</span>', '<input class="input" data-pf="tekrar" data-k="' + i + '" inputmode="numeric" value="' + esc(st.tekrarAralik[i] == null ? '' : st.tekrarAralik[i]) + '">'); }).join('') + '</div>' +
     '<p class="hint">Kullanmak istemediğin aşamaları sondan başlayarak boş bırak. Değişiklik mevcut tekrar tarihlerini de yeniden hesaplar.</p><div class="fields4" style="margin-top:6px">' +
     num_('sonDeneme', 'Son N deneme ortalaması', 'deneme') + num_('dususGun', 'Başarı karşılaştırma dönemi', 'gün') + num_('dususEsik', 'Düşüş eşiği', 'puan') + num_('minSoru', 'Analiz için en az soru', 'soru') + '</div></section>';
