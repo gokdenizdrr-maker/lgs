@@ -398,7 +398,22 @@ button.stat[aria-pressed="true"] { border-color: var(--pencil); background: var(
 .ciz-renk i { width: 24px; height: 24px; border-radius: 50%; background: var(--c); display: block; }
 .ciz-renk.on { border-color: var(--c); }
 .cizim-bar .btn[aria-pressed="true"] { background: var(--pencil); color: var(--on-pencil); border-color: var(--pencil); }
-.cizim-alan { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 8px; overflow: hidden; }
+.cizim-alan { flex: 1; min-height: 0; display: flex; gap: 10px; padding: 8px; overflow: hidden; }
+.cizim-sayfa { flex: 1; min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.cizim-ref { flex: 0 0 40%; min-width: 0; min-height: 0; overflow: auto; -webkit-overflow-scrolling: touch; background: #2a2f38; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+.cizim-ref img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; cursor: zoom-in; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.cizim-ref-bilgi { color: #e8ecf2; font-size: 14px; font-weight: 600; line-height: 1.35; }
+.cizim-ref-yok { color: #c7ccd6; font-size: 14px; margin: 0; }
+.cizim-ref.gizli { display: none; }
+.cizim-ref.buyuk { flex-basis: 100%; }
+.cizim-ref.buyuk img { cursor: zoom-out; }
+.cizim.ref-buyuk .cizim-sayfa { display: none; }
+@media (orientation: portrait), (max-width: 700px) {
+  .cizim-alan { flex-direction: column; }
+  .cizim-ref { flex: 0 0 34%; }
+  .cizim-ref:not(.buyuk) img { width: auto; max-width: 100%; max-height: calc(100% - 30px); align-self: center; object-fit: contain; }
+  .cizim-ref.buyuk { flex-basis: 100%; }
+}
 .cizim-kat { position: relative; background: #fff; box-shadow: 0 8px 30px rgba(0, 0, 0, .4); }
 .cizim-kat img { width: 100%; height: 100%; display: block; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 .cizim-kat canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
@@ -625,8 +640,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.22.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.22.0';
+/* LGS Takip, sürüm 1.22.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.22.1';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -6764,7 +6779,7 @@ function yanlisCoz(id) {
       r = fotoBosKayit(y.id, gun + '. gün çözümü  ·  ' + fDate(todayStr())); r.etap = etap;
     }
     var yeniSayfa = (y.fotoIds || []).indexOf(r.id) < 0;
-    openCizim(r, function (cizim) {
+    return yanlisSoruRef(y).then(function (ref) { openCizim(r, function (cizim) {
       if (!cizim) { return Promise.reject(new Error('Sayfa boş: önce çözümü yaz.')); }
       var rec = Object.assign({}, r); rec.cizim = cizim;
       return fotoPut(rec).then(function () {
@@ -6773,7 +6788,19 @@ function yanlisCoz(id) {
         tekrarIsaretle({ dataset: { kind: 'yanlis', id: y.id } });
         if (M) paintSheet(); fotoHydrate(document.getElementById('main'));
       });
-    }, {});
+    }, { ref: ref }); });
+  });
+}
+/* Çözüm sayfasının yanında gösterilecek soru: fotoğraf(lar)ı; eski çizim gösterilmez. Fotoğraf yoksa sorunun bilgisi yazılır. */
+function yanlisSoruRef(y) {
+  var ids = (y.fotoIds || []).filter(function (x) { return !fotoBosMu(x); });
+  var bilgi = [y.konuId ? konuAd(y.konuId) : (DERS[y.dersId] ? DERS[y.dersId].ad : ''), y.kaynakId ? kaynakAd(y.kaynakId) : '', y.testId ? testAd(y.testId) : '', y.soruNo ? 'Soru ' + y.soruNo : ''].filter(function (x) { return x && x !== '—'; }).join(' · ');
+  return Promise.all(ids.map(function (i) { return fotoGet(i).catch(function () { return null; }); })).then(function (recs) {
+    var imgs = recs.filter(function (x) { return x && x.img; });
+    var h = '<div class="cizim-ref-bilgi">' + esc(bilgi || 'Yanlış soru') + '</div>';
+    if (imgs.length) h += imgs.map(function (x, i) { return '<img src="' + x.img + '" alt="Sorunun fotoğrafı ' + (i + 1) + '" draggable="false">'; }).join('');
+    else h += '<p class="cizim-ref-yok">' + (ids.length ? (syncLinked() ? 'Sorunun fotoğrafı bu cihaza henüz gelmedi.' : 'Sorunun fotoğrafı bu cihazda yok.') : 'Bu yanlışa fotoğraf eklenmemiş. Soruyu kitaptan açıp çöz.') + '</p>';
+    return { html: h };
   });
 }
 ACT['foto-buyut'] = function (t) {
@@ -6849,7 +6876,9 @@ ACT['foto-ciz'] = function (t) {
   var id = t.dataset.id, F = M && M.F, yeni = !!(F && F.yeniFoto && F.yeniFoto[id]), temiz = !!t.closest('.ciz-gizli') && !fotoBosMu(id);
   fotoGet(id).then(function (r) {
     if (!r) return showToast(syncLinked() ? 'Fotoğraf bu cihaza henüz gelmedi.' : 'Fotoğraf bu cihazda yok.');
-    openCizim(r, function (cizim) {
+    var sahibi = fotoBosMu(id) ? S.yanlislar.find(function (y) { return (y.fotoIds || []).indexOf(id) >= 0; }) : null; // boş sayfada sorunun fotoğrafı yanında görünür
+    return (sahibi ? yanlisSoruRef(sahibi) : Promise.resolve(null)).then(function (ref) { openCizim(r, function (cizim) {
+      if (!cizim && fotoBosMu(id) && r.etap && rol() === 'ogrenci') return Promise.reject(new Error('Tekrar çözümü boş bırakılamaz.'));
       var rec = Object.assign({}, r); if (cizim) rec.cizim = cizim; else delete rec.cizim;
       return fotoPut(rec).then(function () {
         if (!yeni) fotoQueue(id, 'set'); // kayıtlı fotoğrafın çizimi buluta gider; yeni fotoğraf yanlışla birlikte gider
@@ -6857,7 +6886,7 @@ ACT['foto-ciz'] = function (t) {
         if (M) fotoHydrate(M.el); fotoHydrate(document.getElementById('main'));
         showToast(cizim ? 'Çözüm kaydedildi' : 'Çizim silindi');
       });
-    }, { temiz: temiz });
+    }, { temiz: temiz, ref: ref }); });
   });
 };
 function openCizim(r, onSave, opt) {
@@ -6868,15 +6897,17 @@ function openCizim(r, onSave, opt) {
   el.innerHTML = '<div class="cizim-bar">' +
     CIZ_RENK.map(function (c, i) { return '<button class="ciz-renk' + (i === 1 ? ' on' : '') + '" data-renk="' + c.v + '" aria-label="' + c.t + ' kalem" style="--c:' + c.v + '"><i></i></button>'; }).join('') +
     '<button class="btn sm" data-kal="1" aria-pressed="false">Kalın</button><button class="btn sm" data-silgi="1" aria-pressed="false">Silgi</button>' +
-    '<button class="btn sm" data-geri="1">Geri al</button><button class="btn sm" data-temiz="1">Temizle</button><span class="spacer"></span>' +
+    '<button class="btn sm" data-geri="1">Geri al</button><button class="btn sm" data-temiz="1">Temizle</button>' +
+    (opt.ref ? '<button class="btn sm" data-ref="1" aria-pressed="true">Soru</button>' : '') + '<span class="spacer"></span>' +
     '<button class="btn sm" data-iptal="1">Vazgeç</button><button class="btn sm primary" data-kaydet="1">Kaydet</button></div>' +
-    '<div class="cizim-alan"><div class="cizim-kat"><img src="' + r.img + '" alt="Soru fotoğrafı" draggable="false"><canvas></canvas></div></div>' +
-    '<div class="cizim-ipucu">Kalemle ya da parmakla yaz. Tabletin kalemi algılanınca avucun ekrana değse de çizmez.' + (opt.temiz && r.cizim ? ' Temiz sayfadan başlıyorsun; kaydedersen yeni çözümün eskisinin yerine geçer.' : '') + '</div>';
+    '<div class="cizim-alan">' + (opt.ref ? '<div class="cizim-ref" aria-label="Sorunun fotoğrafı">' + opt.ref.html + '</div>' : '') +
+    '<div class="cizim-sayfa"><div class="cizim-kat"><img src="' + r.img + '" alt="Çözüm sayfası" draggable="false"><canvas></canvas></div></div></div>' +
+    '<div class="cizim-ipucu">Kalemle ya da parmakla yaz. Tabletin kalemi algılanınca avucun ekrana değse de çizmez.' + (opt.ref ? ' Sorunun fotoğrafına dokunursan büyür.' : '') + (opt.temiz && r.cizim ? ' Temiz sayfadan başlıyorsun; kaydedersen yeni çözümün eskisinin yerine geçer.' : '') + '</div>';
   document.body.appendChild(el);
-  var cv = el.querySelector('canvas'), ctx = cv.getContext('2d'), kat = el.querySelector('.cizim-kat'), alan = el.querySelector('.cizim-alan');
+  var cv = el.querySelector('canvas'), ctx = cv.getContext('2d'), kat = el.querySelector('.cizim-kat'), alan = el.querySelector('.cizim-sayfa'), ref = el.querySelector('.cizim-ref');
   cv.width = W; cv.height = H;
   function yerlestir() { // fotoğrafı ekrana sığdır, katman aynı boyutta
-    var aw = alan.clientWidth - 16, ah = alan.clientHeight - 16, s = Math.min(aw / W, ah / H, 2);
+    var aw = alan.clientWidth - 8, ah = alan.clientHeight - 8, s = Math.max(0.05, Math.min(aw / W, ah / H, 2));
     kat.style.width = Math.round(W * s) + 'px'; kat.style.height = Math.round(H * s) + 'px';
   }
   yerlestir(); window.addEventListener('resize', yerlestir);
@@ -6914,7 +6945,9 @@ function openCizim(r, onSave, opt) {
   cv.addEventListener('pointerup', bitir); cv.addEventListener('pointercancel', bitir);
   function kapat() { window.removeEventListener('resize', yerlestir); el.remove(); }
   el.addEventListener('click', async function (e) {
+    if (ref && e.target.closest('.cizim-ref img')) { ref.classList.toggle('buyuk'); el.classList.toggle('ref-buyuk', ref.classList.contains('buyuk')); yerlestir(); return; }
     var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.ref) { var gizle = !ref.classList.contains('gizli'); ref.classList.toggle('gizli', gizle); ref.classList.remove('buyuk'); el.classList.remove('ref-buyuk'); b.setAttribute('aria-pressed', String(!gizle)); yerlestir(); return; }
     if (b.dataset.renk) { renk = b.dataset.renk; silgi = false; el.querySelectorAll('.ciz-renk').forEach(function (x) { x.classList.toggle('on', x === b); }); el.querySelector('[data-silgi]').setAttribute('aria-pressed', 'false'); }
     else if (b.dataset.kal) { kal = kal === 4 ? 8 : 4; b.setAttribute('aria-pressed', String(kal === 8)); }
     else if (b.dataset.silgi) { silgi = !silgi; b.setAttribute('aria-pressed', String(silgi)); el.querySelectorAll('.ciz-renk').forEach(function (x) { x.classList.toggle('on', !silgi && x.dataset.renk === renk); }); }
