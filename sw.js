@@ -1,7 +1,7 @@
-/* LGS Takip, çevrimdışı çalışma için service worker. Sürüm 1.22.2.
+/* LGS Takip, çevrimdışı çalışma için service worker. Sürüm 1.22.3.
    Sayfa: önce ağ (en güncel sürüm), ağ yoksa ya da geç kalırsa önbellek.
    Yazı tipleri: önce önbellek. Veriler burada değil, tarayıcının localStorage alanındadır. */
-var CACHE = 'lgs-takip-1.22.2';
+var CACHE = 'lgs-takip-1.22.3';
 var CORE = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-512.png'];
 
 self.addEventListener('install', function (e) {
@@ -28,7 +28,8 @@ function networkFirst(req) {
     var timer = setTimeout(function () {
       fromCache(req).then(function (r) { if (r && !done) { done = true; resolve(r); } });
     }, 3000);
-    fetch(req).then(function (res) {
+    // tarayıcının kendi HTTP önbelleği atlanır: yeni sürüm GitHub'a yüklenir yüklenmez gelsin
+    fetch(req, { cache: 'no-cache' }).then(function (res) {
       if (res && res.ok) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(req, copy); });
