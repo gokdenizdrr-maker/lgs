@@ -637,13 +637,16 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo .f { fill: #fff; fill-opac
 html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h); }
 @media (max-width: 640px) { html[data-tema] .nav-btn { min-height: 62px; } html[data-tema] .nav-btn svg { width: 42px; height: 42px; padding: 6px; border-radius: 14px; } }
 
+.chip.test:disabled { opacity: .45; cursor: not-allowed; }
+.chip.test.verildi small { font-size: 11px; opacity: .8; margin-left: 2px; }
+
 </style>
 </head>
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.22.3. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.22.3';
+/* LGS Takip, sürüm 1.23.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.23.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -2578,15 +2581,23 @@ function parseCount(v, label, errs, req) {
   if (!isFinite(n) || n < 0 || Math.floor(n) !== n) { errs.push(label + ' 0 veya pozitif tam sayı olmalı.'); return 0; }
   return n;
 }
-function testChips(F, planId, doneMap) {
+function testChips(F, planId, doneMap, verilen) {
   var tests = testsOfPlan(S, planId, false);
   if (!tests.length) return '<p class="hint">Bu planda aktif test yok.</p>';
   return '<div class="chips" role="group" aria-label="Testler">' + tests.map(function (t) {
-    var done = doneMap[t.id] != null;
+    var done = doneMap[t.id] != null, secili = F.testIds ? F.testIds.indexOf(t.id) >= 0 : F.testId === t.id;
+    var v = verilen && verilen[t.id], kapali = !!(verilen && (v || done) && !secili); // görevde: başka göreve verilmiş ya da bitmiş test yeniden seçilemez
     var short = /^Test \d+$/.test(t.ad) ? t.ad.slice(5) : t.ad;
-    return '<button type="button" class="chip test' + (done ? ' done' : '') + '" data-act="fset" data-k="testId" data-v="' + t.id + '" aria-pressed="' +
-      ((F.testIds ? F.testIds.indexOf(t.id) >= 0 : F.testId === t.id) ? 'true' : 'false') + '" aria-label="' + esc(t.ad + (done ? ', bitti' : '')) + '">' + (done ? '✓ ' : '') + esc(short) + '</button>';
+    return '<button type="button" class="chip test' + (done ? ' done' : '') + (v ? ' verildi' : '') + '" data-act="fset" data-k="testId" data-v="' + t.id + '" aria-pressed="' +
+      (secili ? 'true' : 'false') + '"' + (kapali ? ' disabled' : '') + (v ? ' title="' + esc('Verildi: ' + fDateS(dn(v.tarih)) + ' · ' + v.aciklama) + '"' : '') +
+      ' aria-label="' + esc(t.ad + (done ? ', bitti' : '') + (v ? ', ' + fDateS(dn(v.tarih)) + ' tarihli göreve verildi' : '')) + '">' + (done ? '✓ ' : '') + esc(short) + (v && !done ? ' <small>' + esc(fDateS(dn(v.tarih))) + '</small>' : '') + '</button>';
   }).join('') + '</div>';
+}
+/* Görevlere verilmiş testler (iptal edilmemiş, düzenlenen görev hariç): testId -> görev */
+function verilenTestler(haricId) {
+  var m = {};
+  S.gorevler.forEach(function (g) { if (g.id === haricId || g.durum === 'İptal') return; (g.testIds || []).forEach(function (id) { if (!m[id]) m[id] = g; }); });
+  return m;
 }
 
 /* Konu listesi: kitap seçildiyse önce o kitapta testi tanımlı konular gelir. */
@@ -3285,7 +3296,7 @@ function openGorev(rec) {
         h += fieldDiv('Kitap' + (ogr ? '' : ' (isteğe bağlı)'), kl.length ? selectHtml('kaynakId', kl.map(function (k) { return { v: k.id, t: k.ad }; }), F.kaynakId, 'Kitap seçilmedi') : '<p class="hint">Bu derste kayıtlı kitap yok.</p>');
         h += fieldDiv('Konu (isteğe bağlı)', F.kaynakId ? konuSelect('konuId', F.dersId, F.kaynakId, F.konuId) : selectHtml('konuId', konularOf(S, F.dersId).map(function (k) { return { v: k.id, t: k.ad }; }), F.konuId, 'Konu seçilmedi'));
         var plan = F.kaynakId && F.konuId ? IX().planByKey[F.kaynakId + '|' + F.konuId] : null;
-        if (plan) h += fieldDiv('Testler', testChips(F, plan.id, testStatus(S).done), 'Birden fazla test seçebilirsiniz. ✓ işaretli testleri öğrenci daha önce bitirmiş.');
+        if (plan) h += fieldDiv('Testler', testChips(F, plan.id, testStatus(S).done, verilenTestler(F.id)), 'Birden fazla test seçebilirsiniz. ✓ işaretli testleri öğrenci bitirmiş; altında tarih yazan testler başka bir güne zaten verilmiş. Bunlar yeniden seçilemez.');
         else if (F.kaynakId && F.konuId) h += '<p class="hint">Bu kitapta bu konu için test tanımlı değil.</p>';
       }
       if (odev) h += '<div class="calc-line"><span>Seçilen: <b>' + F.testIds.length + ' test</b></span><span><b>' + odevSoru(F) + ' soru</b></span></div>';
@@ -3309,6 +3320,7 @@ function openGorev(rec) {
       if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testIds = []; paintSheet(); return; }
       if (k === 'kaynakId') { F.kaynakId = v; F.testIds = []; if (F.konuId && v && !IX().planByKey[v + '|' + F.konuId]) F.konuId = ''; paintSheet(); return; }
       if (k === 'konuId') { F.konuId = v; F.testIds = []; paintSheet(); return; }
+      if (k === 'testId' && F.testIds.indexOf(v) < 0 && (verilenTestler(F.id)[v] || testStatus(S).done[v] != null)) return showToast('Bu test zaten verilmiş ya da bitirilmiş.');
       if (k === 'testId') { var i = F.testIds.indexOf(v), I = IX(); if (i >= 0) F.testIds.splice(i, 1); else F.testIds.push(v); F.testIds.sort(function (x, y) { return ((I.test[x] || {}).sira || 0) - ((I.test[y] || {}).sira || 0); }); paintSheet(); return; }
       if (kind === 'chip') { F[k] = v; paintChipState(k, v); return; }
       F[k] = v;
@@ -6203,11 +6215,12 @@ ACT['prog-kopyala'] = async function () {
 function progOneriler() {
   var ws = Math.max(progBas(), today()), out = [], ts = testStatus(S).done, I = IX();
   var kk = konuKarnesi(S, { son: 3 }), rows = kk.rows.slice(0, 6);
+  var verilen = verilenTestler(null);
   rows.forEach(function (r) {
     var planlar = S.planlar.filter(function (p) { return p.konuId === r.konu.id && I.kaynak[p.kaynakId] && I.kaynak[p.kaynakId].aktif !== false; });
     var best = null;
     planlar.forEach(function (p) {
-      var kalan = testsOfPlan(S, p.id).filter(function (x) { return ts[x.id] == null; });
+      var kalan = testsOfPlan(S, p.id).filter(function (x) { return ts[x.id] == null && !verilen[x.id]; }); // bitmiş ya da zaten verilmiş test önerilmez
       if (kalan.length && (!best || kalan.length > best.kalan.length)) best = { p: p, kalan: kalan };
     });
     var sebep = r.durum + (r.y ? ' · denemelerde ' + r.y + ' yanlış' : '');
