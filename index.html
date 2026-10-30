@@ -645,8 +645,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.23.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.23.0';
+/* LGS Takip, sürüm 1.23.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.23.1';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -4226,7 +4226,7 @@ function yanlisRow(y, t) {
   }
   if (y.sonDurum === 'Hâlâ zorlanıyorum') h += '<div>' + pill('Hâlâ zorlanıyorum') + '</div>';
   if (r.next != null && r.next <= t) h += '<div class="actions">' + btn('soru-gor', 'Soruyu gör', 'sm', { id: y.id }) + btn('tekrar-yaptim', 'Çöz ve bitir', 'sm primary', { kind: 'yanlis', id: y.id }) + '</div>';
-  else if ((y.fotoIds || []).length) h += btn('soru-gor', 'Soruyu gör', 'sm', { id: y.id });
+  else if ((y.fotoIds || []).length) h += btn('soru-gor', rol() !== 'ogrenci' && (y.fotoIds || []).some(fotoBosMu) ? 'Çözümleri gör' : 'Soruyu gör', 'sm', { id: y.id });
   return h + '</div></li>';
 }
 ACT['yview'] = function (t) { UI.yView = t.dataset.v; render(); };
@@ -6759,15 +6759,20 @@ function fotoYanlisSilindi(rec) { (rec.fotoIds || []).forEach(function (id) { fo
 function openSoru(y) {
   var acik = false;
   openSheet({
-    title: 'Soruyu gör', wide: true,
+    title: rol() === 'ogrenci' ? 'Soruyu gör' : 'Soru ve çözümler', wide: true,
     body: function () {
       var k = IX().konu[y.konuId], where = [kaynakAd(y.kaynakId), y.testId ? testAd(y.testId) : '', y.soruNo ? 'Soru ' + y.soruNo : ''].filter(function (x) { return x && x !== '—'; }).join(', ');
       var h = '<p style="margin-top:0">' + dersDot(y.dersId) + ' <b>' + esc(y.konuId ? konuAd(y.konuId) : 'Konusu belli değil') + '</b>' + (where ? '<br><span class="muted">' + esc(where) + '</span>' : '') + '</p>';
-      h += (y.fotoIds && y.fotoIds.length) ? '<div class="fotos buyuk">' + fotoThumbs(y.fotoIds, false, !acik) + '</div>' : '<p class="hint">Bu yanlışta fotoğraf yok.</p>';
+      var ogrenci = rol() === 'ogrenci', gizli = ogrenci && !acik; // yönetici ve öğretmen çözümleri her zaman görür
+      var sorular = (y.fotoIds || []).filter(function (x) { return !fotoBosMu(x); }), cozumler = (y.fotoIds || []).filter(fotoBosMu);
+      h += sorular.length ? '<div class="fotos buyuk">' + fotoThumbs(sorular, false, gizli) + '</div>' : '<p class="hint">Bu yanlışta sorunun fotoğrafı yok.</p>';
+      if (cozumler.length) h += '<h3 style="font-size:16px;margin:16px 0 6px">Çözüm sayfaları <span class="muted small">' + cozumler.length + '</span></h3>' +
+        (gizli ? '<p class="hint">Eski çözümlerin şimdilik gizli; önce soruyu yeniden çöz.</p>' : '<div class="fotos buyuk">' + fotoThumbs(cozumler, false, false) + '</div><p class="hint">Sayfaya dokununca büyür.</p>');
       var rr = yanlisTekrar(S, y, today()), vakti = rr.next != null && rr.next <= today();
-      if (vakti) h += '<p class="hint">Önce soruyu yeniden çöz: "Çöz ve bitir"e dokun, açılan boş sayfaya çözümünü yaz ve kaydet. Sayfayı kaydedince bu tekrar yapılmış sayılır. Sonra eski çözümüne ve notlarına bakabilirsin.</p>';
+      if (!ogrenci) { /* yönetici/öğretmen: yalnızca görür */ }
+      else if (vakti) h += '<p class="hint">Önce soruyu yeniden çöz: "Çöz ve bitir"e dokun, açılan boş sayfaya çözümünü yaz ve kaydet. Sayfayı kaydedince bu tekrar yapılmış sayılır. Sonra eski çözümüne ve notlarına bakabilirsin.</p>';
       else h += '<p><button class="btn sm" data-act="soru-bos" data-id="' + y.id + '">' + icon('pencil') + 'Not sayfası ekle</button></p><p class="hint">Bu sorunun bugün tekrarı yok. İstersen boş bir sayfaya not alabilirsin.</p>';
-      h += acik ? (y.neden ? '<p><b>Neden yanlış yapmıştım:</b> ' + esc(y.neden) + '</p>' : '') + (y.cozum ? '<p><b>Doğru çözüm:</b> ' + esc(y.cozum) + '</p>' : '')
+      h += acik || !ogrenci ? (y.neden ? '<p><b>Neden yanlış yapmıştım:</b> ' + esc(y.neden) + '</p>' : '') + (y.cozum ? '<p><b>Doğru çözüm:</b> ' + esc(y.cozum) + '</p>' : '')
         : '<button class="btn sm" data-act="soru-not">Eski çözümümü ve notlarımı göster</button>';
       return h;
     },
