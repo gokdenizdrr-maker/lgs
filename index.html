@@ -640,13 +640,22 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 .chip.test:disabled { opacity: .45; cursor: not-allowed; }
 .chip.test.verildi small { font-size: 11px; opacity: .8; margin-left: 2px; }
 
+/* Bugün yapacakların */
+.bugun-isler h2 { flex-wrap: wrap; }
+.is-baslik { font-size: 15px; font-weight: 700; margin: 14px 0 4px; color: var(--ink-2); }
+.is-satir { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.is-satir .row-btn { min-width: 0; }
+.is-sag { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.is-satir.bitti .title { color: var(--ink-3); }
+@media (max-width: 640px) { .is-sag { width: 100%; justify-content: flex-end; } }
+
 </style>
 </head>
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.26.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.26.0';
+/* LGS Takip, sürüm 1.27.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.27.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -1352,20 +1361,6 @@ function odevGerceklesen(S, g) {
     var t = I.test[k.testId], tam = t && num(t.soru) > 0 && tst[k.testId] >= num(t.soru); // bütün soruları girildiyse de biter
     { biten[asil[k.testId] || k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
   });
-  // Test seçilmeden girilmiş çalışma (aynı kitap + konu, ödev verildikten sonra): sorular, bitmemiş ödev testlerine sırayla dağıtılır.
-  var kalan = g.testIds.filter(function (id) { return !biten[id] && I.test[id]; }).sort(function (a, b) { return (I.test[a].sira || 0) - (I.test[b].sira || 0); });
-  if (kalan.length) {
-    var p0 = I.plan[I.test[kalan[0]].planId], k0 = p0 && I.kaynak[p0.kaynakId], kad = k0 ? String(k0.ad).trim().toLocaleLowerCase('tr') : null;
-    var bas = g.verildi ? Math.min(dn(g.verildi), dn(g.tarih)) : dn(g.tarih), havuz = 0;
-    if (p0) S.kayitlar.forEach(function (k) {
-      if (k.testId || k.konuId !== p0.konuId || dn(k.tarih) < bas || !num(k.soru)) return;
-      var kk = k.kaynakId && I.kaynak[k.kaynakId];
-      if (!(k.kaynakId === p0.kaynakId || (kk && kad && String(kk.ad).trim().toLocaleLowerCase('tr') === kad))) return;
-      havuz += num(k.soru); soru += num(k.soru); d += num(k.d); y += num(k.y); sure += num(k.sure);
-      if (son == null || dn(k.tarih) > son) son = dn(k.tarih);
-    });
-    kalan.forEach(function (id) { var gerek = Math.max(1, num(I.test[id].soru)); if (havuz >= gerek) { biten[id] = 1; havuz -= gerek; } else havuz = -1; });
-  }
   var n = Object.keys(biten).length, top = g.testIds.length;
   return { soru: soru, sure: sure, d: d, y: y, biten: n, toplam: top, basari: soru ? d / soru : null, son: son, bitenIds: biten, oran: top ? n / top : null };
 }
@@ -2365,7 +2360,7 @@ var NAV = [
   { id: 'ogretmen', ad: 'Öğretmen', ic: 'gauge', okur: true },
   { id: 'bugun', ad: 'Bugün', ic: 'home' }, { id: 'program', ad: 'Program', ic: 'calendar' }, { id: 'calisma', ad: 'Çalışma', ic: 'pencil' }, { id: 'deneme', ad: 'Deneme', ic: 'clipboard' },
   { id: 'yanlis', ad: 'Yanlışlar', ic: 'mistake' }, { id: 'tekrar', ad: 'Tekrarlar', ic: 'repeat' }, { id: 'turlar', ad: 'Turlar', ic: 'layers' },
-  { id: 'gorev', ad: 'Görevler', ic: 'check' }, { id: 'kitap', ad: 'Kitaplar', ic: 'book' },
+  { id: 'kitap', ad: 'Kitaplar', ic: 'book' },
   { sep: 'Yönetici' },
   { id: 'yonetici', ad: 'Yönetici paneli', ic: 'lock' },
   { id: 'panel', ad: 'Panel', ic: 'gauge' }, { id: 'rapor', ad: 'Raporlar', ic: 'chart' }, { id: 'kurulum', ad: 'Kurulum', ic: 'gear' }
@@ -2669,7 +2664,6 @@ function openKayit(rec, preset) {
   if (!rec) { // yeni kayıtta birden fazla test seçilebilir; her test ayrı kayıt olur
     F.testIds = F.testIds ? F.testIds.slice() : (F.testId ? [F.testId] : []); F.rows = {};
     F.testIds.forEach(function (id) { kayitRow(F, id); });
-    if (!F.testIds.length) kayitOdevSec(F);
     if (F.testIds.length === 1) { F.testId = F.testIds[0]; if (!F.soru) { F.soru = F.rows[F.testId].soru; F.soruOto = true; } F.bitti = F.bitti || false; } else F.testId = '';
   }
   openSheet({
@@ -2686,7 +2680,6 @@ function openKayit(rec, preset) {
           fieldDiv('Konu' + (F.tur === 'Deneme analizi' ? ' (isteğe bağlı)' : ''), konuSelect('konuId', F.dersId, F.kaynakId, F.konuId)) + '</div>';
         if (F.konuId && F.kaynakId) {
           var plan = IX().planByKey[F.kaynakId + '|' + F.konuId];
-          if (plan && F.odevNotu) h += '<div class="banner info" style="margin-bottom:10px"><span class="grow">' + esc(F.odevNotu) + '</span></div>';
           if (plan) h += fieldDiv(rec ? 'Test' : 'Testler', testChips(F, plan.id, testStatus(S).done), (rec ? '' : 'Birden fazla test seçebilirsin; her biri ayrı kaydedilir. ') + '✓ işaretli testler daha önce çözüldü. Hangi testleri çözdüğünü seç: program ve kitap ilerlemesi buna göre işlenir.');
           else h += '<p class="hint">Bu kitapta bu konu için test tanımlı değil. Kurulum › Kitaplar ve testler bölümünden eklenebilir; yine de kaydedebilirsin.</p>';
         }
@@ -2726,7 +2719,7 @@ function openKayit(rec, preset) {
     onInput: function (k, v, el, kind) {
       if ((k === 'dersId' || k === 'konuId' || k === 'kaynakId') && F.soruOto) { F.soru = ''; F.soruOto = false; }
       if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testId = ''; F.bitti = false; if (F.testIds) { F.testIds = []; F.rows = {}; } paintSheet(); kayitCalc(); return; }
-      if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; F.bitti = false; F.odevNotu = ''; if (F.testIds) { F.testIds = []; F.rows = {}; kayitOdevSec(F); } paintSheet(); kayitCalc(); return; }
+      if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; F.bitti = false; F.odevNotu = ''; if (F.testIds) { F.testIds = []; F.rows = {}; } paintSheet(); kayitCalc(); return; }
       if (k === 'testId' && F.testIds) { kayitTestSec(F, v); paintSheet(); kayitCalc(); return; }
       if (k.indexOf('tr.') === 0) { var pp = k.split('.'); if (F.rows[pp[1]]) F.rows[pp[1]][pp[2]] = pp[2] === 'bitti' ? !!v : v; kayitCalc(); return; }
       if (k === 'testId') {
@@ -3790,10 +3783,9 @@ VIEWS.bugun = function () {
     '<div class="meta"><span>Süre <b>' + fSure(ps.sure) + '</b> / ' + fSure(st.gunSure) + '</span>' + (ps.mola ? '<span>Mola <b>' + fSure(ps.mola) + '</b></span>' : '') + (ps.enUzun ? '<span>En uzun kesintisiz <b>' + ps.enUzun + ' dk</b></span>' : '') +
     (ps.soru ? '<span>Net <b>' + fNet(ps.net) + '</b></span><span>Başarı <b>' + fPct(ps.basari) + '</b></span>' : '') +
     (done > hedef && hedef > 0 ? '<span><b>Hedefin ' + (done - hedef) + ' soru üstündesin</b></span>' : '') + '</div>' + (typeof seriSatir === 'function' ? seriSatir() : '') + '</section>';
+  if (rol() !== 'ogretmen' && typeof bugunIsleriHtml === 'function') h += bugunIsleriHtml(t);
   // iki sütun
-  var tl = tekrarListesi(S, t).filter(function (x) { return x.next <= t; });
-  var gorevler = S.gorevler.filter(function (g) { return !(g.testIds && g.testIds.length && g.ogretmen) && (dn(g.tarih) === t || (dn(g.tarih) < t && ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, g)) < 0)); })
-    .sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
+  var tl = [];
   var left = '<section class="panel"><h2>Bu hafta <span class="muted small">' + fDateS(ws) + ' – ' + fDateS(ws + 6) + '</span></h2>' +
     '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span><b class="num" style="font-size:22px">' + w.hedefeSayilan + '</b> <span class="muted">/ ' + num(st.hafSoru) + ' soru</span></span><span class="muted small">Süre ' + fSure(w.sure) + '</span></div>' +
     bar(num(st.hafSoru) ? w.hedefeSayilan / num(st.hafSoru) : 0, w.hedefeSayilan >= num(st.hafSoru) ? 'good' : '') +
@@ -3806,11 +3798,8 @@ VIEWS.bugun = function () {
     return '<li><div class="grow"><div class="title">' + esc(konuAd(p.konuId)) + '</div><div class="sub">' + esc(kaynakAd(p.kaynakId)) + (p.turNo ? ', ' + p.turNo + '. tur' : '') + '</div>' +
       '<div style="margin-top:6px">' + bar(p.oran, 'warn') + '</div></div><div class="num small">' + p.tamamlanan + '/' + p.planlanan + '</div></li>';
   }).join('') + '</ul>' : '<div class="empty">Devam eden tur yok. Bir kitaptan test çözüp kaydettiğinde burada görünür.</div>') + '</section>';
-  var right = (typeof ogretmenBugunPanel === 'function' ? ogretmenBugunPanel() : '') + (typeof haftaninKonulariPanel === 'function' && rol() !== 'ogretmen' ? haftaninKonulariPanel(false) : '') + '<section class="panel"><h2>Bugünün tekrarları ' + btn('go', 'Takvim', 'xs ghost', { v: 'tekrar' }) + '</h2>' + (tl.length ? '<ul class="list">' + tl.slice(0, 6).map(tekrarRow).join('') + '</ul>' +
-    (tl.length > 6 ? '<p class="hint">+' + (tl.length - 6) + ' tekrar daha</p>' : '') : '<div class="empty">Bugün yapılacak tekrar yok.</div>') + '</section>';
-  right += '<section class="panel"><h2>Bugünün görevleri ' + btn('gorev-yeni', 'Görev ekle', 'xs', null, 'plus') + '</h2>' + (gorevler.length ? '<ul class="list">' + gorevler.slice(0, 8).map(gorevRow).join('') + '</ul>' :
-    '<div class="empty">Bugün için görev yok.</div>') + '</section>';
-  h += '<div class="grid2" style="margin-top:16px"><div class="stack">' + left + '</div><div class="stack">' + right + '</div></div>';
+  var right = (typeof ogretmenBugunPanel === 'function' ? ogretmenBugunPanel() : '') + (typeof haftaninKonulariPanel === 'function' && rol() !== 'ogretmen' ? haftaninKonulariPanel(false) : '');
+  h += right ? '<div class="grid2" style="margin-top:16px"><div class="stack">' + left + '</div><div class="stack">' + right + '</div></div>' : '<div class="stack" style="margin-top:16px">' + left + '</div>';
   return h;
 };
 function onboardingSteps() {
@@ -4098,11 +4087,11 @@ function stat(l, v, d, sign) {
 }
 
 /* ---------- GÖREVLER ---------- */
-VIEWS.gorev = function () {
-  var t = today();
-  var ogr = rol() === 'ogrenci';
-  var h = head('Görevler', ogr ? 'Görevleri yönetici verir. Çalışma ekle bölümünde soru sayılarını girdiğinde görevler kendiliğinden ilerler ve tamamlanır.' : 'Görev bir plandır. Gerçekleşen soru ve süre çalışma kayıtlarından gelir. Durumu elle değiştirmek için durum etiketine dokun.', ogr ? '' : btn('gorev-yeni', 'Görev ekle', 'primary', null, 'plus'));
-  if (!S.gorevler.length) return h + '<div class="panel empty"><strong>Görev yok</strong>' + (ogr ? 'Yönetici görev verdiğinde burada görünür.' : 'Günlük ya da haftalık hedefleri görev olarak ekleyebilirsin.') + '</div>';
+/* Görevler artık ayrı bir menü değil: Program › Liste sekmesi. Eski bağlantılar oraya gider. */
+VIEWS.gorev = function () { UI.progTab = 'liste'; UI.view = 'program'; return VIEWS.program(); };
+function gorevListeHtml() {
+  var t = today(), ogr = rol() === 'ogrenci', h = '';
+  if (!S.gorevler.length) return '<div class="panel empty"><strong>Görev yok</strong>' + (ogr ? 'Yönetici görev verdiğinde burada görünür.' : 'Haftalık sekmesinden güne görev ekleyebilirsin.') + '</div>';
   var open = function (g) { return ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, g)) < 0; };
   var groups = [
     ['Gecikenler', S.gorevler.filter(function (g) { return dn(g.tarih) < t && open(g); })],
@@ -4115,8 +4104,8 @@ VIEWS.gorev = function () {
     g[1].sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
     h += '<section class="panel"><h2>' + g[0] + ' <span class="muted small">' + g[1].length + '</span></h2><ul class="list">' + g[1].map(gorevRow).join('') + '</ul></section>';
   });
-  return h;
-};
+  return h + '<p class="hint">' + (ogr ? 'Görevleri yönetici verir; Çalışma ekle ya da görevdeki "Çalışmayı gir" ile girdiğin soru ve testler görevlere kendiliğinden işlenir.' : 'Durumu elle değiştirmek için durum etiketine dokun.') + '</p>';
+}
 
 /* ---------- KİTAPLAR ---------- */
 VIEWS.kitap = function () {
@@ -4782,9 +4771,10 @@ VIEWS.rehber = function () {
       'Bir konuyu düzenli tekrar etmek için <b>Konu tekrarı ekle</b>: konu, isteğe bağlı kitap ve ilgili çalışma kaydı, başlangıç tarihi, tekrar türü. Bittiğinde sonucu (Kolay geldi, Orta, Zorlandım) işaretleyin.',
       'Aynı konu için aynı türde açık bir tekrar varken ikincisi açılamaz.'
     ])) +
-    sec('gorev', 'Görev ve kitap okuma', ul([
-      '<b>Görevler</b> › Görev ekle: tarih, açıklama, isteğe bağlı ders ve konu, hedef soru veya süre. Gerçekleşen soru ve süre, aynı gün (ve seçildiyse aynı ders ve konu) için girilen çalışma kayıtlarından kendiliğinden hesaplanır.',
-      'Görevin durum etiketine dokunmak Bekliyor → Devam ediyor → Tamamlandı sırasıyla değiştirir. Görevi tamamlamak soru çözülmüş saymaz; çalışma ayrıca kaydedilir.',
+    sec('gorev', 'Program, görevler ve kitap okuma', ul([
+      '<b>Program</b> yöneticinin hazırladığı haftalık plandır: her gün sabah ve akşam görevleri. "Tüm görevler" sekmesi gecikenleri, bugünü, yaklaşanları ve bitenleri liste olarak gösterir.',
+      'Öğrenci her gün <b>Bugün</b> ekranındaki "Bugün yapacakların" listesine bakar. Görevi bitirince "Çalışmayı gir"e dokunur; ders, kitap ve testler hazır gelir, doğru ve yanlış sayısını yazıp kaydeder. Görev kendiliğinden "Tamamlandı" olur.',
+      'Kitaptan test seçilerek verilen ödev, o testler Çalışma ekle ile kaydedilince biter (tarihi önemli değil). Test seçmeden verilen görev, görevin günü girilen ve dersi/konusu uyan çalışmalarla ilerler. Deneme görevi o gün girilen denemeyle ilerler.',
       '<b>Kitaplar</b> › Kitap ekle (ad, yazar, sayfa), sonra her okumada "Okudum" ile sayfa sayısını girin. Okunan, kalan sayfa ve ilerleme kendiliğinden hesaplanır; son sayfa okununca bitiş tarihi yazılır.'
     ])) +
     sec('rapor', 'Panel, raporlar ve PDF', ul([
@@ -5697,12 +5687,12 @@ function ogretmenBugunPanel() {
   if (syncReader()) return '';
   var od = S.gorevler.filter(function (g) { return g.ogretmen && odevAcik(g); }).sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
   var nt = S.notlar.filter(function (n) { return !n.okundu; }).sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
-  if (!od.length && !nt.length) return '';
+  if (!nt.length) return ''; // öğretmenin ödevleri Bugün › Bugün yapacakların ve Program'da görünür
   var h = '<section class="panel"><h2>Öğretmenden</h2>';
   if (nt.length) h += '<ul class="list">' + nt.map(function (n) {
     return '<li><span class="grow"><span style="display:block;white-space:pre-wrap">' + esc(n.metin) + '</span><span class="sub">' + esc((n.ogretmen && n.ogretmen.ad) || 'Öğretmen') + ', ' + relDay(n.tarih) + '</span></span>' + btn('not-okudum', 'Okudum', 'xs', { id: n.id }) + '</li>';
   }).join('') + '</ul>';
-  if (od.length) h += '<h3 style="font-size:15px;margin:12px 0 4px">Ödevler</h3><ul class="list">' + od.map(gorevRow).join('') + '</ul><p class="hint" style="margin-bottom:0">Ödevdeki testleri çözüp kaydederken “bitti”yi işaretle; ödev kendiliğinden ilerler.</p>';
+  if (false) h += '<h3 style="font-size:15px;margin:12px 0 4px">Ödevler</h3><ul class="list">' + od.map(gorevRow).join('') + '</ul><p class="hint" style="margin-bottom:0">Ödevdeki testleri çözüp kaydederken “bitti”yi işaretle; ödev kendiliğinden ilerler.</p>';
   return h + '</section>';
 }
 
@@ -6222,7 +6212,10 @@ VIEWS.program = function () {
   var sub = (off === 0 ? 'Bu hafta' : (off === 1 ? 'Gelecek hafta' : (off === -1 ? 'Geçen hafta' : fDateS(ws) + ' haftası'))) + ' · ' + fDateS(ws) + ' – ' + fDateS(ws + 6);
   var acts = '<button class="btn" data-act="prog-hafta" data-d="-1" aria-label="Önceki hafta">‹</button><button class="btn" data-act="prog-hafta" data-d="0">Bu hafta</button><button class="btn" data-act="prog-hafta" data-d="1" aria-label="Sonraki hafta">›</button>' +
     btn('prog-pdf', 'PDF al', '', null, 'download') + (rol() === 'ogrenci' ? '' : btn('prog-ekle', ogr ? 'Ödev ver' : 'Görev ekle', 'primary', { t: ds(Math.max(t, ws)) }, 'plus'));
-  var h = head('Haftalık program', sub, acts);
+  var sekme = '<div class="tabs" role="tablist" style="margin-bottom:14px">' + [['hafta', 'Haftalık'], ['liste', 'Tüm görevler']].map(function (x) {
+    return '<button role="tab" aria-selected="' + ((UI.progTab || 'hafta') === x[0]) + '" data-act="prog-sekme" data-v="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  if (UI.progTab === 'liste') return head('Program', 'Bütün görevler: gecikenler, bugün, yaklaşanlar ve bitenler.', rol() === 'ogrenci' ? '' : btn('prog-ekle', ogr ? 'Ödev ver' : 'Görev ekle', 'primary', { t: ds(t) }, 'plus')) + sekme + gorevListeHtml();
+  var h = head('Haftalık program', sub, acts) + sekme;
   if (ogr) h += '<div class="banner info"><span class="grow">Kendi verdiğin ödevleri ekleyip düzenleyebilirsin. Çözülen soru ve biten testler öğrencinin kayıtlarından kendiliğinden gelir.</span></div>';
   h += '<div class="kv prog-ozet" style="margin-bottom:14px">' + stat('Planlanan soru', plan) + stat('Çözülen soru', yap, plan ? fPct(Math.min(1, yap / plan)) + ' tamamlandı' : '') + stat('Biten görev', biten + '/' + aktif) + stat(rol() === 'ogrenci' ? 'Yapılmayan' : 'Geciken', gec, gec ? (rol() === 'yonetici' ? 'yarına ertelenebilir' : 'geçmiş günlerde') : 'yok', gec ? -1 : 0) + '</div>';
   if (rol() === 'ogrenci') h += '<div class="banner info"><span class="grow">Programı yönetici hazırlar. Çalışma ekle bölümünde doğru-yanlış sayılarını girince görev yapıldı görünür; girilmezse yapılmamış sayılır.</span></div>';
@@ -6250,6 +6243,7 @@ VIEWS.program = function () {
   h += '</div><p class="hint">Bir bloğa dokunarak ayrıntıyı açar, düzenler ya da silersin. Aynı gün girilen çalışma kayıtları (seçtiysen ders ve konuya göre) bloğa kendiliğinden işlenir.</p>';
   return h;
 };
+ACT['prog-sekme'] = function (t) { UI.progTab = t.dataset.v; render(); };
 ACT['prog-hafta'] = function (t) { var d = Number(t.dataset.d); UI.progOff = d === 0 ? 0 : (UI.progOff || 0) + d; render(); };
 ACT['prog-ekle'] = function (t) { if (rol() === 'ogrenci') return; openGorev(null); if (M && M.F) { if (t.dataset.t) M.F.tarih = t.dataset.t; if (t.dataset.v && rol() !== 'ogretmen') M.F.vakit = t.dataset.v; paintSheet(); } };
 ACT['prog-sira'] = function (t) {
@@ -6394,6 +6388,31 @@ ACT['prog-pdf'] = function (t) {
     }, fail);
   } catch (e) { fail(e); }
 };
+
+/* ---- Bugün ekranı: "Bugün yapacakların" — günün programı ve tekrarları tek listede ---- */
+function bugunIsSatiri(g, etiketOn) {
+  var d = progGorevDurum(g), ders = g.dersId ? DERS[g.dersId] : null;
+  var alt = [etiketOn || '', g.kaynakId ? kaynakAd(g.kaynakId) : '', g.konuId ? konuAd(g.konuId) : '', d.yazi].filter(function (x) { return x && x !== '—'; }).join(' · ');
+  var yapabilir = !d.kapali && rol() !== 'ogretmen';
+  return '<li class="is-satir' + (d.du === 'Tamamlandı' ? ' bitti' : '') + '"><button class="row-btn grow" data-act="gorev-ac" data-id="' + g.id + '">' + (g.dersId ? dersDot(g.dersId) : '<i class="ders-dot" style="background:var(--line-2)"></i>') +
+    '<span class="grow"><span class="title" style="display:block">' + esc(g.aciklama) + (g.ogretmen ? ' <span class="pill info" style="font-size:12px">' + esc(g.ogretmen.ad || 'Öğretmen') + '</span>' : '') + '</span><span class="sub">' + esc(alt) + '</span></span></button>' +
+    '<span class="is-sag">' + pill(d.etiket) + (yapabilir ? btn('gorev-calis', 'Çalışmayı gir', 'sm primary', { id: g.id }, 'plus') : '') + '</span></li>';
+}
+function bugunIsleriHtml(t) {
+  var tarih = ds(t), acikMi = function (g) { var du = gorevDurum(S, g); return du !== 'Tamamlandı' && du !== 'İptal'; };
+  var sabah = S.gorevler.filter(function (g) { return g.tarih === tarih && progVakit(g) === 'sabah' && g.durum !== 'İptal'; }).sort(function (a, b) { return (a.ts || 0) - (b.ts || 0); });
+  var aksam = progAksamListe(tarih).filter(function (g) { return g.durum !== 'İptal'; });
+  var kalan = S.gorevler.filter(function (g) { var x = dn(g.tarih); return x < t && x >= t - 7 && acikMi(g); }).sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); });
+  var tl = tekrarListesi(S, t).filter(function (x) { return x.next <= t; });
+  var toplam = sabah.length + aksam.length, biten = sabah.concat(aksam).filter(function (g) { return !acikMi(g); }).length;
+  var h = '<section class="panel bugun-isler" style="margin-top:16px"><h2>Bugün yapacakların <span class="muted small">' + (toplam ? biten + ' / ' + toplam + ' görev bitti' : '') + '</span>' + btn('go', 'Program', 'xs ghost', { v: 'program' }) + '</h2>';
+  if (!toplam && !kalan.length && !tl.length) return h + '<div class="empty"><strong>Bugün için program yok</strong>Serbest çalıştıysan "Çalışma ekle" ile kaydet.</div></section>';
+  if (sabah.length) h += '<h3 class="is-baslik">Sabah</h3><ul class="list">' + sabah.map(function (g) { return bugunIsSatiri(g); }).join('') + '</ul>';
+  if (aksam.length) h += '<h3 class="is-baslik">Akşam <span class="muted small">sırayla</span></h3><ul class="list">' + aksam.map(function (g, i) { return bugunIsSatiri(g, (i + 1) + '.'); }).join('') + '</ul>';
+  if (tl.length) h += '<h3 class="is-baslik">Tekrarlar <span class="muted small">' + tl.length + '</span></h3><ul class="list">' + tl.slice(0, 8).map(tekrarRow).join('') + '</ul>' + (tl.length > 8 ? '<p class="hint">' + btn('go', '+' + (tl.length - 8) + ' tekrar daha', 'xs ghost', { v: 'tekrar' }) + '</p>' : '');
+  if (kalan.length) h += '<h3 class="is-baslik">Önceki günlerden kalan <span class="muted small">' + kalan.length + '</span></h3><ul class="list">' + kalan.slice(0, 6).map(function (g) { return bugunIsSatiri(g, fDateS(dn(g.tarih))); }).join('') + '</ul>';
+  return h + '<p class="hint" style="margin-bottom:0">Bir görevi bitirince "Çalışmayı gir"e dokun: ders, kitap ve testler hazır gelir, sadece doğru ve yanlış sayılarını yazarsın.</p></section>';
+}
 
 /* ---- kitap-ai.js ---- */
 /* ---------- Fotoğraftan kitap ekleme ----------
