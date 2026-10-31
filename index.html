@@ -645,8 +645,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.24.2. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.24.2';
+/* LGS Takip, sürüm 1.25.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.25.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -778,7 +778,7 @@ function testsOfPlan(S, planId, includePassive) {
 /* Her test için: ilk tamamlanma günü ve çalışma sayısı. Aynı test birden çok kez çözülse de bir kez sayılır. */
 /* Takip başlamadan önce çözülmüş testler (test.onceden): ayrıntısı yok; bitmiş sayılır ama hiçbir tarihe ve istatistiğe girmez. */
 var ONCEDEN_GUN = -1;
-/* Test bitti sayılır: "bu testi bitirdim" işaretlendiyse YA DA testin bütün soruları (kitaptaki soru sayısı kadar) girildiyse.
+/* Test seçilerek kaydedilen her çalışma o testi bitirir (ayrı bir "bitirdim" işareti yok).
    Böylece öğrenci işareti unutsa da testi tam çözdüyse program ve tur ilerlemesi işler. */
 function testStatus(S) {
   var done = {}, cnt = {}, top = {}, I = index(S);
@@ -787,7 +787,7 @@ function testStatus(S) {
     cnt[k.testId] = (cnt[k.testId] || 0) + 1;
     top[k.testId] = (top[k.testId] || 0) + num(k.soru);
     var t = I.test[k.testId], tam = t && num(t.soru) > 0 && top[k.testId] >= num(t.soru);
-    if (k.bitti || tam) { var d = dn(k.tarih); if (done[k.testId] == null || d < done[k.testId]) done[k.testId] = d; }
+    var d = dn(k.tarih); if (done[k.testId] == null || d < done[k.testId]) done[k.testId] = d; // test seçilerek kaydedildiyse çözülmüş sayılır
   });
   S.testler.forEach(function (t) { if (t.onceden) done[t.id] = ONCEDEN_GUN; });
   return { done: done, cnt: cnt };
@@ -1329,7 +1329,7 @@ function gorevGerceklesen(S, g) {
   return { soru: soru, sure: sure, oran: oran };
 }
 
-/* Test seçilerek verilen ödev: verildiği günden sonra "bitti" işaretiyle kaydedilen testler sayılır (öğrenci tarihinden bağımsız). */
+/* Test seçilerek verilen ödev: bu testler için girilen her çalışma kaydı testi bitirir (tarihten bağımsız). */
 function odevGerceklesen(S, g) {
   var ids = {}, from = -Infinity, /* verilmiş testler başka göreve seçilemediği için ödev, testin ne zaman çözüldüğüne bakmadan sayılır */ biten = {}, soru = 0, d = 0, y = 0, sure = 0, son = null, I = index(S), tst = {};
   // Aynı kitap sistemde iki kez kayıtlıysa (ör. yeniden içe aktarıldıysa) aynı ad + konu + test adındaki test de sayılır.
@@ -1342,7 +1342,7 @@ function odevGerceklesen(S, g) {
     soru += num(k.soru); d += num(k.d); y += num(k.y); sure += num(k.sure);
     tst[k.testId] = (tst[k.testId] || 0) + num(k.soru);
     var t = I.test[k.testId], tam = t && num(t.soru) > 0 && tst[k.testId] >= num(t.soru); // bütün soruları girildiyse de biter
-    if (k.bitti || tam) { biten[asil[k.testId] || k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
+    { biten[asil[k.testId] || k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
   });
   var n = Object.keys(biten).length, top = g.testIds.length;
   return { soru: soru, sure: sure, d: d, y: y, biten: n, toplam: top, basari: soru ? d / soru : null, son: son, bitenIds: biten, oran: top ? n / top : null };
@@ -2687,8 +2687,8 @@ function openKayit(rec, preset) {
       }
       if (F.testId && !kayitCoklu(F)) {
         var dn0 = testStatus(S).done[F.testId], self = rec && rec.bitti && rec.testId === F.testId;
-        h += '<label class="switch" style="margin-top:14px"><input type="checkbox" data-f="bitti"' + (F.bitti ? ' checked' : '') + '> <span><b>Bu testi bitirdim</b>' +
-          (dn0 != null && !self ? '<br><span class="small muted">Bu test ' + (dn0 === ONCEDEN_GUN ? 'daha önce' : fDate(dn0) + ' tarihinde') + ' bitirilmişti. Tekrar çözüm olarak kaydedilir; tur sayısı değişmez.</span>' : '') + '</span></label>';
+        // Test seçilerek kaydedilen çalışma o testi bitirmiş sayılır; ayrıca işaret gerekmez.
+        if (dn0 != null && !self) h += '<p class="hint">Bu test ' + (dn0 === ONCEDEN_GUN ? 'daha önce' : fDate(dn0) + ' tarihinde') + ' çözülmüştü. Tekrar çözüm olarak kaydedilir.</p>';
       }
       h += field('Not (isteğe bağlı)', '<input class="input" data-f="not" value="' + esc(F.not) + '" maxlength="200">');
       h += '<div class="errors" role="alert"></div>';
@@ -2743,11 +2743,10 @@ function kayitTestSec(F, v) {
 function kayitTablo(F) {
   var done = testStatus(S).done;
   var inp = function (id, f, v) { return '<td class="r" style="width:92px"><input class="input" style="text-align:right" inputmode="numeric" pattern="[0-9]*" data-f="tr.' + id + '.' + f + '" value="' + esc(v) + '" aria-label="' + esc(testAd(id) + ' ' + f) + '"></td>'; };
-  return '<div class="field"><span class="lbl">Testlerin sonuçları</span><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Test</th><th class="r">Soru</th><th class="r">Doğru</th><th class="r">Yanlış</th><th>Bitirdim</th></tr></thead><tbody>' +
+  return '<div class="field"><span class="lbl">Testlerin sonuçları</span><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Test</th><th class="r">Soru</th><th class="r">Doğru</th><th class="r">Yanlış</th></tr></thead><tbody>' +
     F.testIds.map(function (id) {
       var r = kayitRow(F, id);
-      return '<tr><td>' + esc(testAd(id)) + (done[id] != null ? ' <span class="muted small">✓ daha önce</span>' : '') + '</td>' + inp(id, 'soru', r.soru) + inp(id, 'd', r.d) + inp(id, 'y', r.y) +
-        '<td><input type="checkbox" data-f="tr.' + id + '.bitti"' + (r.bitti ? ' checked' : '') + ' aria-label="' + esc(testAd(id)) + ' bitti" style="width:22px;height:22px"></td></tr>';
+      return '<tr><td>' + esc(testAd(id)) + (done[id] != null ? ' <span class="muted small">✓ daha önce</span>' : '') + '</td>' + inp(id, 'soru', r.soru) + inp(id, 'd', r.d) + inp(id, 'y', r.y) + '</tr>';
     }).join('') + '</tbody></table></div><div class="calc-line" id="calc"></div><p class="hint">Her test ayrı kaydedilir; süre testlere bölünmez, oturumun toplamı olarak bir kez yazılır.</p></div>';
 }
 function kayitCalc() {
@@ -2770,7 +2769,7 @@ ACT['kayit-kaydet'] = async function () {
   var soru = parseCount(F.soru, 'Çözülen soru', errs), d = parseCount(F.d, 'Doğru', errs), y = parseCount(F.y, 'Yanlış', errs);
   var sure = parseCount(F.sure, 'Süre', errs), mola = parseCount(F.mola, 'Mola', errs);
   var rec = { id: F.id || uid('gk'), tarih: F.tarih, dersId: F.dersId, konuId: F.konuId || null, kaynakId: F.kaynakId || null,
-    testId: F.testId || null, tur: F.tur, soru: soru, d: d, y: y, b: soru - d - y, sure: sure, bitti: !!(F.testId && F.bitti),
+    testId: F.testId || null, tur: F.tur, soru: soru, d: d, y: y, b: soru - d - y, sure: sure, bitti: !!F.testId,
     not: (F.not || '').trim(), ts: F.ts || Date.now() };
   if (mola > 0) rec.mola = mola;
   if (mola > 0 && F.molaSayisi) rec.molaSayisi = F.molaSayisi;
@@ -2812,7 +2811,7 @@ async function kayitKaydetCoklu() {
   var oturum = uid('ot'), ts = Date.now();
   var recs = rows.map(function (r, i) {
     var rec = { id: uid('gk'), tarih: F.tarih, dersId: F.dersId, konuId: F.konuId || null, kaynakId: F.kaynakId || null, testId: r.id, tur: F.tur,
-      soru: r.soru, d: r.d, y: r.y, b: r.soru - r.d - r.y, sure: i === 0 ? sure : 0, bitti: r.bitti, not: (F.not || '').trim(), ts: ts + i, oturum: oturum };
+      soru: r.soru, d: r.d, y: r.y, b: r.soru - r.d - r.y, sure: i === 0 ? sure : 0, bitti: true, not: (F.not || '').trim(), ts: ts + i, oturum: oturum };
     if (i === 0) { // oturumun mola ve kesintisiz bilgisi bir kez sayılsın
       if (mola > 0) rec.mola = mola;
       if (mola > 0 && F.molaSayisi) rec.molaSayisi = F.molaSayisi;
@@ -3330,7 +3329,7 @@ function openGorev(rec) {
       }
       h += field(ogr ? 'Öğrenciye not (isteğe bağlı)' : 'Not (isteğe bağlı)', '<input class="input" data-f="not" value="' + esc(F.not || '') + '" maxlength="200">');
       if (rec) h += gorevOzetHtml(Object.assign({}, rec, { tarih: F.tarih, dersId: F.dersId || null, konuId: F.konuId || null, testIds: F.testIds }));
-      h += '<p class="hint">' + (odev ? 'Ödev, öğrenci bu testleri çözüp “bitti” olarak kaydettikçe kendiliğinden ilerler; hepsi bitince tamamlanır.' :
+      h += '<p class="hint">' + (odev ? 'Ödev, öğrenci bu testleri Çalışma ekle bölümünde kaydettikçe kendiliğinden ilerler; hepsi kaydedilince tamamlanır.' :
         'Gerçekleşen soru ve süre, aynı gün (ve seçildiyse aynı ders/konu) için girilen çalışma kayıtlarından otomatik hesaplanır.') + '</p>';
       return h + '<div class="errors" role="alert"></div>';
     },
@@ -3803,7 +3802,7 @@ function kayitGrupla(arr) {
 function kayitGrupSatir(g) {
   var t = { soru: 0, d: 0, y: 0, b: 0, sure: 0, mola: 0, kes: 0 }, k0 = g[0];
   g.forEach(function (k) { t.soru += num(k.soru); t.d += num(k.d); t.y += num(k.y); t.b += num(k.b); t.sure += num(k.sure); t.mola += num(k.mola); t.kes = Math.max(t.kes, num(k.kesintisiz)); });
-  var biten = g.filter(function (k) { return k.bitti; }).length;
+  var biten = g.filter(function (k) { return k.testId; }).length;
   return '<li class="oturum"><div class="row-btn" style="cursor:default">' + dersDot(k0.dersId) + '<span class="grow"><span class="title" style="display:block">' + esc(k0.konuId ? konuAd(k0.konuId) : dersAd(k0.dersId)) +
     ' <span class="tag">' + g.length + ' test</span>' + (biten ? ' <span class="pill good"><span class="g">✓</span>' + biten + ' test bitti</span>' : '') + '</span><span class="sub">' + esc([k0.kaynakId ? kaynakAd(k0.kaynakId) : '', k0.tur].filter(Boolean).join(', ')) + '</span>' +
     '<span class="chips" style="margin-top:8px">' + g.map(function (k) { return '<button class="chip" data-act="kayit-ac" data-id="' + k.id + '">' + esc(k.testId ? testAd(k.testId) : 'Kayıt') + ' <small>' + num(k.d) + 'D ' + num(k.y) + 'Y</small></button>'; }).join('') + '</span></span>' +
@@ -3861,7 +3860,7 @@ VIEWS.calisma = function () {
         var pl = k.kaynakId && k.konuId ? memo('pmap', function () { var m = {}; P().forEach(function (p) { m[p.kaynakId + '|' + p.konuId] = p; }); return m; })[k.kaynakId + '|' + k.konuId] : null;
         var parts = [k.kaynakId ? kaynakAd(k.kaynakId) : '', k.testId ? testAd(k.testId) : '', pl && pl.turNo && rol() !== 'ogrenci' ? pl.turNo + '. tur' : '', k.tur].filter(Boolean).join(', ');
         return '<li><button class="row-btn" data-act="kayit-ac" data-id="' + k.id + '">' + dersDot(k.dersId) + '<span class="grow"><span class="title" style="display:block">' +
-          esc(k.konuId ? konuAd(k.konuId) : dersAd(k.dersId)) + (k.bitti ? ' <span class="pill good"><span class="g">✓</span>Test bitti</span>' : '') + '</span><span class="sub">' + esc(parts) + (k.not ? ', ' + esc(k.not) : '') + '</span></span>' +
+          esc(k.konuId ? konuAd(k.konuId) : dersAd(k.dersId)) + (k.testId ? ' <span class="pill good"><span class="g">✓</span>Test bitti</span>' : '') + '</span><span class="sub">' + esc(parts) + (k.not ? ', ' + esc(k.not) : '') + '</span></span>' +
           '<span class="num small" style="text-align:right;white-space:nowrap">' + (k.soru ? k.soru + ' soru<br><span class="muted">' + k.d + 'D ' + k.y + 'Y ' + k.b + 'B, net ' + fNet(net(k.d, k.y)) + '</span>' : '<span class="muted">soru yok</span>') +
           '<br><span class="muted">' + fSure(k.sure) + (num(k.mola) ? ' + ' + fSure(k.mola) + ' mola' : '') + (num(k.kesintisiz) ? '<br>en uzun ' + num(k.kesintisiz) + ' dk kesintisiz' : '') + '</span></span></button></li>';
       }).join('') + '</ul></div>';
@@ -4690,7 +4689,7 @@ VIEWS.rehber = function () {
       'Dersi seç, sonra <b>kitabı</b> ve <b>konuyu</b> seç. Kitabın o konudaki testleri düğme olarak çıkar; çözdüğün testlere dokun. Birden fazla test seçersen her test için soru, doğru, yanlış ve "Bitirdim" satırı açılır; her test ayrı kaydedilir; süre bölünmez, oturumun toplamı olarak yazılır ve Çalışma listesinde testler tek satırda görünür. ✓ işaretli testler daha önce bitirilmiştir.',
       'Çözülen soru (testi seçince kendiliğinden gelir), doğru ve yanlış sayısını yaz. Boş, net ve başarı kendiliğinden hesaplanır. Doğru + yanlış, çözülen soruyu aşarsa kayıt yapılmaz.',
       'Süreyi yaz ya da 15/30/45/60/90 dk düğmelerinden seç. Zamanlayıcıyla çalıştıysan süreler kendiliğinden gelir ve değiştirilemez.',
-      'Testi bitirdiysen <b>Bu testi bitirdim</b> kutusunu işaretle. Tur takibi bu işarete göre çalışır.',
+      'Kitap ve test seçerek kaydettiğin her test bitmiş sayılır; ayrıca işaretlemen gerekmez. Tur, ödev ve program takibi buna göre çalışır.',
       'Kaydet. Bir konunun o kitaptaki son testi bitince "Tur tamamlandı" bildirimi çıkar.',
       'Bugün ekranında tekrarı gelen yanlışlar için <b>Çöz ve bitir</b>’e dokun ve açılan boş sayfaya çözümü yaz; konu tekrarlarında <b>Yaptım</b>’a dokun.'
     ])) +
@@ -4703,7 +4702,7 @@ VIEWS.rehber = function () {
     ])) +
     sec('tur', 'Konu turu nasıl takip edilir? (Üslü İfadeler örneği)', '<p><b>Tur</b>, bir kitabın bir konudaki tanımlı bütün testlerinin bitirilmesidir. Her kitap ayrı bir turdur.</p>' + ol([
       'A, B ve C yayınlarını Matematik kitabı olarak ekleyin. A’nın konu tablosunda Üslü İfadeler’e <b>8</b>, B’ninkine 6, C’ninkine 10 yazın.',
-      'Öğrenci A kitabı, Üslü İfadeler, Test 1’i çözüp "Bu testi bitirdim" der. Turlar › Matematik ekranında A Yayınları satırı "Devam ediyor, 1 / 8 test" olur.',
+      'Öğrenci A kitabı, Üslü İfadeler, Test 1’i çözüp kaydeder. Turlar › Matematik ekranında A Yayınları satırı "Devam ediyor, 1 / 8 test" olur.',
       '8. test de bitince A satırı <b>Tamamlandı</b> olur, bitiş tarihi yazılır, "1. tur" etiketi alır. Panel ve raporlar güncellenir.',
       'B kitabına geçince B satırı ayrı ilerler ("2. tur"). A’nın durumu değişmez. C bitince üçüncü tur tamamlanır.',
       'Aynı testi yeniden çözmek yeni bir çalışma kaydıdır; soru istatistiğine eklenir ama tamamlanan test ve tur sayısını artırmaz.',
@@ -4756,7 +4755,7 @@ VIEWS.rehber = function () {
     sec('sorun', 'Bir sorun olursa ne yapmalıyım?', ul([
       '<b>Kitap listede görünmüyor:</b> Kurulum › Kitaplar’da kitabın dersi doğru mu ve Aktif mi bakın. Çalışma formunda önce doğru dersi seçin.',
       '<b>Konu veya test listede yok:</b> Konu için Kurulum › Konu listesi › Konu ekle. Test için Kurulum › Kitaplar › ilgili konu düğmesi › Test ekle.',
-      '<b>Testi yanlışlıkla bitti işaretledim:</b> Çalışma ekranında o kayda dokunun, "Bu testi bitirdim" işaretini kaldırıp kaydedin. Tur durumu kendiliğinden düzelir.',
+      '<b>Yanlış testi kaydettim:</b> Çalışma ekranında o kayda dokunun, doğru testi seçip kaydedin ya da kaydı silin. Tur ve ödev durumu kendiliğinden düzelir.',
       '<b>Yanlış sayı girdim:</b> Kayda dokunun, düzeltin, Kaydet. Silmek için Sil.',
       '<b>Aynı kayıt iki kez oluştu:</b> Uygulama aynı kaydı eklemeden önce sorar. Yine de olduysa birini silin; Kurulum › Veri kontrolü olası mükerrerleri listeler.',
       '<b>Kitapta test planı eksik:</b> Turlar ekranında kırmızı "Plan eksik" yazar. Kurulum › Kitaplar’da konuya dokunup test sayısını düzeltin ya da test ekleyin.',
