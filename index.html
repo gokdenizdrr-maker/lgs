@@ -645,8 +645,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.23.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.23.1';
+/* LGS Takip, sürüm 1.24.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.24.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -776,12 +776,16 @@ function testsOfPlan(S, planId, includePassive) {
 /* Her test için: ilk tamamlanma günü ve çalışma sayısı. Aynı test birden çok kez çözülse de bir kez sayılır. */
 /* Takip başlamadan önce çözülmüş testler (test.onceden): ayrıntısı yok; bitmiş sayılır ama hiçbir tarihe ve istatistiğe girmez. */
 var ONCEDEN_GUN = -1;
+/* Test bitti sayılır: "bu testi bitirdim" işaretlendiyse YA DA testin bütün soruları (kitaptaki soru sayısı kadar) girildiyse.
+   Böylece öğrenci işareti unutsa da testi tam çözdüyse program ve tur ilerlemesi işler. */
 function testStatus(S) {
-  var done = {}, cnt = {};
-  S.kayitlar.forEach(function (k) {
+  var done = {}, cnt = {}, top = {}, I = index(S);
+  S.kayitlar.slice().sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); }).forEach(function (k) {
     if (!k.testId) return;
     cnt[k.testId] = (cnt[k.testId] || 0) + 1;
-    if (k.bitti) { var d = dn(k.tarih); if (done[k.testId] == null || d < done[k.testId]) done[k.testId] = d; }
+    top[k.testId] = (top[k.testId] || 0) + num(k.soru);
+    var t = I.test[k.testId], tam = t && num(t.soru) > 0 && top[k.testId] >= num(t.soru);
+    if (k.bitti || tam) { var d = dn(k.tarih); if (done[k.testId] == null || d < done[k.testId]) done[k.testId] = d; }
   });
   S.testler.forEach(function (t) { if (t.onceden) done[t.id] = ONCEDEN_GUN; });
   return { done: done, cnt: cnt };
@@ -1275,7 +1279,7 @@ function konuKarnesi(S, o) {
 function gorevEslesir(g, k) { return (!g.dersId || k.dersId === g.dersId) && (!g.konuId || k.konuId === g.konuId); }
 function gorevPaylari(S, tarih) {
   var ks = S.kayitlar.filter(function (k) { return k.tarih === tarih; }).map(function (k) { return { k: k, soru: num(k.soru), sure: num(k.sure) }; });
-  var gs = S.gorevler.filter(function (g) { return g.tarih === tarih && !(g.testIds && g.testIds.length) && g.durum !== 'İptal'; });
+  var gs = S.gorevler.filter(function (g) { return g.tarih === tarih && !(g.testIds && g.testIds.length) && g.tur !== 'Deneme' && g.durum !== 'İptal'; });
   var ozg = function (g) { return g.konuId ? 0 : (g.dersId ? 1 : 2); };
   var vak = function (g) { return (g.vakit || (g.ogretmen ? 'sabah' : 'aksam')) === 'sabah' ? 0 : 1; };
   gs.sort(function (a, b) { return ozg(a) - ozg(b) || vak(a) - vak(b) || (a.sira != null ? a.sira : 1e6) - (b.sira != null ? b.sira : 1e6) || (a.ts || 0) - (b.ts || 0); });
@@ -1293,6 +1297,15 @@ function gorevPaylari(S, tarih) {
 }
 function gorevGerceklesen(S, g) {
   if (g.testIds && g.testIds.length) return odevGerceklesen(S, g);
+  if (g.tur === 'Deneme') { // deneme görevi: o gün girilen denemelerin soruları (seçildiyse yalnız o dersin)
+    var ds_ = 0, var_ = false;
+    S.denemeler.forEach(function (d) {
+      if (d.tarih !== g.tarih) return; var_ = true;
+      denemeDersleri(d).forEach(function (k) { if (!g.dersId || k === g.dersId) { var s = d.sonuc[k]; ds_ += num(s.d) + num(s.y) + num(s.b); } });
+    });
+    var hs = num(g.hedefSoru);
+    return { soru: ds_, sure: 0, oran: hs > 0 ? ds_ / hs : (var_ ? 1 : 0), deneme: true };
+  }
   var soru = 0, sure = 0, pay = g.id && g.durum !== 'İptal' ? gorevPaylari(S, g.tarih)[g.id] : null;
   if (pay) { soru = pay.soru; sure = pay.sure; }
   else S.kayitlar.forEach(function (k) {
@@ -1315,12 +1328,14 @@ function gorevGerceklesen(S, g) {
 
 /* Test seçilerek verilen ödev: verildiği günden sonra "bitti" işaretiyle kaydedilen testler sayılır (öğrenci tarihinden bağımsız). */
 function odevGerceklesen(S, g) {
-  var ids = {}, from = g.verildi ? dn(g.verildi) : -Infinity, biten = {}, soru = 0, d = 0, y = 0, sure = 0, son = null;
+  var ids = {}, from = g.verildi ? Math.min(dn(g.verildi), dn(g.tarih)) : -Infinity, biten = {}, soru = 0, d = 0, y = 0, sure = 0, son = null, I = index(S), tst = {};
   g.testIds.forEach(function (id) { ids[id] = 1; });
   S.kayitlar.forEach(function (k) {
     if (!k.testId || !ids[k.testId] || dn(k.tarih) < from) return;
     soru += num(k.soru); d += num(k.d); y += num(k.y); sure += num(k.sure);
-    if (k.bitti) { biten[k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
+    tst[k.testId] = (tst[k.testId] || 0) + num(k.soru);
+    var t = I.test[k.testId], tam = t && num(t.soru) > 0 && tst[k.testId] >= num(t.soru); // bütün soruları girildiyse de biter
+    if (k.bitti || tam) { biten[k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
   });
   var n = Object.keys(biten).length, top = g.testIds.length;
   return { soru: soru, sure: sure, d: d, y: y, biten: n, toplam: top, basari: soru ? d / soru : null, son: son, bitenIds: biten, oran: top ? n / top : null };
