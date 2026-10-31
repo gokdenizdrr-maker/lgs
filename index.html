@@ -645,8 +645,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.25.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.25.0';
+/* LGS Takip, sürüm 1.26.0. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.26.0';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -778,6 +778,10 @@ function testsOfPlan(S, planId, includePassive) {
 /* Her test için: ilk tamamlanma günü ve çalışma sayısı. Aynı test birden çok kez çözülse de bir kez sayılır. */
 /* Takip başlamadan önce çözülmüş testler (test.onceden): ayrıntısı yok; bitmiş sayılır ama hiçbir tarihe ve istatistiğe girmez. */
 var ONCEDEN_GUN = -1;
+function testAnahtar(I, tid) {
+  var t = I.test[tid], p = t && I.plan[t.planId], k = p && I.kaynak[p.kaynakId];
+  return t && p && k ? (String(k.ad).trim().toLocaleLowerCase('tr') + '|' + p.konuId + '|' + String(t.ad).trim().toLocaleLowerCase('tr')) : null;
+}
 /* Test seçilerek kaydedilen her çalışma o testi bitirir (ayrı bir "bitirdim" işareti yok).
    Böylece öğrenci işareti unutsa da testi tam çözdüyse program ve tur ilerlemesi işler. */
 function testStatus(S) {
@@ -790,6 +794,10 @@ function testStatus(S) {
     var d = dn(k.tarih); if (done[k.testId] == null || d < done[k.testId]) done[k.testId] = d; // test seçilerek kaydedildiyse çözülmüş sayılır
   });
   S.testler.forEach(function (t) { if (t.onceden) done[t.id] = ONCEDEN_GUN; });
+  // Aynı kitap iki kez kayıtlıysa (ör. yeniden içe aktarıldıysa) bir kopyada çözülen test öbür kopyada da çözülmüş sayılır.
+  var enErken = {};
+  S.testler.forEach(function (t) { if (done[t.id] == null) return; var a = testAnahtar(I, t.id); if (a && (enErken[a] == null || done[t.id] < enErken[a])) enErken[a] = done[t.id]; });
+  S.testler.forEach(function (t) { var a = testAnahtar(I, t.id); if (a && enErken[a] != null && done[t.id] == null) done[t.id] = enErken[a]; });
   return { done: done, cnt: cnt };
 }
 
@@ -1333,7 +1341,7 @@ function gorevGerceklesen(S, g) {
 function odevGerceklesen(S, g) {
   var ids = {}, from = -Infinity, /* verilmiş testler başka göreve seçilemediği için ödev, testin ne zaman çözüldüğüne bakmadan sayılır */ biten = {}, soru = 0, d = 0, y = 0, sure = 0, son = null, I = index(S), tst = {};
   // Aynı kitap sistemde iki kez kayıtlıysa (ör. yeniden içe aktarıldıysa) aynı ad + konu + test adındaki test de sayılır.
-  var anahtar = function (tid) { var t = I.test[tid], p = t && I.plan[t.planId], k = p && I.kaynak[p.kaynakId]; return t && p && k ? (String(k.ad).trim().toLocaleLowerCase('tr') + '|' + p.konuId + '|' + String(t.ad).trim().toLocaleLowerCase('tr')) : null; };
+  var anahtar = function (tid) { return testAnahtar(I, tid); };
   var esle = {}, asil = {};
   g.testIds.forEach(function (id) { ids[id] = 1; asil[id] = id; var a = anahtar(id); if (a) esle[a] = id; });
   S.testler.forEach(function (t) { if (!ids[t.id]) { var a = anahtar(t.id); if (a && esle[a]) { ids[t.id] = 1; asil[t.id] = esle[a]; } } });
@@ -1344,6 +1352,20 @@ function odevGerceklesen(S, g) {
     var t = I.test[k.testId], tam = t && num(t.soru) > 0 && tst[k.testId] >= num(t.soru); // bütün soruları girildiyse de biter
     { biten[asil[k.testId] || k.testId] = 1; if (son == null || dn(k.tarih) > son) son = dn(k.tarih); }
   });
+  // Test seçilmeden girilmiş çalışma (aynı kitap + konu, ödev verildikten sonra): sorular, bitmemiş ödev testlerine sırayla dağıtılır.
+  var kalan = g.testIds.filter(function (id) { return !biten[id] && I.test[id]; }).sort(function (a, b) { return (I.test[a].sira || 0) - (I.test[b].sira || 0); });
+  if (kalan.length) {
+    var p0 = I.plan[I.test[kalan[0]].planId], k0 = p0 && I.kaynak[p0.kaynakId], kad = k0 ? String(k0.ad).trim().toLocaleLowerCase('tr') : null;
+    var bas = g.verildi ? Math.min(dn(g.verildi), dn(g.tarih)) : dn(g.tarih), havuz = 0;
+    if (p0) S.kayitlar.forEach(function (k) {
+      if (k.testId || k.konuId !== p0.konuId || dn(k.tarih) < bas || !num(k.soru)) return;
+      var kk = k.kaynakId && I.kaynak[k.kaynakId];
+      if (!(k.kaynakId === p0.kaynakId || (kk && kad && String(kk.ad).trim().toLocaleLowerCase('tr') === kad))) return;
+      havuz += num(k.soru); soru += num(k.soru); d += num(k.d); y += num(k.y); sure += num(k.sure);
+      if (son == null || dn(k.tarih) > son) son = dn(k.tarih);
+    });
+    kalan.forEach(function (id) { var gerek = Math.max(1, num(I.test[id].soru)); if (havuz >= gerek) { biten[id] = 1; havuz -= gerek; } else havuz = -1; });
+  }
   var n = Object.keys(biten).length, top = g.testIds.length;
   return { soru: soru, sure: sure, d: d, y: y, biten: n, toplam: top, basari: soru ? d / soru : null, son: son, bitenIds: biten, oran: top ? n / top : null };
 }
@@ -2475,7 +2497,7 @@ function showToast(msg, big) {
 
 /* ---------- olay yönetimi ---------- */
 var ACT = {};
-var OKUR_YASAK = {'kayit-yeni': 1, 'kayit-kaydet': 1, 'kayit-sil': 1, 'deneme-yeni': 1, 'deneme-kaydet': 1, 'deneme-sil': 1, 'dy-ekle': 1, 'dk-art': 1, 'dk-azalt': 1, 'yanlis-yeni': 1, 'yanlis-kaydet': 1, 'yanlis-sil': 1, 'ktekrar-yeni': 1, 'ktekrar-kaydet': 1, 'ktekrar-sil': 1, 'tekrar-yaptim': 1, 'soru-yaptim': 1, 'soru-not': 1, 'okuma-yeni': 1, 'okuma-kaydet': 1, 'okuma-sil': 1, 'kitap-yeni': 1, 'kitap-kaydet': 1, 'kitap-sil': 1, 'foto-ekle': 1, 'foto-bos': 1, 'soru-bos': 1, 'foto-ciz': 1, 'foto-kaldir': 1, 'sayac-ac': 1, 'sayac-basla': 1, 'sayac-bitir': 1, 'sayac-kaydet': 1, 'sayac-mola': 1, 'sayac-devam': 1, 'sayac-at': 1, 'kaynak-yeni': 1, 'kaynak-kaydet': 1, 'kaynak-sil': 1, 'plan-kaydet': 1, 'plan-sil': 1, 'plan-test-ekle': 1, 'toplu-plan': 1, 'toplu-kaydet': 1, 'konu-yeni': 1, 'konu-kaydet': 1, 'hepsini-sil': 1, 'yanlis-ogrendim': 1, 'yanlis-tekrar-gor': 1, 'calisma-sifirla': 1, 'yedek-yukle': 1, 'onb-gizle': 1, 'not-okudum': 1, 'lgs-tahmini': 1, 'pin-ayarla': 1, 'pin-kaldir': 1, 'pin-kaydet': 1, 'gorev-durum': 1, 'dn-art': 1, 'dn-azalt': 1}; // öğretmen cihazında kayıt ekleme/düzenleme yok: yalnızca görüntüleme
+var OKUR_YASAK = {'kayit-yeni': 1, 'kayit-kaydet': 1, 'kayit-sil': 1, 'deneme-yeni': 1, 'deneme-kaydet': 1, 'deneme-sil': 1, 'dy-ekle': 1, 'dk-art': 1, 'dk-azalt': 1, 'yanlis-yeni': 1, 'yanlis-kaydet': 1, 'yanlis-sil': 1, 'ktekrar-yeni': 1, 'ktekrar-kaydet': 1, 'ktekrar-sil': 1, 'tekrar-yaptim': 1, 'soru-yaptim': 1, 'soru-not': 1, 'okuma-yeni': 1, 'okuma-kaydet': 1, 'okuma-sil': 1, 'kitap-yeni': 1, 'kitap-kaydet': 1, 'kitap-sil': 1, 'foto-ekle': 1, 'foto-bos': 1, 'soru-bos': 1, 'foto-ciz': 1, 'foto-kaldir': 1, 'sayac-ac': 1, 'sayac-basla': 1, 'sayac-bitir': 1, 'sayac-kaydet': 1, 'sayac-mola': 1, 'sayac-devam': 1, 'sayac-at': 1, 'kaynak-yeni': 1, 'kaynak-kaydet': 1, 'kaynak-sil': 1, 'plan-kaydet': 1, 'plan-sil': 1, 'plan-test-ekle': 1, 'toplu-plan': 1, 'toplu-kaydet': 1, 'konu-yeni': 1, 'konu-kaydet': 1, 'hepsini-sil': 1, 'gorev-calis': 1, 'yanlis-ogrendim': 1, 'yanlis-tekrar-gor': 1, 'calisma-sifirla': 1, 'yedek-yukle': 1, 'onb-gizle': 1, 'not-okudum': 1, 'lgs-tahmini': 1, 'pin-ayarla': 1, 'pin-kaldir': 1, 'pin-kaydet': 1, 'gorev-durum': 1, 'dn-art': 1, 'dn-azalt': 1}; // öğretmen cihazında kayıt ekleme/düzenleme yok: yalnızca görüntüleme
 document.addEventListener('click', function (e) {
   var t = e.target.closest('[data-act]');
   if (!t || t.disabled) return;
@@ -2647,12 +2669,13 @@ function openKayit(rec, preset) {
   if (!rec) { // yeni kayıtta birden fazla test seçilebilir; her test ayrı kayıt olur
     F.testIds = F.testIds ? F.testIds.slice() : (F.testId ? [F.testId] : []); F.rows = {};
     F.testIds.forEach(function (id) { kayitRow(F, id); });
+    if (!F.testIds.length) kayitOdevSec(F);
     if (F.testIds.length === 1) { F.testId = F.testIds[0]; if (!F.soru) { F.soru = F.rows[F.testId].soru; F.soruOto = true; } F.bitti = F.bitti || false; } else F.testId = '';
   }
   openSheet({
     title: rec ? 'Çalışmayı düzenle' : 'Çalışma ekle', F: F,
     body: function () {
-      var h = F.sayac && !rec ? '<div class="banner info" style="margin-bottom:14px"><span class="grow">Süreler zamanlayıcıdan geldi. Şimdi çözdüğün soru, doğru ve yanlış sayısını gir, testi bitirdiysen işaretle.</span></div>' : '';
+      var h = F.sayac && !rec ? '<div class="banner info" style="margin-bottom:14px"><span class="grow">Süreler zamanlayıcıdan geldi. Şimdi çözdüğün soru, doğru ve yanlış sayısını gir.</span></div>' : '';
       h += '<div class="fields2">' + field('Tarih', '<input type="date" class="input" data-f="tarih" value="' + esc(F.tarih) + '" max="' + todayStr() + '">') +
         fieldDiv('Çalışma türü', selectHtml('tur', CALISMA_TURLERI.map(function (t) { return { v: t, t: t }; }), F.tur)) + '</div>';
       h += fieldDiv('Ders', dersChips('dersId', F.dersId));
@@ -2663,7 +2686,8 @@ function openKayit(rec, preset) {
           fieldDiv('Konu' + (F.tur === 'Deneme analizi' ? ' (isteğe bağlı)' : ''), konuSelect('konuId', F.dersId, F.kaynakId, F.konuId)) + '</div>';
         if (F.konuId && F.kaynakId) {
           var plan = IX().planByKey[F.kaynakId + '|' + F.konuId];
-          if (plan) h += fieldDiv(rec ? 'Test' : 'Testler', testChips(F, plan.id, testStatus(S).done), (rec ? '' : 'Birden fazla test seçebilirsin; her biri ayrı kaydedilir. ') + '✓ işaretli testler daha önce bitirildi. Test seçmeden de kaydedebilirsin.');
+          if (plan && F.odevNotu) h += '<div class="banner info" style="margin-bottom:10px"><span class="grow">' + esc(F.odevNotu) + '</span></div>';
+          if (plan) h += fieldDiv(rec ? 'Test' : 'Testler', testChips(F, plan.id, testStatus(S).done), (rec ? '' : 'Birden fazla test seçebilirsin; her biri ayrı kaydedilir. ') + '✓ işaretli testler daha önce çözüldü. Hangi testleri çözdüğünü seç: program ve kitap ilerlemesi buna göre işlenir.');
           else h += '<p class="hint">Bu kitapta bu konu için test tanımlı değil. Kurulum › Kitaplar ve testler bölümünden eklenebilir; yine de kaydedebilirsin.</p>';
         }
       }
@@ -2702,7 +2726,7 @@ function openKayit(rec, preset) {
     onInput: function (k, v, el, kind) {
       if ((k === 'dersId' || k === 'konuId' || k === 'kaynakId') && F.soruOto) { F.soru = ''; F.soruOto = false; }
       if (k === 'dersId') { F.dersId = v; F.konuId = ''; F.kaynakId = ''; F.testId = ''; F.bitti = false; if (F.testIds) { F.testIds = []; F.rows = {}; } paintSheet(); kayitCalc(); return; }
-      if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; F.bitti = false; if (F.testIds) { F.testIds = []; F.rows = {}; } paintSheet(); kayitCalc(); return; }
+      if (k === 'konuId' || k === 'kaynakId') { F[k] = v; F.testId = ''; F.bitti = false; F.odevNotu = ''; if (F.testIds) { F.testIds = []; F.rows = {}; kayitOdevSec(F); } paintSheet(); kayitCalc(); return; }
       if (k === 'testId' && F.testIds) { kayitTestSec(F, v); paintSheet(); kayitCalc(); return; }
       if (k.indexOf('tr.') === 0) { var pp = k.split('.'); if (F.rows[pp[1]]) F.rows[pp[1]][pp[2]] = pp[2] === 'bitti' ? !!v : v; kayitCalc(); return; }
       if (k === 'testId') {
@@ -2728,6 +2752,22 @@ function paintChipState(name, v) {
 function kayitRow(F, id) {
   if (!F.rows[id]) { var t = IX().test[id]; F.rows[id] = { soru: t && t.soru ? String(t.soru) : '', d: '', y: '', bitti: true }; }
   return F.rows[id];
+}
+/* Seçilen kitap + konu için programda verilmiş ve henüz çözülmemiş ödev testleri varsa kendiliğinden seçilir. */
+function kayitOdevSec(F) {
+  if (!F.testIds || F.testIds.length || !F.kaynakId || !F.konuId) return;
+  var plan = IX().planByKey[F.kaynakId + '|' + F.konuId]; if (!plan) return;
+  var done = testStatus(S).done, I = IX(), sec = [], adlar = [];
+  S.gorevler.filter(function (g) { return g.testIds && g.testIds.length && g.durum !== 'İptal'; })
+    .sort(function (a, b) { return dn(a.tarih) - dn(b.tarih); })
+    .forEach(function (g) {
+      g.testIds.forEach(function (id) { var t = I.test[id]; if (t && t.planId === plan.id && done[id] == null && sec.indexOf(id) < 0) { sec.push(id); adlar.push(testAd(id)); } });
+    });
+  if (!sec.length) return;
+  sec.sort(function (a, b) { return (I.test[a].sira || 0) - (I.test[b].sira || 0); });
+  F.testIds = []; F.rows = {};
+  sec.forEach(function (id) { kayitTestSec(F, id); });
+  F.odevNotu = 'Programdaki ödevden seçildi: ' + adlar.join(', ') + '. Çözmediğin varsa üstüne dokunup kaldır.';
 }
 function kayitCoklu(F) { return !!(F.testIds && F.testIds.length > 1); }
 function kayitTestSec(F, v) {
@@ -3298,7 +3338,10 @@ function openGorev(rec) {
     openSheet({ title: rec.ogretmen || (rec.testIds && rec.testIds.length) ? 'Ödev' : 'Görev', body: function () {
       return '<p style="margin-top:0"><b>' + esc(rec.aciklama) + '</b></p><p class="muted" style="margin-top:0">Teslim: ' + fDate(dn(rec.tarih)) + (rec.ogretmen ? ' · Veren: ' + esc(rec.ogretmen.ad || 'Öğretmen') : (rec.vakit ? ' · ' + (rec.vakit === 'sabah' ? 'Sabah' : 'Akşam') + ' programı' : '')) + '</p>' +
         (rec.not ? '<p>' + esc(rec.not) + '</p>' : '') + gorevOzetHtml(rec) + (rol() === 'ogrenci' ? '<p class="hint">Görevleri yönetici' + (rec.ogretmen ? ' ve öğretmen' : '') + ' düzenler. Çalışma ekle bölümünde girdiğin soru ve süre bu göreve kendiliğinden işlenir.</p>' : '<p class="hint">Bu görevi yalnızca ' + (rec.ogretmen ? 'veren öğretmen' : 'yönetici') + ' düzenleyebilir.</p>'); },
-      foot: function () { return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Kapat</button>'; } });
+      foot: function () {
+        var acik = ['Tamamlandı', 'İptal'].indexOf(gorevDurum(S, rec)) < 0 && dn(rec.tarih) <= today() + 1;
+        return '<span class="spacer"></span><button class="btn" data-act="close-sheet">Kapat</button>' + (rol() === 'ogrenci' && acik ? '<button class="btn primary" data-act="gorev-calis" data-id="' + rec.id + '">' + icon('plus') + 'Çalışmayı gir</button>' : '');
+      } });
     return;
   }
   var F = rec ? Object.assign({}, rec, { dersId: rec.dersId || '', konuId: rec.konuId || '', kaynakId: rec.kaynakId || '', testIds: (rec.testIds || []).slice(), hedefSoru: strN(rec.hedefSoru), hedefSure: strN(rec.hedefSure) })
@@ -3378,6 +3421,15 @@ ACT['gorev-sil'] = async function () {
   S.gorevler = S.gorevler.filter(function (x) { return x.id !== id; }); closeSheet(); save();
 };
 ACT['gorev-ac'] = function (t) { var r = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (r) openGorev(r); };
+/* Programdaki görevden doğrudan çalışma girişi: ders, kitap, konu ve çözülmemiş testler hazır gelir. */
+ACT['gorev-calis'] = function (t) {
+  var g = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (!g) return;
+  var I = IX(), done = testStatus(S).done, gr = gorevGerceklesen(S, g), p0 = g.testIds && g.testIds.length && I.test[g.testIds[0]] ? I.plan[I.test[g.testIds[0]].planId] : null;
+  var testler = (g.testIds || []).filter(function (id) { return I.test[id] && done[id] == null && !(gr.bitenIds && gr.bitenIds[id]); });
+  closeSheet();
+  openKayit(null, { tarih: dn(g.tarih) <= today() ? g.tarih : todayStr(), dersId: g.dersId || (p0 ? (I.kaynak[p0.kaynakId] || {}).dersId : '') || '', kaynakId: g.kaynakId || (p0 ? p0.kaynakId : '') || '',
+    konuId: g.konuId || (p0 ? p0.konuId : '') || '', tur: g.tur && CALISMA_TURLERI.indexOf(g.tur) >= 0 ? g.tur : 'Soru çözümü', testIds: testler });
+};
 ACT['gorev-yeni'] = function () { if (rol() === 'ogrenci') return; openGorev(null); };
 ACT['gorev-durum'] = function (t) {
   var g = S.gorevler.find(function (x) { return x.id === t.dataset.id; }); if (!g || !gorevSahibiBen(g) || syncReader()) return;
