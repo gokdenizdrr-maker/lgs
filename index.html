@@ -657,8 +657,8 @@ html[data-tema] .nav-btn[aria-current="page"] svg.duo rect[fill] { fill: var(--h
 <body>
 <div id="app" class="app"><noscript>Bu uygulama JavaScript gerektirir.</noscript></div>
 <script>
-/* LGS Takip, sürüm 1.27.1. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
-var APP_VERSION = '1.27.1';
+/* LGS Takip, sürüm 1.27.2. Tek dosyalık uygulama: tüm veriler bu cihazın tarayıcısında (localStorage) saklanır. */
+var APP_VERSION = '1.27.2';
 /* ---- seed.js ---- */
 const KONU_SEED = [["TUR", 1, "Anlam Bilgisi", "Sözcükte Anlam"], ["TUR", 1, "Anlam Bilgisi", "Cümlede Anlam"], ["TUR", 1, "Anlam Bilgisi", "Paragrafta Anlam"], ["TUR", 2, "Dil Bilgisi", "Fiilimsiler"], ["TUR", 2, "Dil Bilgisi", "Cümlenin Ögeleri"], ["TUR", 2, "Dil Bilgisi", "Fiilde Çatı"], ["TUR", 2, "Dil Bilgisi", "Cümle Türleri"], ["TUR", 3, "Yazım ve Noktalama", "Yazım Kuralları"], ["TUR", 3, "Yazım ve Noktalama", "Noktalama İşaretleri"], ["TUR", 4, "Anlatım ve Metin", "Anlatım Bozuklukları"], ["TUR", 4, "Anlatım ve Metin", "Metin Türleri"], ["TUR", 4, "Anlatım ve Metin", "Söz Sanatları"], ["TUR", 5, "Sözel Mantık ve Görsel Okuma", "Sözel Mantık ve Görsel Okuma"], ["INK", 1, "Bir Kahraman Doğuyor", "Bir Kahraman Doğuyor"], ["INK", 2, "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar", "Millî Uyanış: Bağımsızlık Yolunda Atılan Adımlar"], ["INK", 3, "Millî Bir Destan: Ya İstiklal Ya Ölüm!", "Millî Bir Destan: Ya İstiklal Ya Ölüm!"], ["INK", 4, "Atatürkçülük ve Çağdaşlaşan Türkiye", "Atatürkçülük ve Çağdaşlaşan Türkiye"], ["INK", 5, "Demokratikleşme Çabaları", "Demokratikleşme Çabaları"], ["INK", 6, "Atatürk Dönemi Türk Dış Politikası", "Atatürk Dönemi Türk Dış Politikası"], ["INK", 7, "Atatürk'ün Ölümü ve Sonrası", "Atatürk'ün Ölümü ve Sonrası"], ["DIN", 1, "Kader İnancı", "Kader İnancı"], ["DIN", 2, "Zekât ve Sadaka", "Zekât ve Sadaka"], ["DIN", 3, "Din ve Hayat", "Din ve Hayat"], ["DIN", 4, "Hz. Muhammed'in Örnekliği", "Hz. Muhammed'in Örnekliği"], ["DIN", 5, "Kur'an-ı Kerim ve Özellikleri", "Kur'an-ı Kerim ve Özellikleri"], ["ING", 1, "Unit 1: Friendship", "Friendship"], ["ING", 2, "Unit 2: Teen Life", "Teen Life"], ["ING", 3, "Unit 3: In the Kitchen", "In the Kitchen"], ["ING", 4, "Unit 4: On the Phone", "On the Phone"], ["ING", 5, "Unit 5: The Internet", "The Internet"], ["ING", 6, "Unit 6: Adventures", "Adventures"], ["ING", 7, "Unit 7: Tourism", "Tourism"], ["ING", 8, "Unit 8: Chores", "Chores"], ["ING", 9, "Unit 9: Science", "Science"], ["ING", 10, "Unit 10: Natural Forces", "Natural Forces"], ["MAT", 1, "Sayılar ve İşlemler", "Çarpanlar ve Katlar"], ["MAT", 1, "Sayılar ve İşlemler", "Üslü İfadeler"], ["MAT", 1, "Sayılar ve İşlemler", "Kareköklü İfadeler"], ["MAT", 2, "Veri İşleme", "Veri Analizi"], ["MAT", 3, "Olasılık", "Basit Olayların Olma Olasılığı"], ["MAT", 4, "Cebir", "Cebirsel İfadeler ve Özdeşlikler"], ["MAT", 4, "Cebir", "Doğrusal Denklemler"], ["MAT", 4, "Cebir", "Eşitsizlikler"], ["MAT", 5, "Geometri ve Ölçme", "Üçgenler"], ["MAT", 5, "Geometri ve Ölçme", "Eşlik ve Benzerlik"], ["MAT", 5, "Geometri ve Ölçme", "Dönüşüm Geometrisi"], ["MAT", 5, "Geometri ve Ölçme", "Geometrik Cisimler"], ["FEN", 1, "Mevsimler ve İklim", "Mevsimler ve İklim"], ["FEN", 2, "DNA ve Genetik Kod", "DNA ve Genetik Kod"], ["FEN", 3, "Basınç", "Basınç"], ["FEN", 4, "Madde ve Endüstri", "Madde ve Endüstri"], ["FEN", 5, "Basit Makineler", "Basit Makineler"], ["FEN", 6, "Enerji Dönüşümleri ve Çevre Bilimi", "Enerji Dönüşümleri ve Çevre Bilimi"], ["FEN", 7, "Elektrik Yükleri ve Elektrik Enerjisi", "Elektrik Yükleri ve Elektrik Enerjisi"]];
 
@@ -6345,22 +6345,68 @@ ACT['prog-oner-ekle'] = function () {
 };
 
 /* ---- Program PDF'i: seçilen aralıktaki görevler, sabah/akşam sırasıyla ---- */
-function progPdfBolum(doc, a, b) {
-  var t = today(), l = S.gorevler.filter(function (g) { var x = dn(g.tarih); return x >= a && x <= b && (g.durum !== 'İptal'); });
-  pdfSection(doc, 'Haftalık program', l.length + ' görev');
+function progPdfBolum(doc, a, b, belge) {
+  var l = S.gorevler.filter(function (g) { var x = dn(g.tarih); return x >= a && x <= b && g.durum !== 'İptal'; });
+  if (!belge) pdfSection(doc, 'Haftalık program', l.length + ' görev');
   if (!l.length) return pdfNote(doc, 'Bu aralıkta program yok.');
-  l.sort(function (x, y) { return dn(x.tarih) - dn(y.tarih) || (progVakit(x) === progVakit(y) ? 0 : (progVakit(x) === 'sabah' ? -1 : 1)) || ((x.sira || 0) - (y.sira || 0)) || ((x.ts || 0) - (y.ts || 0)); });
-  var biten = 0, yapilmadi = 0;
-  var rows = l.map(function (g) {
-    var d = progGorevDurum(g), v = progVakit(g), sira = '';
-    if (v === 'aksam') sira = String(progAksamListe(g.tarih).indexOf(g) + 1);
-    if (d.du === 'Tamamlandı') biten++; else if (d.late) yapilmadi++;
-    var alt = [g.kaynakId ? kaynakAd(g.kaynakId) : '', g.konuId ? konuAd(g.konuId) : ''].filter(Boolean).join(', ');
-    return { cells: [PROG_GUN[dn(g.tarih) - weekStart(dn(g.tarih))] + ' ' + fDateS(g.tarih), v === 'sabah' ? 'Sabah' : 'Akşam', sira, g.aciklama + (alt ? ' (' + alt + ')' : ''), g.dersId ? pdk(g.dersId) : 'Genel', d.yazi || '—', d.etiket],
-      colors: [null, null, null, null, null, null, d.du === 'Tamamlandı' ? PC.good : (d.late ? PC.bad || PC.warn : PC.warn)] };
-  });
-  pdfNote(doc, biten + ' görev tamamlandı, ' + yapilmadi + ' görev yapılmadı. Durum, öğrencinin Çalışma ekle bölümünde girdiği kayıtlardan hesaplanır; kayıt girilmeyen görev yapılmamış sayılır.');
-  pdfTable(doc, [{ h: 'Gün', w: 52 }, { h: 'Vakit', w: 36 }, { h: 'Sıra', w: 24, align: 'center' }, { h: 'Görev', w: 190, wrap: 3 }, { h: 'Ders', w: 48 }, { h: 'Gerçekleşen', w: 70, align: 'right' }, { h: 'Durum', w: 60 }], rows, { fs: 7.5 });
+  var soruOf = function (g) { return g.testIds && g.testIds.length ? odevSoru(g) : num(g.hedefSoru); };
+  var D = l.map(function (g) { return { g: g, d: progGorevDurum(g) }; });
+  var biten = 0, yapilmadi = 0, verilen = 0, cozulen = 0;
+  D.forEach(function (x) { if (x.d.du === 'Tamamlandı') biten++; else if (x.d.late) yapilmadi++; verilen += soruOf(x.g); cozulen += num(x.d.gr.soru); });
+  pdfKpis(doc, [['Tamamlanan görev', biten + ' / ' + l.length, yapilmadi ? yapilmadi + ' görev yapılmadı' : 'Geciken görev yok', yapilmadi ? PC.bad : PC.good],
+    ['Verilen soru', String(verilen), 'Hafta toplamı'], ['Çözülen soru', String(Math.min(cozulen, 99999)), verilen ? '%' + Math.round(Math.min(cozulen, verilen) / verilen * 100) + ' gerçekleşti' : ''],
+    ['Program günü', String(Object.keys(D.reduce(function (o, x) { o[x.g.tarih] = 1; return o; }, {})).length), fDateS(a) + ' – ' + fDateS(b)]], 4);
+  var dd = {}, vS = 0, vA = 0;
+  D.forEach(function (x) { var k = x.g.dersId || 'GEN', o = dd[k] = dd[k] || { v: 0, c: 0, n: 0, ok: 0 }; o.v += soruOf(x.g); o.c += num(x.d.gr.soru); o.n++; if (x.d.du === 'Tamamlandı') o.ok++; if (progVakit(x.g) === 'sabah') vS += soruOf(x.g); else vA += soruOf(x.g); });
+  var dsira = DERSLER.map(function (z) { return z.id; }).concat(['GEN']).filter(function (k) { return dd[k]; });
+  doc.text('Ders ders haftalık soru', doc.M.l, doc.y + 8, { f: 'B', s: 10.5, c: PC.ink });
+  doc.text('Sabah ' + vS + ' soru  ·  Akşam ' + vA + ' soru', doc.M.l + doc.cw(), doc.y + 8, { s: 8, c: PC.ink2, align: 'right' });
+  doc.y += 14;
+  pdfTable(doc, [{ h: 'Ders', w: 150, dot: true }, { h: 'Verilen soru', w: 90, align: 'right' }, { h: 'Çözülen soru', w: 90, align: 'right' }, { h: 'Gerçekleşme', w: 80, align: 'right' }, { h: 'Görev', w: 80, align: 'right' }],
+    dsira.map(function (k) { var o = dd[k]; return { cells: [k === 'GEN' ? 'Genel' : pdk(k), o.v || '—', Math.min(o.c, 99999), o.v ? '%' + Math.round(Math.min(o.c, o.v) / o.v * 100) : '—', o.ok + ' / ' + o.n], dots: [k === 'GEN' ? PC.line2 : PC[k]] }; })
+      .concat([{ cells: ['Toplam', verilen, Math.min(cozulen, 99999), verilen ? '%' + Math.round(Math.min(cozulen, verilen) / verilen * 100) : '—', biten + ' / ' + l.length], bold: true, fill: PC.head }]), { fs: 8, after: 16 });
+  var X = doc.M.l, W = doc.cw(), cV = X + 8, cD = X + 62, cG = X + 128, cR = X + W - 8, cS = X + W - 92;
+  for (var dayN = a; dayN <= b; dayN++) {
+    var gun = D.filter(function (x) { return dn(x.g.tarih) === dayN; });
+    if (!gun.length) continue;
+    var tarih = ds(dayN);
+    var sabah = gun.filter(function (x) { return progVakit(x.g) === 'sabah'; }).sort(function (p, q) { return (p.g.ts || 0) - (q.g.ts || 0); });
+    var al = progAksamListe(tarih);
+    var aksam = gun.filter(function (x) { return progVakit(x.g) !== 'sabah'; }).sort(function (p, q) { return al.indexOf(p.g) - al.indexOf(q.g); });
+    var pl = 0, yp = 0, ok = 0; gun.forEach(function (x) { pl += soruOf(x.g); yp += num(x.d.gr.soru); if (x.d.du === 'Tamamlandı') ok++; });
+    var satirlar = [];
+    sabah.forEach(function (x, k) { satirlar.push({ x: x, v: k ? '' : 'Sabah' }); });
+    aksam.forEach(function (x, k) { satirlar.push({ x: x, v: k ? '' : 'Akşam', n: (k + 1) + '.' }); });
+    var rowH = function (r) { var g = r.x.g; return (g.kaynakId || g.konuId ? 27 : 18); };
+    var ilk = 30 + (satirlar.length ? rowH(satirlar[0]) : 0);
+    doc.ensure(ilk + 6);
+    doc.rrect(X, doc.y, W, 24, 5, { fill: PC.head });
+    doc.text(PROG_GUN_UZUN[dayN - weekStart(dayN)], X + 10, doc.y + 16, { f: 'B', s: 11, c: PC.ink });
+    doc.text(fDate(dayN), X + 10 + doc.width(PROG_GUN_UZUN[dayN - weekStart(dayN)], 'B', 11) + 8, doc.y + 16, { s: 9, c: PC.ink2 });
+    doc.text(pl + ' soru verildi  ·  ' + Math.min(yp, 9999) + ' çözüldü  ·  ' + ok + '/' + gun.length + ' görev', X + W - 10, doc.y + 16, { f: 'M', s: 8.5, c: PC.ink2, align: 'right' });
+    doc.y += 28;
+    satirlar.forEach(function (r, k) {
+      var g = r.x.g, d = r.x.d, h = rowH(r);
+      if (doc.y + h > doc.H - doc.M.b) { doc.addPage(); doc.text(PROG_GUN_UZUN[dayN - weekStart(dayN)] + ' (devam)', X, doc.y + 10, { f: 'M', s: 9, c: PC.mute }); doc.y += 16; }
+      if (r.v && k) doc.line(X + 6, doc.y, X + W - 6, doc.y, { c: PC.line2, lw: 0.5 });
+      var ty = doc.y + 12;
+      if (r.v) doc.text(r.v, cV, ty, { f: 'M', s: 8, c: PC.mute });
+      if (g.dersId) doc.dot(cD + 3, ty - 3, 2.8, PC[g.dersId] || PC.mute);
+      doc.text(g.dersId ? pdk(g.dersId) : 'Genel', cD + (g.dersId ? 10 : 0), ty, { s: 8, c: PC.ink2, maxW: cG - cD - 14 });
+      var bas = (r.n ? r.n + ' ' : '') + (g.aciklama || '');
+      doc.text(bas, cG, ty, { f: 'M', s: 9, c: PC.ink, maxW: cS - cG - 10 });
+      var alt = [g.kaynakId ? kaynakAd(g.kaynakId) : '', g.konuId ? konuAd(g.konuId) : ''].filter(Boolean).join(' · ');
+      if (alt) doc.text(alt, cG, ty + 10, { s: 7.5, c: PC.mute, maxW: cS - cG - 10 });
+      doc.text(d.yazi || '', cS, ty, { s: 8, c: PC.ink2, maxW: 70 });
+      var col = d.du === 'Tamamlandı' ? PC.good : (d.late ? PC.bad : PC.warn);
+      var et = d.du === 'Tamamlandı' ? 'Tamam' : d.etiket;
+      doc.text(et, cR, ty, { f: 'M', s: 8, c: col, align: 'right' });
+      doc.y += h;
+      doc.line(X + 6, doc.y, X + W - 6, doc.y, { c: PC.line, lw: 0.3 });
+    });
+    doc.y += 10;
+  }
+  pdfNote(doc, 'Durum, öğrencinin "Çalışma ekle" bölümünde girdiği kayıtlardan hesaplanır; kayıt girilmeyen görev yapılmamış sayılır.');
 }
 function progPdfBelge(a, b) {
   var doc = new PdfDoc(), aralik = fDate(a) + ' – ' + fDate(b);
@@ -6369,8 +6415,8 @@ function progPdfBelge(a, b) {
   doc.rect(doc.M.l, doc.y - 4, 4, 40, { fill: PC.optik });
   doc.text('Haftalık program', doc.M.l + 14, doc.y + 18, { f: 'B', s: 22, c: PC.ink });
   doc.text(aralik, doc.M.l + 14, doc.y + 34, { f: 'M', s: 11, c: PC.ink2 });
-  doc.y += 50;
-  progPdfBolum(doc, a, b);
+  doc.y += 56;
+  progPdfBolum(doc, a, b, true);
   var total = doc.pages.length;
   doc.pages.forEach(function (pg, i) {
     doc.page = pg;
